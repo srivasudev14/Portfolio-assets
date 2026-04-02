@@ -170,18 +170,8 @@
       transform: translateY(-3px);
     }
 
-    /* Light theme overrides */
-    html:not(.dark) body {
-      background: #f8f9fa;
-      color: #1a1a2e;
-    }
-    html:not(.dark) ::-webkit-scrollbar-track { background: #f8f9fa; }
-    html:not(.dark) ::-webkit-scrollbar-thumb { background: #cbd5e1; }
-    html:not(.dark) ::-webkit-scrollbar-thumb:hover { background: #2563eb; }
-    html:not(.dark) .social-icon:hover { color: #1a1a2e; }
-    html:not(.dark) .nav-link::after { background: #2563eb; }
-    html:not(.dark) .card-hover:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
-
+    /* Light theme overrides moved to <style id="light-theme-overrides"> at end of body
+       to ensure they load after Tailwind CDN generates utility classes */
     /* Theme transition */
     body, nav, .bg-dark, .bg-card, .border-gray-800 {
       transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
@@ -673,6 +663,87 @@
       <div id="search-results" class="max-h-96 overflow-y-auto p-2"></div>
     </div>
   </div>
+
+  <!-- Light theme styles injected AFTER Tailwind CDN to override utility classes -->
+  <style id="light-theme-overrides">
+    html:not(.dark) body {
+      background: #f8f9fa !important;
+      color: #1a1a2e !important;
+    }
+    html:not(.dark) nav {
+      background: rgba(255,255,255,0.95) !important;
+      border-color: #e2e8f0 !important;
+    }
+    html:not(.dark) nav a.text-xl { color: #1e293b !important; }
+    html:not(.dark) nav button { color: #475569 !important; }
+    html:not(.dark) nav button:hover { color: #1e293b !important; }
+    html:not(.dark) .nav-link { color: #475569 !important; }
+    html:not(.dark) .nav-link:hover,
+    html:not(.dark) .nav-link.active { color: #1e293b !important; }
+    html:not(.dark) .nav-link::after { background: #2563eb !important; }
+    html:not(.dark) #mobile-menu { border-color: #e2e8f0 !important; }
+    html:not(.dark) #mobile-menu a { color: #475569 !important; }
+    html:not(.dark) #mobile-menu a:hover { color: #1e293b !important; }
+    html:not(.dark) .social-icon { color: #64748b !important; }
+    html:not(.dark) .social-icon:hover { color: #1e293b !important; }
+    html:not(.dark) .text-white { color: #1e293b !important; }
+    html:not(.dark) .text-gray-100 { color: #111827 !important; }
+    html:not(.dark) .text-gray-200 { color: #1f2937 !important; }
+    html:not(.dark) .text-gray-300 { color: #374151 !important; }
+    html:not(.dark) .text-gray-400 { color: #4b5563 !important; }
+    html:not(.dark) .text-gray-500 { color: #6b7280 !important; }
+    html:not(.dark) .text-accent { color: #2563eb !important; }
+    html:not(.dark) a.text-accent:hover { color: #1d4ed8 !important; }
+    html:not(.dark) .hover\:text-white:hover { color: #1e293b !important; }
+    html:not(.dark) .hover\:text-blue-300:hover { color: #1d4ed8 !important; }
+    html:not(.dark) .bg-card { background: #ffffff !important; }
+    html:not(.dark) .bg-card\/60 { background: rgba(255,255,255,0.8) !important; }
+    html:not(.dark) .bg-dark { background: #f8f9fa !important; }
+    html:not(.dark) .bg-gray-900 { background: #f1f5f9 !important; }
+    html:not(.dark) .border-gray-800 { border-color: #e2e8f0 !important; }
+    html:not(.dark) .border-gray-700 { border-color: #d1d5db !important; }
+    html:not(.dark) hr { border-color: #e2e8f0 !important; }
+    html:not(.dark) .tag {
+      background: #f1f5f9 !important;
+      border-color: #cbd5e1 !important;
+      color: #334155 !important;
+    }
+    html:not(.dark) .tag:hover {
+      background: #e0e7ff !important;
+      border-color: #2563eb !important;
+      color: #2563eb !important;
+    }
+    html:not(.dark) .border-l-4.border-accent {
+      background: rgba(241,245,249,0.8) !important;
+      border-left-color: #2563eb !important;
+    }
+    html:not(.dark) .border-l-4.border-accent:hover { border-left-color: #3b82f6 !important; }
+    html:not(.dark) .card-hover:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08) !important; }
+    html:not(.dark) .bg-card input,
+    html:not(.dark) .bg-card textarea {
+      background: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+      color: #1e293b !important;
+    }
+    html:not(.dark) .bg-card input:focus,
+    html:not(.dark) .bg-card textarea:focus { border-color: #2563eb !important; }
+    html:not(.dark) .bg-card label { color: #374151 !important; }
+    html:not(.dark) .bg-card input::placeholder,
+    html:not(.dark) .bg-card textarea::placeholder { color: #9ca3af !important; }
+    html:not(.dark) .bg-accent { background: #2563eb !important; color: #ffffff !important; }
+    html:not(.dark) .bg-accent:hover { background: #1d4ed8 !important; }
+    html:not(.dark) #search-overlay > div { background: #ffffff !important; border-color: #e2e8f0 !important; }
+    html:not(.dark) #search-overlay input { color: #1e293b !important; }
+    html:not(.dark) #search-overlay .border-b { border-color: #e2e8f0 !important; }
+    html:not(.dark) #search-overlay a { color: #475569 !important; }
+    html:not(.dark) #search-overlay a:hover { background: rgba(0,0,0,0.03) !important; color: #1e293b !important; }
+    html:not(.dark) .hover\:bg-white\/5:hover { background: rgba(0,0,0,0.04) !important; }
+    html:not(.dark) .profile-img { filter: grayscale(0%) !important; }
+    html:not(.dark) ::selection { background: #bfdbfe !important; color: #1e293b !important; }
+    html:not(.dark) ::-webkit-scrollbar-track { background: #f8f9fa !important; }
+    html:not(.dark) ::-webkit-scrollbar-thumb { background: #cbd5e1 !important; }
+    html:not(.dark) ::-webkit-scrollbar-thumb:hover { background: #2563eb !important; }
+  </style>
 
   <script>
     // Initialize Lucide icons
