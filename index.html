@@ -214,7 +214,7 @@
         <!-- Profile Image -->
         <div class="w-52 h-52 mb-6 rounded-full overflow-hidden border-4 border-gray-800 shadow-xl bg-gray-900 mx-auto md:mx-0">
           <img
-            src="image_f1afa4.jpg"
+            src="assets/images/profile.jpg"
             alt="Sri Vasudev Ravi Pyati"
             class="w-full h-full object-cover profile-img"
             onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-gradient-to-br from-accent/30 to-blue-900/30 flex items-center justify-center text-5xl font-bold text-accent\'>SV</div>'"
@@ -306,7 +306,7 @@
                 <div class="relative shrink-0 hidden sm:flex flex-col items-center">
                   <div class="w-14 h-14 rounded-xl overflow-hidden border border-gray-700 bg-white flex items-center justify-center p-1 shadow-md z-10 card-hover">
                     <a href="https://new.mta.info/" target="_blank" rel="noopener noreferrer">
-                      <img src="image_f222f1.png" alt="MTA Logo" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-xs font-bold text-gray-800\'>MTA</span>'" />
+                      <img src="assets/images/mta-logo.svg" alt="MTA Logo" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-xs font-bold text-gray-800\'>MTA</span>'" />
                     </a>
                   </div>
                   <div class="w-3 h-3 rounded-full bg-accent timeline-dot mt-2"></div>
@@ -333,7 +333,7 @@
                 <div class="relative shrink-0 hidden sm:flex flex-col items-center">
                   <div class="w-14 h-14 rounded-xl overflow-hidden border border-gray-700 bg-black flex items-center justify-center p-1 shadow-md z-10 card-hover">
                     <a href="https://www.ey.com/" target="_blank" rel="noopener noreferrer">
-                      <img src="image_f22311.png" alt="EY Logo" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-xs font-bold text-yellow-400\'>EY</span>'" />
+                      <img src="assets/images/ey-logo.svg" alt="EY Logo" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-xs font-bold text-yellow-400\'>EY</span>'" />
                     </a>
                   </div>
                   <div class="w-3 h-3 rounded-full bg-accent/50 mt-2"></div>
@@ -361,7 +361,7 @@
                 <div class="relative shrink-0 hidden sm:flex flex-col items-center">
                   <div class="w-14 h-14 rounded-xl overflow-hidden border border-gray-700 bg-[#0f1f42] flex items-center justify-center p-1 shadow-md z-10 card-hover">
                     <a href="https://www.consilio.com/" target="_blank" rel="noopener noreferrer">
-                      <img src="image_f22330.png" alt="Consilio Logo" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-xs font-bold text-white\'>C</span>'" />
+                      <img src="assets/images/consilio-logo.svg" alt="Consilio Logo" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-xs font-bold text-white\'>C</span>'" />
                     </a>
                   </div>
                   <div class="w-3 h-3 rounded-full bg-accent/30 mt-2"></div>
@@ -394,8 +394,8 @@
 
             <!-- Pace University -->
             <div class="flex gap-4 md:gap-6 group reveal" style="transition-delay: 100ms">
-              <div class="w-12 h-12 rounded-lg bg-card shrink-0 overflow-hidden border border-gray-800 group-hover:border-accent transition-all flex items-center justify-center shadow-sm">
-                <i data-lucide="graduation-cap" class="w-6 h-6 text-accent"></i>
+              <div class="w-12 h-12 rounded-lg shrink-0 overflow-hidden border border-gray-800 group-hover:border-accent transition-all flex items-center justify-center shadow-sm">
+                <img src="assets/images/pace-logo.svg" alt="Pace University" class="w-full h-full object-cover" />
               </div>
               <div>
                 <h4 class="text-xl font-bold text-gray-200">MS, Computer & Information Systems</h4>
@@ -410,8 +410,8 @@
 
             <!-- Jain University -->
             <div class="flex gap-4 md:gap-6 group reveal" style="transition-delay: 200ms">
-              <div class="w-12 h-12 rounded-lg bg-card shrink-0 overflow-hidden border border-gray-800 group-hover:border-accent transition-all flex items-center justify-center shadow-sm">
-                <i data-lucide="graduation-cap" class="w-6 h-6 text-accent"></i>
+              <div class="w-12 h-12 rounded-lg shrink-0 overflow-hidden border border-gray-800 group-hover:border-accent transition-all flex items-center justify-center shadow-sm">
+                <img src="assets/images/jain-logo.svg" alt="Jain University" class="w-full h-full object-cover" />
               </div>
               <div>
                 <h4 class="text-xl font-bold text-gray-200">BS, Computer Science</h4>
@@ -495,31 +495,41 @@
 
           <!-- Coding Projects -->
           <div class="space-y-4">
-            <a href="https://github.com/srivasudev14/SMARTCHURN-CREDIT-CARD-ATTRITION-PREDICTION-SYSTEM" target="_blank" rel="noopener noreferrer" class="block border border-gray-800 p-5 rounded-xl bg-card/50 hover:bg-card hover:border-gray-600 transition-all group cursor-pointer card-hover reveal" style="transition-delay: 300ms">
-              <div class="flex justify-between items-center mb-1">
-                <h4 class="text-md font-bold text-gray-200 group-hover:text-accent transition-colors">SmartChurn</h4>
-                <span class="text-gray-600 text-sm">2025</span>
+            <a href="https://github.com/srivasudev14/SMARTCHURN-CREDIT-CARD-ATTRITION-PREDICTION-SYSTEM" target="_blank" rel="noopener noreferrer" class="block border border-gray-800 rounded-xl bg-card/50 hover:bg-card hover:border-gray-600 transition-all group cursor-pointer card-hover reveal overflow-hidden" style="transition-delay: 300ms">
+              <div class="w-full h-40 overflow-hidden border-b border-gray-800">
+                <img src="assets/images/smartchurn-preview.svg" alt="SmartChurn Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
-              <p class="text-sm text-gray-400 mb-3">Customer credit card attrition prediction system using ML.</p>
-              <div class="flex items-center justify-between flex-wrap gap-2">
-                <p class="text-xs text-accent">Python, Tableau, Scikit-learn, XGBoost</p>
-                <span class="text-xs text-gray-400 group-hover:text-white flex items-center gap-1 transition-colors">
-                  <i data-lucide="github" class="w-3.5 h-3.5"></i> View on GitHub
-                </span>
+              <div class="p-5">
+                <div class="flex justify-between items-center mb-1">
+                  <h4 class="text-md font-bold text-gray-200 group-hover:text-accent transition-colors">SmartChurn</h4>
+                  <span class="text-gray-600 text-sm">2025</span>
+                </div>
+                <p class="text-sm text-gray-400 mb-3">Customer credit card attrition prediction system using ML.</p>
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                  <p class="text-xs text-accent">Python, Tableau, Scikit-learn, XGBoost</p>
+                  <span class="text-xs text-gray-400 group-hover:text-white flex items-center gap-1 transition-colors">
+                    <i data-lucide="github" class="w-3.5 h-3.5"></i> View on GitHub
+                  </span>
+                </div>
               </div>
             </a>
 
-            <a href="https://github.com/srivasudev14/HeartBeacon--CardioVascular-Prediction-Model" target="_blank" rel="noopener noreferrer" class="block border border-gray-800 p-5 rounded-xl bg-card/50 hover:bg-card hover:border-gray-600 transition-all group cursor-pointer card-hover reveal" style="transition-delay: 400ms">
-              <div class="flex justify-between items-center mb-1">
-                <h4 class="text-md font-bold text-gray-200 group-hover:text-accent transition-colors">HeartBeacon</h4>
-                <span class="text-gray-600 text-sm">2024</span>
+            <a href="https://github.com/srivasudev14/HeartBeacon--CardioVascular-Prediction-Model" target="_blank" rel="noopener noreferrer" class="block border border-gray-800 rounded-xl bg-card/50 hover:bg-card hover:border-gray-600 transition-all group cursor-pointer card-hover reveal overflow-hidden" style="transition-delay: 400ms">
+              <div class="w-full h-40 overflow-hidden border-b border-gray-800">
+                <img src="assets/images/heartbeacon-preview.svg" alt="HeartBeacon Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               </div>
-              <p class="text-sm text-gray-400 mb-3">Cardiovascular prediction model, 90% accuracy on 319K healthcare records.</p>
-              <div class="flex items-center justify-between flex-wrap gap-2">
-                <p class="text-xs text-accent">Python, Scikit-learn, SMOTE</p>
-                <span class="text-xs text-gray-400 group-hover:text-white flex items-center gap-1 transition-colors">
-                  <i data-lucide="github" class="w-3.5 h-3.5"></i> View on GitHub
-                </span>
+              <div class="p-5">
+                <div class="flex justify-between items-center mb-1">
+                  <h4 class="text-md font-bold text-gray-200 group-hover:text-accent transition-colors">HeartBeacon</h4>
+                  <span class="text-gray-600 text-sm">2024</span>
+                </div>
+                <p class="text-sm text-gray-400 mb-3">Cardiovascular prediction model, 90% accuracy on 319K healthcare records.</p>
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                  <p class="text-xs text-accent">Python, Scikit-learn, SMOTE</p>
+                  <span class="text-xs text-gray-400 group-hover:text-white flex items-center gap-1 transition-colors">
+                    <i data-lucide="github" class="w-3.5 h-3.5"></i> View on GitHub
+                  </span>
+                </div>
               </div>
             </a>
           </div>

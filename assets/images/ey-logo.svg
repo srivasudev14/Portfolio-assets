@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect width="200" height="200" fill="#000"/>
+  <polygon points="40,80 180,55 175,65 38,88" fill="#FFE600"/>
+  <text x="100" y="160" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="90" fill="#fff">EY</text>
+</svg>
