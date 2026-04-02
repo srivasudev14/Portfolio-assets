@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,12 +8,16 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
             dark: '#16181D',
             card: '#1C1F26',
             accent: '#8cb4ff',
+            'light-bg': '#f8f9fa',
+            'light-card': '#ffffff',
+            'light-accent': '#2563eb',
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
@@ -165,16 +169,36 @@
       color: white;
       transform: translateY(-3px);
     }
+
+    /* Light theme overrides */
+    html:not(.dark) body {
+      background: #f8f9fa;
+      color: #1a1a2e;
+    }
+    html:not(.dark) ::-webkit-scrollbar-track { background: #f8f9fa; }
+    html:not(.dark) ::-webkit-scrollbar-thumb { background: #cbd5e1; }
+    html:not(.dark) ::-webkit-scrollbar-thumb:hover { background: #2563eb; }
+    html:not(.dark) .social-icon:hover { color: #1a1a2e; }
+    html:not(.dark) .nav-link::after { background: #2563eb; }
+    html:not(.dark) .card-hover:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+
+    /* Theme transition */
+    body, nav, .bg-dark, .bg-card, .border-gray-800 {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    /* Justified text */
+    .text-justify { text-align: justify; }
   </style>
 </head>
-<body class="min-h-screen bg-dark text-gray-200 font-sans selection:bg-blue-500 selection:text-white overflow-x-hidden">
+<body class="min-h-screen bg-dark dark:bg-dark bg-light-bg text-gray-200 dark:text-gray-200 text-gray-800 font-sans selection:bg-blue-500 selection:text-white overflow-x-hidden">
 
   <!-- Navigation Bar -->
-  <nav id="navbar" class="border-b border-gray-800 py-4 px-6 fixed w-full top-0 left-0 bg-dark/95 backdrop-blur-md z-50 transition-shadow duration-300">
+  <nav id="navbar" class="border-b border-gray-800 dark:border-gray-800 border-gray-200 py-4 px-6 fixed w-full top-0 left-0 bg-dark/95 dark:bg-dark/95 bg-white/95 backdrop-blur-md z-50 transition-shadow duration-300">
     <div class="max-w-6xl mx-auto flex justify-between items-center">
       <div class="flex items-center gap-8">
-        <a href="#about" class="text-xl font-bold text-white tracking-wide hover:text-accent transition-colors">Sri Vasudev</a>
-        <div class="hidden md:flex space-x-6 text-sm text-gray-300 font-medium">
+        <a href="#about" class="text-xl font-bold text-white dark:text-white text-gray-900 tracking-wide hover:text-accent transition-colors">Sri Vasudev</a>
+        <div class="hidden md:flex space-x-6 text-sm text-gray-300 dark:text-gray-300 text-gray-600 font-medium">
           <a href="#about" class="nav-link hover:text-white transition-colors" data-section="about">Home</a>
           <a href="#experience" class="nav-link hover:text-white transition-colors" data-section="experience">Experience</a>
           <a href="#projects" class="nav-link hover:text-white transition-colors" data-section="projects">Projects</a>
@@ -182,9 +206,13 @@
           <a href="#contact" class="nav-link hover:text-white transition-colors" data-section="contact">Contact</a>
         </div>
       </div>
-      <div class="flex items-center space-x-4 text-gray-300">
-        <button onclick="openSearch()" class="hover:text-white transition-colors p-2 rounded-lg hover:bg-white/5" title="Search (Ctrl+K)">
+      <div class="flex items-center space-x-4 text-gray-300 dark:text-gray-300 text-gray-600">
+        <button onclick="openSearch()" class="hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors p-2 rounded-lg hover:bg-white/5 dark:hover:bg-white/5 hover:bg-black/5" title="Search (Ctrl+K)">
           <i data-lucide="search" class="w-5 h-5"></i>
+        </button>
+        <button onclick="toggleTheme()" class="hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors p-2 rounded-lg hover:bg-white/5 dark:hover:bg-white/5 hover:bg-black/5" title="Toggle theme" id="theme-toggle">
+          <i data-lucide="moon" class="w-5 h-5" id="theme-icon-dark"></i>
+          <i data-lucide="sun" class="w-5 h-5 hidden" id="theme-icon-light"></i>
         </button>
         <!-- Mobile menu button -->
         <button onclick="toggleMobileMenu()" class="md:hidden hover:text-white transition-colors p-2 rounded-lg hover:bg-white/5">
@@ -212,7 +240,7 @@
       <div class="w-full md:w-[28%] flex flex-col items-center md:items-start text-center md:text-left md:sticky md:top-32 h-max reveal-left">
 
         <!-- Profile Image -->
-        <div class="w-52 h-52 mb-6 rounded-full overflow-hidden border-4 border-gray-800 shadow-xl bg-gray-900 mx-auto md:mx-0">
+        <div class="w-60 h-60 mb-6 rounded-full overflow-hidden border-4 border-gray-800 dark:border-gray-800 border-gray-300 shadow-xl bg-gray-900 mx-auto md:mx-0">
           <img
             src="assets/images/profile.jpg"
             alt="Sri Vasudev Ravi Pyati"
@@ -256,13 +284,13 @@
         <section id="about" class="scroll-mt-32">
           <h2 class="text-4xl font-semibold text-white mb-6 reveal">Professional Summary</h2>
           <div class="reveal" style="transition-delay: 100ms">
-            <p class="text-gray-300 text-lg leading-relaxed mb-4">
+            <p class="text-gray-300 dark:text-gray-300 text-gray-700 text-lg leading-relaxed text-justify mb-4">
               Hello! I'm Sri Vasudev, a Business and Technology Consultant, Data and Analytics Engineer, and MS candidate in Information Systems at Pace University (Seidenberg School of CS and IS), concentrating in Data Science Engineering and Analytics with a 3.8 GPA.
             </p>
-            <p class="text-gray-300 text-lg leading-relaxed mb-4">
+            <p class="text-gray-300 dark:text-gray-300 text-gray-700 text-lg leading-relaxed text-justify mb-4">
               I bring 2+ years of professional experience spanning Ernst and Young's Business Consulting practice, the Metropolitan Transportation Authority (MTA), and Consilio LLC, delivering data engineering, product analytics, BI reporting, and digital transformation solutions for Fortune 500 clients across automotive, FMCG, energy, and public transit. At EY, I orchestrated 20+ ETL pipelines, deployed executive-level Power BI dashboards, and contributed to AI-enabled cloud platforms under <a href="https://www.ey.com/en_in/services/consulting/asterisk-digital-platform" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">EY ASTERISK</a> that cut time-to-market by 20%. At the MTA, I built analytics ecosystems on Azure Data Lake and enhanced GIS data pipelines supporting enterprise asset management strategy.
             </p>
-            <p class="text-gray-300 text-lg leading-relaxed">
+            <p class="text-gray-300 dark:text-gray-300 text-gray-700 text-lg leading-relaxed text-justify">
               I'm AWS Solutions Architect Associate certified and a McKinsey Forward Program alumnus. My technical toolkit spans Python, SQL, Azure, AWS, Power BI, Tableau, Airflow, Docker, and Snowflake, and I work comfortably across data engineering, business intelligence, solutions architecture, consulting strategy, and product analytics. I'm currently seeking 2026 full-time opportunities in Data Engineering, Analytics, Product, Strategy, and Technology Consulting.
             </p>
           </div>
@@ -428,91 +456,10 @@
 
         <!-- Projects & Certifications -->
         <section id="projects" class="scroll-mt-32">
-          <h2 class="text-4xl font-semibold text-white mb-8 reveal">Projects, Research & Certifications</h2>
+          <h2 class="text-4xl font-semibold text-white dark:text-white text-gray-900 mb-8 reveal">Projects, Research & Certifications</h2>
 
-          <!-- Coding Projects - Side by Side with Big Images -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-            <!-- SmartChurn -->
-            <div class="reveal-scale" style="transition-delay: 300ms">
-              <a href="https://github.com/srivasudev14/SMARTCHURN-CREDIT-CARD-ATTRITION-PREDICTION-SYSTEM" target="_blank" rel="noopener noreferrer" class="block rounded-xl overflow-hidden group">
-                <div class="w-full aspect-square overflow-hidden rounded-xl border border-gray-800 group-hover:border-gray-600 transition-all">
-                  <img src="assets/images/smartchurn-preview.png" alt="SmartChurn Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                </div>
-              </a>
-              <div class="mt-4">
-                <div class="flex items-center justify-between mb-1">
-                  <h4 class="text-lg font-bold text-white uppercase tracking-wide">SmartChurn &ndash; Credit Card Attrition Prediction System</h4>
-                </div>
-                <p class="text-sm text-gray-400 mb-2">Mar 2025 &ndash; Present</p>
-                <div class="flex flex-wrap gap-2 mb-3">
-                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">Python</span>
-                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">Tableau</span>
-                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">CatBoost</span>
-                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">SMOTE</span>
-                </div>
-                <details class="group/details">
-                  <summary class="text-sm text-accent cursor-pointer hover:text-blue-300 transition-colors select-none flex items-center gap-1">
-                    <i data-lucide="chevron-right" class="w-4 h-4 transition-transform group-open/details:rotate-90"></i>
-                    Show details
-                  </summary>
-                  <ul class="text-gray-400 text-sm leading-relaxed space-y-2 mt-3 list-disc list-inside">
-                    <li>Conducted end-to-end development of a customer churn prediction system for Great One Bank using a 10K-record dataset, integrating Tableau-driven EDA and Python-based machine learning.</li>
-                    <li>Performed statistical and visual analysis in Tableau to assess the impact of credit limits and other features on churn behavior; confirmed credit limit as a statistically significant factor via t-tests (p < 0.05).</li>
-                    <li>Built and validated a high-performance CatBoost classification model, achieving 97.17% accuracy, 90.77% precision, and 92.48% recall, outperforming baseline models like Logistic Regression and Random Forest.</li>
-                    <li>Addressed class imbalance (266 attrited vs. 1324 existing) using SMOTE and hyperparameter tuning (auto_class_weights = 'Balanced') to optimize recall and reduce false positives.</li>
-                    <li>Final production test (Phase 3) underway: applying trained CatBoost model to an unseen "live" batch of 100,000+ customers, ensuring 20/80 attrition-to-retention ratio adherence for real-world deployment accuracy.</li>
-                  </ul>
-                  <a href="https://github.com/srivasudev14/SMARTCHURN-CREDIT-CARD-ATTRITION-PREDICTION-SYSTEM" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 mt-3 text-xs text-gray-400 hover:text-white transition-colors">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    View on GitHub
-                  </a>
-                </details>
-              </div>
-            </div>
-
-            <!-- HeartBeacon -->
-            <div class="reveal-scale" style="transition-delay: 400ms">
-              <a href="https://github.com/srivasudev14/HeartBeacon--CardioVascular-Prediction-Model" target="_blank" rel="noopener noreferrer" class="block rounded-xl overflow-hidden group">
-                <div class="w-full aspect-square overflow-hidden rounded-xl border border-gray-800 group-hover:border-gray-600 transition-all">
-                  <img src="assets/images/heartbeacon-preview.png" alt="HeartBeacon Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                </div>
-              </a>
-              <div class="mt-4">
-                <div class="flex items-center justify-between mb-1">
-                  <h4 class="text-lg font-bold text-white uppercase tracking-wide">HeartBeacon &ndash; Cardiovascular Disease Prediction Model</h4>
-                </div>
-                <p class="text-sm text-gray-400 mb-2">Nov 2024 &ndash; Dec 2024</p>
-                <div class="flex flex-wrap gap-2 mb-3">
-                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">Python</span>
-                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">Scikit-learn</span>
-                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">SMOTE</span>
-                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">Seaborn</span>
-                </div>
-                <details class="group/details">
-                  <summary class="text-sm text-accent cursor-pointer hover:text-blue-300 transition-colors select-none flex items-center gap-1">
-                    <i data-lucide="chevron-right" class="w-4 h-4 transition-transform group-open/details:rotate-90"></i>
-                    Show details
-                  </summary>
-                  <ul class="text-gray-400 text-sm leading-relaxed space-y-2 mt-3 list-disc list-inside">
-                    <li>Engineered a heart disease prediction pipeline using Python and a 319,000+ record dataset from Kaggle, achieving 90% accuracy through robust preprocessing, outlier treatment, and data balancing techniques (SMOTE, Tomek Links, NearMiss).</li>
-                    <li>Built and evaluated classification models including Logistic Regression, Decision Tree, and Random Forest; optimized for recall in minority class (heart disease presence) using random over-sampling.</li>
-                    <li>Implemented EDA and data visualization using Seaborn and Matplotlib, uncovering key clinical insights like the impact of BMI, sleep time, and mental health on heart disease.</li>
-                    <li>Spearheaded standardization, categorical encoding, and exploratory data analysis to create a cleaned and normalized dataset for scalable healthcare modeling.</li>
-                    <li>Hosted project on GitHub with detailed notebooks and reproducible codebase for future research and model improvement.</li>
-                  </ul>
-                  <a href="https://github.com/srivasudev14/HeartBeacon--CardioVascular-Prediction-Model" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 mt-3 text-xs text-gray-400 hover:text-white transition-colors">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                    View on GitHub
-                  </a>
-                </details>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Certifications & Research - Clean row below projects -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+          <!-- Certifications & Research - Row above projects -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
 
             <!-- Certifications -->
             <div class="bg-card p-5 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors card-hover reveal" style="transition-delay: 500ms">
@@ -566,6 +513,86 @@
                   </span>
                 </li>
               </ul>
+            </div>
+
+          </div>
+
+          <!-- Projects heading -->
+          <h3 class="text-2xl font-bold text-white dark:text-white text-gray-900 mt-10 mb-6 reveal">Projects</h3>
+
+          <!-- Coding Projects - Side by Side with Big Images -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- SmartChurn -->
+            <div class="reveal-scale" style="transition-delay: 300ms">
+              <a href="https://github.com/srivasudev14/SMARTCHURN-CREDIT-CARD-ATTRITION-PREDICTION-SYSTEM" target="_blank" rel="noopener noreferrer" class="block rounded-xl overflow-hidden group">
+                <div class="w-full aspect-square overflow-hidden rounded-xl border border-gray-800 dark:border-gray-800 border-gray-200 group-hover:border-gray-600 dark:group-hover:border-gray-600 group-hover:border-gray-400 transition-all">
+                  <img src="assets/images/smartchurn-preview.png" alt="SmartChurn Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+              </a>
+              <div class="mt-4">
+                <h4 class="text-lg font-bold text-white dark:text-white text-gray-900 uppercase tracking-wide mb-1">SmartChurn &ndash; Credit Card Attrition Prediction System</h4>
+                <p class="text-sm text-gray-400 mb-2">Mar 2025 &ndash; Present</p>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="tag px-2 py-0.5 bg-card dark:bg-card bg-gray-100 rounded text-xs text-accent border border-gray-800 dark:border-gray-800 border-gray-200">Python</span>
+                  <span class="tag px-2 py-0.5 bg-card dark:bg-card bg-gray-100 rounded text-xs text-accent border border-gray-800 dark:border-gray-800 border-gray-200">Tableau</span>
+                  <span class="tag px-2 py-0.5 bg-card dark:bg-card bg-gray-100 rounded text-xs text-accent border border-gray-800 dark:border-gray-800 border-gray-200">CatBoost</span>
+                  <span class="tag px-2 py-0.5 bg-card dark:bg-card bg-gray-100 rounded text-xs text-accent border border-gray-800 dark:border-gray-800 border-gray-200">SMOTE</span>
+                </div>
+                <details class="group/details">
+                  <summary class="text-sm text-accent cursor-pointer hover:text-blue-300 transition-colors select-none flex items-center gap-1">
+                    <i data-lucide="chevron-right" class="w-4 h-4 transition-transform group-open/details:rotate-90"></i>
+                    Show details
+                  </summary>
+                  <ul class="text-gray-400 dark:text-gray-400 text-gray-600 text-sm leading-relaxed space-y-2 mt-3 list-disc list-inside">
+                    <li>Conducted end-to-end development of a customer churn prediction system for Great One Bank using a 10K-record dataset, integrating Tableau-driven EDA and Python-based machine learning.</li>
+                    <li>Performed statistical and visual analysis in Tableau to assess the impact of credit limits and other features on churn behavior; confirmed credit limit as a statistically significant factor via t-tests (p &lt; 0.05).</li>
+                    <li>Built and validated a high-performance CatBoost classification model, achieving 97.17% accuracy, 90.77% precision, and 92.48% recall, outperforming baseline models like Logistic Regression and Random Forest.</li>
+                    <li>Addressed class imbalance (266 attrited vs. 1324 existing) using SMOTE and hyperparameter tuning (auto_class_weights = 'Balanced') to optimize recall and reduce false positives.</li>
+                    <li>Final production test (Phase 3) underway: applying trained CatBoost model to an unseen "live" batch of 100,000+ customers, ensuring 20/80 attrition-to-retention ratio adherence for real-world deployment accuracy.</li>
+                  </ul>
+                  <a href="https://github.com/srivasudev14/SMARTCHURN-CREDIT-CARD-ATTRITION-PREDICTION-SYSTEM" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 mt-3 text-xs text-gray-400 hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    View on GitHub
+                  </a>
+                </details>
+              </div>
+            </div>
+
+            <!-- HeartBeacon -->
+            <div class="reveal-scale" style="transition-delay: 400ms">
+              <a href="https://github.com/srivasudev14/HeartBeacon--CardioVascular-Prediction-Model" target="_blank" rel="noopener noreferrer" class="block rounded-xl overflow-hidden group">
+                <div class="w-full aspect-square overflow-hidden rounded-xl border border-gray-800 dark:border-gray-800 border-gray-200 group-hover:border-gray-600 dark:group-hover:border-gray-600 group-hover:border-gray-400 transition-all">
+                  <img src="assets/images/heartbeacon-preview.png" alt="HeartBeacon Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+              </a>
+              <div class="mt-4">
+                <h4 class="text-lg font-bold text-white dark:text-white text-gray-900 uppercase tracking-wide mb-1">HeartBeacon &ndash; Cardiovascular Disease Prediction Model</h4>
+                <p class="text-sm text-gray-400 mb-2">Nov 2024 &ndash; Dec 2024</p>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="tag px-2 py-0.5 bg-card dark:bg-card bg-gray-100 rounded text-xs text-accent border border-gray-800 dark:border-gray-800 border-gray-200">Python</span>
+                  <span class="tag px-2 py-0.5 bg-card dark:bg-card bg-gray-100 rounded text-xs text-accent border border-gray-800 dark:border-gray-800 border-gray-200">Scikit-learn</span>
+                  <span class="tag px-2 py-0.5 bg-card dark:bg-card bg-gray-100 rounded text-xs text-accent border border-gray-800 dark:border-gray-800 border-gray-200">SMOTE</span>
+                  <span class="tag px-2 py-0.5 bg-card dark:bg-card bg-gray-100 rounded text-xs text-accent border border-gray-800 dark:border-gray-800 border-gray-200">Seaborn</span>
+                </div>
+                <details class="group/details">
+                  <summary class="text-sm text-accent cursor-pointer hover:text-blue-300 transition-colors select-none flex items-center gap-1">
+                    <i data-lucide="chevron-right" class="w-4 h-4 transition-transform group-open/details:rotate-90"></i>
+                    Show details
+                  </summary>
+                  <ul class="text-gray-400 dark:text-gray-400 text-gray-600 text-sm leading-relaxed space-y-2 mt-3 list-disc list-inside">
+                    <li>Engineered a heart disease prediction pipeline using Python and a 319,000+ record dataset from Kaggle, achieving 90% accuracy through robust preprocessing, outlier treatment, and data balancing techniques (SMOTE, Tomek Links, NearMiss).</li>
+                    <li>Built and evaluated classification models including Logistic Regression, Decision Tree, and Random Forest; optimized for recall in minority class (heart disease presence) using random over-sampling.</li>
+                    <li>Implemented EDA and data visualization using Seaborn and Matplotlib, uncovering key clinical insights like the impact of BMI, sleep time, and mental health on heart disease.</li>
+                    <li>Spearheaded standardization, categorical encoding, and exploratory data analysis to create a cleaned and normalized dataset for scalable healthcare modeling.</li>
+                    <li>Hosted project on GitHub with detailed notebooks and reproducible codebase for future research and model improvement.</li>
+                  </ul>
+                  <a href="https://github.com/srivasudev14/HeartBeacon--CardioVascular-Prediction-Model" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 mt-3 text-xs text-gray-400 hover:text-white dark:hover:text-white hover:text-gray-900 transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    View on GitHub
+                  </a>
+                </details>
+              </div>
             </div>
 
           </div>
@@ -650,6 +677,34 @@
   <script>
     // Initialize Lucide icons
     lucide.createIcons();
+
+    // Theme Toggle
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.contains('dark');
+      if (isDark) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        document.getElementById('theme-icon-dark').classList.add('hidden');
+        document.getElementById('theme-icon-light').classList.remove('hidden');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        document.getElementById('theme-icon-dark').classList.remove('hidden');
+        document.getElementById('theme-icon-light').classList.add('hidden');
+      }
+    }
+    // Load saved theme
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light') {
+        document.documentElement.classList.remove('dark');
+        setTimeout(() => {
+          document.getElementById('theme-icon-dark').classList.add('hidden');
+          document.getElementById('theme-icon-light').classList.remove('hidden');
+        }, 0);
+      }
+    })();
 
     // Search Index
     const searchIndex = [
