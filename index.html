@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sri Vasudev Ravi Pyati</title>
+  <meta name="description" content="Sri Vasudev - Data & Analytics Engineer, Business & Technology Consultant" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: '#16181D',
+            card: '#1C1F26',
+            accent: '#8cb4ff',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #16181D; }
+    ::-webkit-scrollbar-thumb { background: #2a2e39; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #8cb4ff; }
+
+    /* Scroll-driven animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Stagger children */
+    .stagger > * { transition-delay: calc(var(--i, 0) * 100ms); }
+
+    /* Timeline pulse */
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(140, 180, 255, 0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(140, 180, 255, 0); }
+    }
+    .timeline-dot { animation: pulse-dot 2s infinite; }
+
+    /* Profile image hover */
+    .profile-img {
+      filter: grayscale(100%);
+      transition: filter 0.5s ease, transform 0.5s ease;
+    }
+    .profile-img:hover {
+      filter: grayscale(0%);
+      transform: scale(1.05);
+    }
+
+    /* Nav link underline animation */
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #8cb4ff;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Card hover lift */
+    .card-hover {
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Search overlay */
+    .search-overlay {
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Smooth section transitions */
+    section {
+      scroll-margin-top: 8rem;
+    }
+
+    /* Tag hover */
+    .tag {
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+    .tag:hover {
+      background: rgba(140, 180, 255, 0.1);
+      border-color: #8cb4ff;
+      color: #8cb4ff;
+    }
+
+    /* Timeline line animation */
+    .timeline-line {
+      background: linear-gradient(to bottom, #8cb4ff, #8cb4ff 50%, #2a2e39 50%);
+      background-size: 2px 20px;
+      animation: timeline-flow 1s linear infinite;
+    }
+    @keyframes timeline-flow {
+      to { background-position: 0 20px; }
+    }
+
+    /* Social icon bounce */
+    .social-icon {
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .social-icon:hover {
+      color: white;
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-dark text-gray-200 font-sans selection:bg-blue-500 selection:text-white overflow-x-hidden">
+
+  <!-- Navigation Bar -->
+  <nav id="navbar" class="border-b border-gray-800 py-4 px-6 fixed w-full top-0 left-0 bg-dark/95 backdrop-blur-md z-50 transition-shadow duration-300">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-8">
+        <a href="#about" class="text-xl font-bold text-white tracking-wide hover:text-accent transition-colors">Sri Vasudev</a>
+        <div class="hidden md:flex space-x-6 text-sm text-gray-300 font-medium">
+          <a href="#about" class="nav-link hover:text-white transition-colors" data-section="about">Home</a>
+          <a href="#experience" class="nav-link hover:text-white transition-colors" data-section="experience">Experience</a>
+          <a href="#projects" class="nav-link hover:text-white transition-colors" data-section="projects">Projects</a>
+          <a href="#education" class="nav-link hover:text-white transition-colors" data-section="education">Education</a>
+          <a href="#contact" class="nav-link hover:text-white transition-colors" data-section="contact">Contact</a>
+        </div>
+      </div>
+      <div class="flex items-center space-x-4 text-gray-300">
+        <button onclick="openSearch()" class="hover:text-white transition-colors p-2 rounded-lg hover:bg-white/5" title="Search (Ctrl+K)">
+          <i data-lucide="search" class="w-5 h-5"></i>
+        </button>
+        <!-- Mobile menu button -->
+        <button onclick="toggleMobileMenu()" class="md:hidden hover:text-white transition-colors p-2 rounded-lg hover:bg-white/5">
+          <i data-lucide="menu" class="w-5 h-5" id="menu-icon"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden mt-4 pb-2 border-t border-gray-800 pt-4">
+      <div class="flex flex-col space-y-3 text-sm text-gray-300 font-medium">
+        <a href="#about" onclick="closeMobileMenu()" class="hover:text-white transition-colors px-2">Home</a>
+        <a href="#experience" onclick="closeMobileMenu()" class="hover:text-white transition-colors px-2">Experience</a>
+        <a href="#projects" onclick="closeMobileMenu()" class="hover:text-white transition-colors px-2">Projects</a>
+        <a href="#education" onclick="closeMobileMenu()" class="hover:text-white transition-colors px-2">Education</a>
+        <a href="#contact" onclick="closeMobileMenu()" class="hover:text-white transition-colors px-2">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-6 pb-12 pt-28 md:pb-20 md:pt-32">
+    <div class="flex flex-col md:flex-row gap-10 md:gap-12 lg:gap-16">
+
+      <!-- Left Column: Profile (Sticky) -->
+      <div class="w-full md:w-[28%] flex flex-col items-center md:items-start text-center md:text-left md:sticky md:top-32 h-max reveal-left">
+
+        <!-- Profile Image -->
+        <div class="w-52 h-52 mb-6 rounded-full overflow-hidden border-4 border-gray-800 shadow-xl bg-gray-900 mx-auto md:mx-0">
+          <img
+            src="image_f1afa4.jpg"
+            alt="Sri Vasudev Ravi Pyati"
+            class="w-full h-full object-cover profile-img"
+            onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-gradient-to-br from-accent/30 to-blue-900/30 flex items-center justify-center text-5xl font-bold text-accent\'>SV</div>'"
+          />
+        </div>
+
+        <h2 class="text-3xl font-bold text-white mb-1">Sri Vasudev</h2>
+        <h3 class="text-xl text-gray-400 mb-2">Ravi Pyati</h3>
+        <p class="text-gray-400 text-lg mb-1">Data & Analytics Engineer</p>
+        <div class="mb-6">
+          <a href="#education" class="text-accent hover:text-blue-300 transition-colors text-sm">
+            Pace University
+          </a>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="flex flex-wrap justify-center md:justify-start gap-5 text-gray-400 mt-2">
+          <a href="mailto:sri.vasudev14@gmail.com" class="social-icon" title="Email">
+            <i data-lucide="mail" class="w-6 h-6"></i>
+          </a>
+          <a href="https://github.com/srivasudev14" target="_blank" rel="noopener noreferrer" class="social-icon" title="GitHub">
+            <i data-lucide="github" class="w-6 h-6"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/srivasudev/" target="_blank" rel="noopener noreferrer" class="social-icon" title="LinkedIn">
+            <i data-lucide="linkedin" class="w-6 h-6"></i>
+          </a>
+          <a href="https://github.com/srivasudev14/Portfolio-assets/blob/main/Srivasudev-resume.pdf" target="_blank" rel="noopener noreferrer" class="social-icon flex items-center font-bold text-lg" title="CV">CV</a>
+        </div>
+
+        <div class="mt-8 text-sm text-gray-500">
+          <p>New York, NY / United States</p>
+        </div>
+      </div>
+
+      <!-- Right Column: Content -->
+      <div class="w-full md:w-[72%] flex flex-col gap-16 pb-20">
+
+        <!-- Professional Summary -->
+        <section id="about" class="scroll-mt-32">
+          <h2 class="text-4xl font-semibold text-white mb-6 reveal">Professional Summary</h2>
+          <div class="reveal" style="transition-delay: 100ms">
+            <p class="text-gray-300 text-lg leading-relaxed mb-4">
+              Hello! I'm Sri Vasudev, a Business and Technology Consultant, Data and Analytics Engineer, and MS candidate in Information Systems at Pace University (Seidenberg School of CS and IS), concentrating in Data Science Engineering and Analytics with a 3.8 GPA.
+            </p>
+            <p class="text-gray-300 text-lg leading-relaxed mb-4">
+              I bring 2+ years of professional experience spanning Ernst and Young's Business Consulting practice, the Metropolitan Transportation Authority (MTA), and Consilio LLC, delivering data engineering, product analytics, BI reporting, and digital transformation solutions for Fortune 500 clients across automotive, FMCG, energy, and public transit. At EY, I orchestrated 20+ ETL pipelines, deployed executive-level Power BI dashboards, and contributed to AI-enabled cloud platforms under <a href="https://www.ey.com/en_in/services/consulting/asterisk-digital-platform" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">EY ASTERISK</a> that cut time-to-market by 20%. At the MTA, I built analytics ecosystems on Azure Data Lake and enhanced GIS data pipelines supporting enterprise asset management strategy.
+            </p>
+            <p class="text-gray-300 text-lg leading-relaxed">
+              I'm AWS Solutions Architect Associate certified and a McKinsey Forward Program alumnus. My technical toolkit spans Python, SQL, Azure, AWS, Power BI, Tableau, Airflow, Docker, and Snowflake, and I work comfortably across data engineering, business intelligence, solutions architecture, consulting strategy, and product analytics. I'm currently seeking 2026 full-time opportunities in Data Engineering, Analytics, Product, Strategy, and Technology Consulting.
+            </p>
+          </div>
+
+          <!-- Core Competencies -->
+          <div class="mt-8 reveal" style="transition-delay: 200ms">
+            <h3 class="text-2xl font-bold text-white mb-4">Core Competencies</h3>
+            <div class="flex flex-wrap gap-2 stagger">
+              <span class="tag px-3 py-1.5 bg-card rounded-lg text-sm text-gray-300 border border-gray-800 cursor-default" style="--i:0">Data Engineering (ETL/ELT)</span>
+              <span class="tag px-3 py-1.5 bg-card rounded-lg text-sm text-gray-300 border border-gray-800 cursor-default" style="--i:1">Python & SQL</span>
+              <span class="tag px-3 py-1.5 bg-card rounded-lg text-sm text-gray-300 border border-gray-800 cursor-default" style="--i:2">Azure Databricks & AWS</span>
+              <span class="tag px-3 py-1.5 bg-card rounded-lg text-sm text-gray-300 border border-gray-800 cursor-default" style="--i:3">Power BI & Tableau</span>
+              <span class="tag px-3 py-1.5 bg-card rounded-lg text-sm text-gray-300 border border-gray-800 cursor-default" style="--i:4">AI/ML & GenAI</span>
+              <span class="tag px-3 py-1.5 bg-card rounded-lg text-sm text-gray-300 border border-gray-800 cursor-default" style="--i:5">Data Strategy & Governance</span>
+              <span class="tag px-3 py-1.5 bg-card rounded-lg text-sm text-gray-300 border border-gray-800 cursor-default" style="--i:6">Analytics</span>
+              <span class="tag px-3 py-1.5 bg-card rounded-lg text-sm text-gray-300 border border-gray-800 cursor-default" style="--i:7">SCM</span>
+              <span class="tag px-3 py-1.5 bg-card rounded-lg text-sm text-gray-300 border border-gray-800 cursor-default" style="--i:8">Product</span>
+            </div>
+          </div>
+        </section>
+
+        <hr class="border-gray-800" />
+
+        <!-- Experience Section - Timeline Design (from narenkhatwani) -->
+        <section id="experience" class="scroll-mt-32">
+          <div class="flex flex-col md:flex-row md:gap-12 mb-10">
+            <div class="md:w-[35%] reveal-left">
+              <h2 class="text-4xl font-semibold text-white mb-2">Professional Experience</h2>
+              <p class="text-gray-500 text-sm">For complete work history refer to my <a href="https://github.com/srivasudev14/Portfolio-assets/blob/main/Srivasudev-resume.pdf" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">curriculum vitae</a>.</p>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div class="relative">
+            <!-- Vertical line -->
+            <div class="absolute left-[27px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-accent via-accent/50 to-gray-800 hidden sm:block"></div>
+
+            <div class="space-y-8">
+              <!-- MTA -->
+              <div class="flex gap-6 reveal-right" style="transition-delay: 0ms">
+                <div class="relative shrink-0 hidden sm:flex flex-col items-center">
+                  <div class="w-14 h-14 rounded-xl overflow-hidden border border-gray-700 bg-white flex items-center justify-center p-1 shadow-md z-10 card-hover">
+                    <a href="https://new.mta.info/" target="_blank" rel="noopener noreferrer">
+                      <img src="image_f222f1.png" alt="MTA Logo" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-xs font-bold text-gray-800\'>MTA</span>'" />
+                    </a>
+                  </div>
+                  <div class="w-3 h-3 rounded-full bg-accent timeline-dot mt-2"></div>
+                </div>
+                <div class="flex-1 border-l-4 border-accent bg-card/60 rounded-r-xl p-6 card-hover hover:border-blue-300">
+                  <h3 class="text-xl font-bold text-gray-100">Data Strategy Analyst Intern - EAM, Strategic Initiatives</h3>
+                  <div class="flex flex-col sm:flex-row sm:items-center text-sm mb-3 mt-1 flex-wrap gap-1">
+                    <a href="https://new.mta.info/" target="_blank" rel="noopener noreferrer" class="text-accent font-medium hover:underline">Metropolitan Transportation Authority (MTA)</a>
+                    <span class="text-gray-500 hidden sm:inline mx-1">&middot;</span>
+                    <span class="text-gray-400">Jul 2025 - Dec 2025</span>
+                    <span class="text-gray-500 hidden sm:inline mx-1">&middot;</span>
+                    <span class="text-gray-400">New York, NY</span>
+                  </div>
+                  <ul class="text-gray-400 leading-relaxed text-sm space-y-3 list-disc list-inside">
+                    <li>Built analytics ecosystem on Azure Data Lake, deploying production-grade Power BI dashboards with KPI frameworks and GIS, translating complex datasets into self-service analytics that improved decision-making accuracy by 20%+.</li>
+                    <li>Optimized GIS analytical pipelines on Azure within HxGN EAM, improving data quality and enabling real-time operational dashboards for enterprise asset management.</li>
+                    <li>Conducted cohort-level benchmarking across operational datasets, driving a 15% improvement in system efficiency while streamlining project governance using Jira & Confluence.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- EY -->
+              <div class="flex gap-6 reveal-right" style="transition-delay: 150ms">
+                <div class="relative shrink-0 hidden sm:flex flex-col items-center">
+                  <div class="w-14 h-14 rounded-xl overflow-hidden border border-gray-700 bg-black flex items-center justify-center p-1 shadow-md z-10 card-hover">
+                    <a href="https://www.ey.com/" target="_blank" rel="noopener noreferrer">
+                      <img src="image_f22311.png" alt="EY Logo" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-xs font-bold text-yellow-400\'>EY</span>'" />
+                    </a>
+                  </div>
+                  <div class="w-3 h-3 rounded-full bg-accent/50 mt-2"></div>
+                </div>
+                <div class="flex-1 border-l-4 border-accent bg-card/60 rounded-r-xl p-6 card-hover hover:border-blue-300">
+                  <h3 class="text-xl font-bold text-gray-100">Advanced Analyst, Staff II - Business Consulting, Analytics & Strategy</h3>
+                  <div class="flex flex-col sm:flex-row sm:items-center text-sm mb-3 mt-1 flex-wrap gap-1">
+                    <a href="https://www.ey.com/" target="_blank" rel="noopener noreferrer" class="text-accent font-medium hover:underline">Ernst & Young LLP (EY)</a>
+                    <span class="text-gray-500 hidden sm:inline mx-1">&middot;</span>
+                    <span class="text-gray-400">Dec 2022 - Aug 2024</span>
+                    <span class="text-gray-500 hidden sm:inline mx-1">&middot;</span>
+                    <span class="text-gray-400">Bengaluru, India</span>
+                  </div>
+                  <ul class="text-gray-400 leading-relaxed text-sm space-y-3 list-disc list-inside">
+                    <li>Spearheaded the <a href="https://www.ey.com/en_in/services/consulting/asterisk-digital-platform" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">EY ASTERISK</a> SaaS platform's digital transformation, crafting product roadmaps and GTM strategies for AI-enabled SCM solutions.</li>
+                    <li>Orchestrated 45+ high-performance ETL data pipelines (Python, SQL, Azure Databricks) powering analytics for Fortune 500 clients, improving data accuracy by 30%.</li>
+                    <li>Deployed 10+ Power BI dashboards integrating KPIs and Geo-based vendor data, driving a 35% boost in operational efficiency.</li>
+                    <li>Drove CRM integration and customer experience analytics, partnering with C-suite stakeholders and streamlining end-to-end product strategy.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Consilio -->
+              <div class="flex gap-6 reveal-right" style="transition-delay: 300ms">
+                <div class="relative shrink-0 hidden sm:flex flex-col items-center">
+                  <div class="w-14 h-14 rounded-xl overflow-hidden border border-gray-700 bg-[#0f1f42] flex items-center justify-center p-1 shadow-md z-10 card-hover">
+                    <a href="https://www.consilio.com/" target="_blank" rel="noopener noreferrer">
+                      <img src="image_f22330.png" alt="Consilio Logo" class="w-full h-full object-contain" onerror="this.parentElement.innerHTML='<span class=\'text-xs font-bold text-white\'>C</span>'" />
+                    </a>
+                  </div>
+                  <div class="w-3 h-3 rounded-full bg-accent/30 mt-2"></div>
+                </div>
+                <div class="flex-1 border-l-4 border-accent bg-card/60 rounded-r-xl p-6 card-hover hover:border-blue-300">
+                  <h3 class="text-xl font-bold text-gray-100">Data Operations Analyst</h3>
+                  <div class="flex flex-col sm:flex-row sm:items-center text-sm mb-3 mt-1 flex-wrap gap-1">
+                    <a href="https://www.consilio.com/" target="_blank" rel="noopener noreferrer" class="text-accent font-medium hover:underline">Consilio LLC</a>
+                    <span class="text-gray-500 hidden sm:inline mx-1">&middot;</span>
+                    <span class="text-gray-400">Oct 2022 - Dec 2022</span>
+                    <span class="text-gray-500 hidden sm:inline mx-1">&middot;</span>
+                    <span class="text-gray-400">Bengaluru, India</span>
+                  </div>
+                  <ul class="text-gray-400 leading-relaxed text-sm space-y-3 list-disc list-inside">
+                    <li>Designed & implemented cloud-based data pipelines for legal eDiscovery forensics, enforcing data privacy compliance across 5,000+ legal records.</li>
+                    <li>Built data warehousing solutions and automated analytics workflows, improving pipeline efficiency by 20% and analytical output by 30%.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <hr class="border-gray-800" />
+
+        <!-- Education Section -->
+        <section id="education" class="scroll-mt-32">
+          <h2 class="text-4xl font-semibold text-white mb-8 reveal">Education</h2>
+          <div class="space-y-8">
+
+            <!-- Pace University -->
+            <div class="flex gap-4 md:gap-6 group reveal" style="transition-delay: 100ms">
+              <div class="w-12 h-12 rounded-lg bg-card shrink-0 overflow-hidden border border-gray-800 group-hover:border-accent transition-all flex items-center justify-center shadow-sm">
+                <i data-lucide="graduation-cap" class="w-6 h-6 text-accent"></i>
+              </div>
+              <div>
+                <h4 class="text-xl font-bold text-gray-200">MS, Computer & Information Systems</h4>
+                <p class="text-gray-400 text-sm mt-1">Data Science Engineering & Analytics <span class="text-gray-500 ml-2">| GPA: 3.8</span></p>
+                <div class="flex items-center text-sm mt-2 flex-wrap gap-1">
+                  <span class="text-accent">Pace University - Seidenberg School of CS & IS</span>
+                  <span class="text-gray-500 mx-2">&middot;</span>
+                  <span class="text-gray-500">May 2026</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Jain University -->
+            <div class="flex gap-4 md:gap-6 group reveal" style="transition-delay: 200ms">
+              <div class="w-12 h-12 rounded-lg bg-card shrink-0 overflow-hidden border border-gray-800 group-hover:border-accent transition-all flex items-center justify-center shadow-sm">
+                <i data-lucide="graduation-cap" class="w-6 h-6 text-accent"></i>
+              </div>
+              <div>
+                <h4 class="text-xl font-bold text-gray-200">BS, Computer Science</h4>
+                <p class="text-gray-400 text-sm mt-1">Applied CS, Cloud, Data & Analytics <span class="text-gray-500 ml-2">| GPA: 3.64</span></p>
+                <div class="flex items-center text-sm mt-2 flex-wrap gap-1">
+                  <span class="text-accent">Jain University - School of CS & IT</span>
+                  <span class="text-gray-500 mx-2">&middot;</span>
+                  <span class="text-gray-500">Jul 2022</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <hr class="border-gray-800" />
+
+        <!-- Projects & Certifications -->
+        <section id="projects" class="scroll-mt-32">
+          <h2 class="text-4xl font-semibold text-white mb-8 reveal">Projects, Research & Certifications</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Certifications -->
+            <div class="bg-card p-6 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors h-full card-hover reveal-scale" style="transition-delay: 100ms">
+              <i data-lucide="award" class="w-6 h-6 text-accent mb-4"></i>
+              <h3 class="text-lg font-bold text-white mb-4">Certifications</h3>
+              <ul class="space-y-4">
+                <li>
+                  <a href="https://www.credly.com/badges/2bedf794-b479-4926-88bc-34b6e30e1507" target="_blank" rel="noopener noreferrer" class="group block">
+                    <p class="text-sm font-medium text-gray-200 group-hover:text-accent transition-colors">AWS Solutions Architect Associate (SAA-C03)</p>
+                    <p class="text-xs text-gray-500 mt-1 group-hover:text-gray-400 transition-colors">Amazon Web Services &middot; Jan 2026</p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.credly.com/badges/e9ad49fa-4673-4748-8f98-e5b1bcc48a65/linked_in_profile" target="_blank" rel="noopener noreferrer" class="group block">
+                    <p class="text-sm font-medium text-gray-200 group-hover:text-accent transition-colors">McKinsey Forward Program</p>
+                    <p class="text-xs text-gray-500 mt-1 group-hover:text-gray-400 transition-colors">McKinsey & Company &middot; Dec 2025</p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Research & Publications -->
+            <div class="bg-card p-6 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors h-full card-hover reveal-scale" style="transition-delay: 200ms">
+              <i data-lucide="code" class="w-6 h-6 text-accent mb-4"></i>
+              <h3 class="text-lg font-bold text-white mb-4">Research & Publications</h3>
+
+              <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">Publications</h4>
+              <ul class="space-y-4 mb-6">
+                <li>
+                  <a href="WatsonLLM_HCII2026_final.pdf" target="_blank" rel="noopener noreferrer" class="group block">
+                    <p class="text-sm font-medium text-gray-200 group-hover:text-accent transition-colors leading-snug">
+                      "Revisiting IBM Watson Personality Insights with LLMs: Restoring the Full Depth of the Big Five"
+                    </p>
+                    <p class="text-xs text-gray-500 mt-1 group-hover:text-gray-400 transition-colors">
+                      (Accepted by HCI International 2026)
+                    </p>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.jetir.org/view?paper=JETIRFM06008" target="_blank" rel="noopener noreferrer" class="group block">
+                    <p class="text-sm font-medium text-gray-200 group-hover:text-accent transition-colors">Bipolar Occurrence Prediction</p>
+                    <p class="text-xs text-gray-500 mt-1 group-hover:text-gray-400 transition-colors">
+                      Published Research via ML & Deep Learning (TensorFlow, PyTorch) &middot; 2022
+                    </p>
+                  </a>
+                </li>
+              </ul>
+
+              <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">Academic Research</h4>
+              <ul class="space-y-4">
+                <li>
+                  <span class="group block">
+                    <p class="text-sm font-medium text-gray-200">"THE SUGGESTIVE BANKER"</p>
+                    <p class="text-xs text-gray-500 mt-1">Capstone Research on Consumer Trust in Proactive Agentic AI for Digital Banking &middot; 2026</p>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Coding Projects -->
+          <div class="space-y-4">
+            <a href="https://github.com/srivasudev14/SMARTCHURN-CREDIT-CARD-ATTRITION-PREDICTION-SYSTEM" target="_blank" rel="noopener noreferrer" class="block border border-gray-800 p-5 rounded-xl bg-card/50 hover:bg-card hover:border-gray-600 transition-all group cursor-pointer card-hover reveal" style="transition-delay: 300ms">
+              <div class="flex justify-between items-center mb-1">
+                <h4 class="text-md font-bold text-gray-200 group-hover:text-accent transition-colors">SmartChurn</h4>
+                <span class="text-gray-600 text-sm">2025</span>
+              </div>
+              <p class="text-sm text-gray-400 mb-3">Customer credit card attrition prediction system using ML.</p>
+              <div class="flex items-center justify-between flex-wrap gap-2">
+                <p class="text-xs text-accent">Python, Tableau, Scikit-learn, XGBoost</p>
+                <span class="text-xs text-gray-400 group-hover:text-white flex items-center gap-1 transition-colors">
+                  <i data-lucide="github" class="w-3.5 h-3.5"></i> View on GitHub
+                </span>
+              </div>
+            </a>
+
+            <a href="https://github.com/srivasudev14/HeartBeacon--CardioVascular-Prediction-Model" target="_blank" rel="noopener noreferrer" class="block border border-gray-800 p-5 rounded-xl bg-card/50 hover:bg-card hover:border-gray-600 transition-all group cursor-pointer card-hover reveal" style="transition-delay: 400ms">
+              <div class="flex justify-between items-center mb-1">
+                <h4 class="text-md font-bold text-gray-200 group-hover:text-accent transition-colors">HeartBeacon</h4>
+                <span class="text-gray-600 text-sm">2024</span>
+              </div>
+              <p class="text-sm text-gray-400 mb-3">Cardiovascular prediction model, 90% accuracy on 319K healthcare records.</p>
+              <div class="flex items-center justify-between flex-wrap gap-2">
+                <p class="text-xs text-accent">Python, Scikit-learn, SMOTE</p>
+                <span class="text-xs text-gray-400 group-hover:text-white flex items-center gap-1 transition-colors">
+                  <i data-lucide="github" class="w-3.5 h-3.5"></i> View on GitHub
+                </span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <hr class="border-gray-800" />
+
+        <!-- Contact Section -->
+        <section id="contact" class="scroll-mt-32">
+          <h2 class="text-4xl font-semibold text-white mb-6 reveal">Let's Connect</h2>
+          <p class="text-gray-400 text-lg mb-8 reveal" style="transition-delay: 100ms">
+            I am actively seeking 2026 full-time opportunities in Data, Product, and Tech Strategy. Feel free to reach out!
+          </p>
+
+          <form action="https://formsubmit.co/sri.vasudev14@gmail.com" method="POST" class="bg-card p-6 md:p-8 rounded-xl border border-gray-800 max-w-2xl reveal-scale" style="transition-delay: 200ms">
+            <input type="hidden" name="_subject" value="New Contact Form Submission from Portfolio!" />
+            <input type="hidden" name="_template" value="box" />
+
+            <div class="space-y-6">
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Your Name</label>
+                <input type="text" id="name" name="name" required
+                  class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all" />
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Your Email Address</label>
+                <input type="email" id="email" name="email" required
+                  class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all" />
+              </div>
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                <textarea id="message" name="message" required rows="4"
+                  class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all resize-none"
+                  placeholder="Hello Sri, I'd like to talk about..."></textarea>
+              </div>
+              <button type="submit"
+                class="flex items-center justify-center gap-2 w-full sm:w-auto bg-accent hover:bg-blue-300 text-gray-900 font-bold py-3 px-8 rounded-lg transition-all hover:shadow-lg hover:shadow-accent/20 active:scale-95">
+                <i data-lucide="send" class="w-5 h-5"></i>
+                <span>Send Message</span>
+              </button>
+            </div>
+          </form>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Search Overlay Modal -->
+  <div id="search-overlay" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex justify-center items-start pt-24 px-4 search-overlay" onclick="closeSearchOutside(event)">
+    <div class="bg-card border border-gray-700 rounded-xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col">
+      <div class="flex items-center border-b border-gray-700 p-4">
+        <i data-lucide="search" class="w-5 h-5 text-accent mr-3"></i>
+        <input type="text" id="search-input" autofocus
+          placeholder="Search for EY, Pace, SmartChurn..."
+          class="bg-transparent text-white w-full focus:outline-none text-lg placeholder-gray-500"
+          oninput="handleSearch(this.value)" />
+        <kbd class="hidden sm:inline-flex items-center px-2 py-0.5 text-xs text-gray-500 border border-gray-700 rounded mr-2">ESC</kbd>
+        <button onclick="closeSearch()" class="text-gray-400 hover:text-white ml-2 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="search-results" class="max-h-96 overflow-y-auto p-2"></div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Search Index
+    const searchIndex = [
+      { title: 'Professional Summary', id: 'about' },
+      { title: 'Experience: MTA (Data Strategy Analyst Intern)', id: 'experience' },
+      { title: 'Experience: EY (Advanced Analyst)', id: 'experience' },
+      { title: 'Experience: Consilio (Data Operations Analyst)', id: 'experience' },
+      { title: 'Education: Pace University (MS)', id: 'education' },
+      { title: 'Education: Jain University (BS)', id: 'education' },
+      { title: 'Certifications (AWS, McKinsey)', id: 'projects' },
+      { title: 'Research: IBM Watson Personality Insights', id: 'projects' },
+      { title: 'Research: Bipolar Occurrence Prediction', id: 'projects' },
+      { title: 'Project: SmartChurn', id: 'projects' },
+      { title: 'Project: HeartBeacon', id: 'projects' },
+      { title: "Contact / Let's Connect", id: 'contact' }
+    ];
+
+    // Search Functions
+    function openSearch() {
+      document.getElementById('search-overlay').classList.remove('hidden');
+      setTimeout(() => document.getElementById('search-input').focus(), 50);
+    }
+
+    function closeSearch() {
+      document.getElementById('search-overlay').classList.add('hidden');
+      document.getElementById('search-input').value = '';
+      document.getElementById('search-results').innerHTML = '';
+    }
+
+    function closeSearchOutside(e) {
+      if (e.target === e.currentTarget) closeSearch();
+    }
+
+    function handleSearch(query) {
+      const results = document.getElementById('search-results');
+      if (!query) { results.innerHTML = ''; return; }
+
+      const filtered = searchIndex.filter(item =>
+        item.title.toLowerCase().includes(query.toLowerCase())
+      );
+
+      if (filtered.length > 0) {
+        results.innerHTML = filtered.map(item =>
+          `<a href="#${item.id}" onclick="closeSearch()" class="block px-4 py-3 hover:bg-white/5 rounded-lg text-gray-300 hover:text-white transition-colors">${highlightMatch(item.title, query)}</a>`
+        ).join('');
+      } else {
+        results.innerHTML = `<div class="p-4 text-gray-500 text-center">No results found for "${query}"</div>`;
+      }
+    }
+
+    function highlightMatch(text, query) {
+      const idx = text.toLowerCase().indexOf(query.toLowerCase());
+      if (idx === -1) return text;
+      return text.slice(0, idx) + '<span class="text-accent font-semibold">' + text.slice(idx, idx + query.length) + '</span>' + text.slice(idx + query.length);
+    }
+
+    // Keyboard shortcut: Ctrl+K to open search
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        openSearch();
+      }
+      if (e.key === 'Escape') closeSearch();
+    });
+
+    // Mobile Menu
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobile-menu').classList.add('hidden');
+    }
+
+    // Scroll-driven reveal animations (IntersectionObserver)
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Active nav link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY + 150;
+      sections.forEach(section => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        const id = section.getAttribute('id');
+        if (scrollY >= top && scrollY < top + height) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-section') === id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+
+      // Navbar shadow on scroll
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 10) {
+        navbar.classList.add('shadow-lg', 'shadow-black/20');
+      } else {
+        navbar.classList.remove('shadow-lg', 'shadow-black/20');
+      }
+    });
+  </script>
+</body>
+</html>
