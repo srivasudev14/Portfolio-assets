@@ -430,105 +430,144 @@
         <section id="projects" class="scroll-mt-32">
           <h2 class="text-4xl font-semibold text-white mb-8 reveal">Projects, Research & Certifications</h2>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <!-- Coding Projects - Side by Side with Big Images -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- SmartChurn -->
+            <div class="reveal-scale" style="transition-delay: 300ms">
+              <a href="https://github.com/srivasudev14/SMARTCHURN-CREDIT-CARD-ATTRITION-PREDICTION-SYSTEM" target="_blank" rel="noopener noreferrer" class="block rounded-xl overflow-hidden group">
+                <div class="w-full aspect-square overflow-hidden rounded-xl border border-gray-800 group-hover:border-gray-600 transition-all">
+                  <img src="assets/images/smartchurn-preview.svg" alt="SmartChurn Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+              </a>
+              <div class="mt-4">
+                <div class="flex items-center justify-between mb-1">
+                  <h4 class="text-lg font-bold text-white uppercase tracking-wide">SmartChurn &ndash; Credit Card Attrition Prediction System</h4>
+                </div>
+                <p class="text-sm text-gray-400 mb-2">Mar 2025 &ndash; Present</p>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">Python</span>
+                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">Tableau</span>
+                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">CatBoost</span>
+                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">SMOTE</span>
+                </div>
+                <details class="group/details">
+                  <summary class="text-sm text-accent cursor-pointer hover:text-blue-300 transition-colors select-none flex items-center gap-1">
+                    <i data-lucide="chevron-right" class="w-4 h-4 transition-transform group-open/details:rotate-90"></i>
+                    Show details
+                  </summary>
+                  <ul class="text-gray-400 text-sm leading-relaxed space-y-2 mt-3 list-disc list-inside">
+                    <li>Conducted end-to-end development of a customer churn prediction system for Great One Bank using a 10K-record dataset, integrating Tableau-driven EDA and Python-based machine learning.</li>
+                    <li>Performed statistical and visual analysis in Tableau to assess the impact of credit limits and other features on churn behavior; confirmed credit limit as a statistically significant factor via t-tests (p < 0.05).</li>
+                    <li>Built and validated a high-performance CatBoost classification model, achieving 97.17% accuracy, 90.77% precision, and 92.48% recall, outperforming baseline models like Logistic Regression and Random Forest.</li>
+                    <li>Addressed class imbalance (266 attrited vs. 1324 existing) using SMOTE and hyperparameter tuning (auto_class_weights = 'Balanced') to optimize recall and reduce false positives.</li>
+                    <li>Final production test (Phase 3) underway: applying trained CatBoost model to an unseen "live" batch of 100,000+ customers, ensuring 20/80 attrition-to-retention ratio adherence for real-world deployment accuracy.</li>
+                  </ul>
+                  <a href="https://github.com/srivasudev14/SMARTCHURN-CREDIT-CARD-ATTRITION-PREDICTION-SYSTEM" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 mt-3 text-xs text-gray-400 hover:text-white transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    View on GitHub
+                  </a>
+                </details>
+              </div>
+            </div>
+
+            <!-- HeartBeacon -->
+            <div class="reveal-scale" style="transition-delay: 400ms">
+              <a href="https://github.com/srivasudev14/HeartBeacon--CardioVascular-Prediction-Model" target="_blank" rel="noopener noreferrer" class="block rounded-xl overflow-hidden group">
+                <div class="w-full aspect-square overflow-hidden rounded-xl border border-gray-800 group-hover:border-gray-600 transition-all">
+                  <img src="assets/images/heartbeacon-preview.png" alt="HeartBeacon Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+              </a>
+              <div class="mt-4">
+                <div class="flex items-center justify-between mb-1">
+                  <h4 class="text-lg font-bold text-white uppercase tracking-wide">HeartBeacon &ndash; Cardiovascular Disease Prediction Model</h4>
+                </div>
+                <p class="text-sm text-gray-400 mb-2">Nov 2024 &ndash; Dec 2024</p>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">Python</span>
+                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">Scikit-learn</span>
+                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">SMOTE</span>
+                  <span class="tag px-2 py-0.5 bg-card rounded text-xs text-accent border border-gray-800">Seaborn</span>
+                </div>
+                <details class="group/details">
+                  <summary class="text-sm text-accent cursor-pointer hover:text-blue-300 transition-colors select-none flex items-center gap-1">
+                    <i data-lucide="chevron-right" class="w-4 h-4 transition-transform group-open/details:rotate-90"></i>
+                    Show details
+                  </summary>
+                  <ul class="text-gray-400 text-sm leading-relaxed space-y-2 mt-3 list-disc list-inside">
+                    <li>Engineered a heart disease prediction pipeline using Python and a 319,000+ record dataset from Kaggle, achieving 90% accuracy through robust preprocessing, outlier treatment, and data balancing techniques (SMOTE, Tomek Links, NearMiss).</li>
+                    <li>Built and evaluated classification models including Logistic Regression, Decision Tree, and Random Forest; optimized for recall in minority class (heart disease presence) using random over-sampling.</li>
+                    <li>Implemented EDA and data visualization using Seaborn and Matplotlib, uncovering key clinical insights like the impact of BMI, sleep time, and mental health on heart disease.</li>
+                    <li>Spearheaded standardization, categorical encoding, and exploratory data analysis to create a cleaned and normalized dataset for scalable healthcare modeling.</li>
+                    <li>Hosted project on GitHub with detailed notebooks and reproducible codebase for future research and model improvement.</li>
+                  </ul>
+                  <a href="https://github.com/srivasudev14/HeartBeacon--CardioVascular-Prediction-Model" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 mt-3 text-xs text-gray-400 hover:text-white transition-colors">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    View on GitHub
+                  </a>
+                </details>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Certifications & Research - Clean row below projects -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+
             <!-- Certifications -->
-            <div class="bg-card p-6 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors h-full card-hover reveal-scale" style="transition-delay: 100ms">
-              <i data-lucide="award" class="w-6 h-6 text-accent mb-4"></i>
-              <h3 class="text-lg font-bold text-white mb-4">Certifications</h3>
-              <ul class="space-y-4">
+            <div class="bg-card p-5 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors card-hover reveal" style="transition-delay: 500ms">
+              <i data-lucide="award" class="w-5 h-5 text-accent mb-3"></i>
+              <h3 class="text-sm font-bold text-white mb-3 uppercase tracking-wider">Certifications</h3>
+              <ul class="space-y-3">
                 <li>
                   <a href="https://www.credly.com/badges/2bedf794-b479-4926-88bc-34b6e30e1507" target="_blank" rel="noopener noreferrer" class="group block">
-                    <p class="text-sm font-medium text-gray-200 group-hover:text-accent transition-colors">AWS Solutions Architect Associate (SAA-C03)</p>
-                    <p class="text-xs text-gray-500 mt-1 group-hover:text-gray-400 transition-colors">Amazon Web Services &middot; Jan 2026</p>
+                    <p class="text-sm font-medium text-gray-200 group-hover:text-accent transition-colors">AWS Solutions Architect Associate</p>
+                    <p class="text-xs text-gray-500 mt-0.5">Amazon Web Services &middot; Jan 2026</p>
                   </a>
                 </li>
                 <li>
                   <a href="https://www.credly.com/badges/e9ad49fa-4673-4748-8f98-e5b1bcc48a65/linked_in_profile" target="_blank" rel="noopener noreferrer" class="group block">
                     <p class="text-sm font-medium text-gray-200 group-hover:text-accent transition-colors">McKinsey Forward Program</p>
-                    <p class="text-xs text-gray-500 mt-1 group-hover:text-gray-400 transition-colors">McKinsey & Company &middot; Dec 2025</p>
+                    <p class="text-xs text-gray-500 mt-0.5">McKinsey & Company &middot; Dec 2025</p>
                   </a>
                 </li>
               </ul>
             </div>
 
-            <!-- Research & Publications -->
-            <div class="bg-card p-6 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors h-full card-hover reveal-scale" style="transition-delay: 200ms">
-              <i data-lucide="code" class="w-6 h-6 text-accent mb-4"></i>
-              <h3 class="text-lg font-bold text-white mb-4">Research & Publications</h3>
-
-              <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">Publications</h4>
-              <ul class="space-y-4 mb-6">
+            <!-- Publications -->
+            <div class="bg-card p-5 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors card-hover reveal" style="transition-delay: 600ms">
+              <i data-lucide="book-open" class="w-5 h-5 text-accent mb-3"></i>
+              <h3 class="text-sm font-bold text-white mb-3 uppercase tracking-wider">Publications</h3>
+              <ul class="space-y-3">
                 <li>
                   <a href="WatsonLLM_HCII2026_final.pdf" target="_blank" rel="noopener noreferrer" class="group block">
-                    <p class="text-sm font-medium text-gray-200 group-hover:text-accent transition-colors leading-snug">
-                      "Revisiting IBM Watson Personality Insights with LLMs: Restoring the Full Depth of the Big Five"
-                    </p>
-                    <p class="text-xs text-gray-500 mt-1 group-hover:text-gray-400 transition-colors">
-                      (Accepted by HCI International 2026)
-                    </p>
+                    <p class="text-sm font-medium text-gray-200 group-hover:text-accent transition-colors leading-snug">Revisiting IBM Watson Personality Insights with LLMs</p>
+                    <p class="text-xs text-gray-500 mt-0.5">HCI International 2026</p>
                   </a>
                 </li>
                 <li>
                   <a href="https://www.jetir.org/view?paper=JETIRFM06008" target="_blank" rel="noopener noreferrer" class="group block">
                     <p class="text-sm font-medium text-gray-200 group-hover:text-accent transition-colors">Bipolar Occurrence Prediction</p>
-                    <p class="text-xs text-gray-500 mt-1 group-hover:text-gray-400 transition-colors">
-                      Published Research via ML & Deep Learning (TensorFlow, PyTorch) &middot; 2022
-                    </p>
+                    <p class="text-xs text-gray-500 mt-0.5">ML & Deep Learning &middot; 2022</p>
                   </a>
                 </li>
               </ul>
+            </div>
 
-              <h4 class="text-xs font-semibold text-accent mb-3 uppercase tracking-wider">Academic Research</h4>
-              <ul class="space-y-4">
+            <!-- Academic Research -->
+            <div class="bg-card p-5 rounded-xl border border-gray-800 hover:border-gray-700 transition-colors card-hover reveal" style="transition-delay: 700ms">
+              <i data-lucide="flask-conical" class="w-5 h-5 text-accent mb-3"></i>
+              <h3 class="text-sm font-bold text-white mb-3 uppercase tracking-wider">Academic Research</h3>
+              <ul class="space-y-3">
                 <li>
-                  <span class="group block">
+                  <span class="block">
                     <p class="text-sm font-medium text-gray-200">"THE SUGGESTIVE BANKER"</p>
-                    <p class="text-xs text-gray-500 mt-1">Capstone Research on Consumer Trust in Proactive Agentic AI for Digital Banking &middot; 2026</p>
+                    <p class="text-xs text-gray-500 mt-0.5">Capstone: Consumer Trust in Agentic AI for Digital Banking &middot; 2026</p>
                   </span>
                 </li>
               </ul>
             </div>
-          </div>
 
-          <!-- Coding Projects - Side by Side -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <a href="https://github.com/srivasudev14/SMARTCHURN-CREDIT-CARD-ATTRITION-PREDICTION-SYSTEM" target="_blank" rel="noopener noreferrer" class="block border border-gray-800 rounded-xl bg-card/50 hover:bg-card hover:border-gray-600 transition-all group cursor-pointer card-hover reveal overflow-hidden h-full" style="transition-delay: 300ms">
-              <div class="w-full h-40 overflow-hidden border-b border-gray-800">
-                <img src="assets/images/smartchurn-preview.svg" alt="SmartChurn Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <div class="p-5">
-                <div class="flex justify-between items-center mb-1">
-                  <h4 class="text-md font-bold text-gray-200 group-hover:text-accent transition-colors">SmartChurn</h4>
-                  <span class="text-gray-600 text-sm">2025</span>
-                </div>
-                <p class="text-sm text-gray-400 mb-3">Customer credit card attrition prediction system using ML.</p>
-                <div class="flex items-center justify-between flex-wrap gap-2">
-                  <p class="text-xs text-accent">Python, Tableau, Scikit-learn, XGBoost</p>
-                  <span class="text-xs text-gray-400 group-hover:text-white flex items-center gap-1 transition-colors">
-                    <i data-lucide="github" class="w-3.5 h-3.5"></i> GitHub
-                  </span>
-                </div>
-              </div>
-            </a>
-
-            <a href="https://github.com/srivasudev14/HeartBeacon--CardioVascular-Prediction-Model" target="_blank" rel="noopener noreferrer" class="block border border-gray-800 rounded-xl bg-card/50 hover:bg-card hover:border-gray-600 transition-all group cursor-pointer card-hover reveal overflow-hidden h-full" style="transition-delay: 400ms">
-              <div class="w-full h-40 overflow-hidden border-b border-gray-800">
-                <img src="assets/images/heartbeacon-preview.png" alt="HeartBeacon Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <div class="p-5">
-                <div class="flex justify-between items-center mb-1">
-                  <h4 class="text-md font-bold text-gray-200 group-hover:text-accent transition-colors">HeartBeacon</h4>
-                  <span class="text-gray-600 text-sm">2024</span>
-                </div>
-                <p class="text-sm text-gray-400 mb-3">Cardiovascular prediction model, 90% accuracy on 319K healthcare records.</p>
-                <div class="flex items-center justify-between flex-wrap gap-2">
-                  <p class="text-xs text-accent">Python, Scikit-learn, SMOTE</p>
-                  <span class="text-xs text-gray-400 group-hover:text-white flex items-center gap-1 transition-colors">
-                    <i data-lucide="github" class="w-3.5 h-3.5"></i> GitHub
-                  </span>
-                </div>
-              </div>
-            </a>
           </div>
         </section>
 
