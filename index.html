@@ -9,849 +9,968 @@
   <script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Plus Jakarta Sans','system-ui','sans-serif'] } } } };</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #080808; --card: #0e0e0e; --card2: #121212;
-      --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.11);
-      --accent: #6ea8fe; --accent2: #a78bfa; --accent3: #34d399;
-      --text: #e8e8e8; --muted: #777; --faint: #444; --fainter: #2a2a2a;
+      --bg: #060608;
+      --card: #0d0d11;
+      --card2: #101016;
+      --border: rgba(255,255,255,0.07);
+      --border2: rgba(255,255,255,0.12);
+      /* Accent palette — multi-color like Accenture */
+      --purple: #a855f7;
+      --purple-dim: rgba(168,85,247,0.12);
+      --blue: #5ba5f5;
+      --blue-dim: rgba(91,165,245,0.1);
+      --teal: #2dd4bf;
+      --teal-dim: rgba(45,212,191,0.1);
+      --amber: #f59e0b;
+      --amber-dim: rgba(245,158,11,0.1);
+      --green: #34d399;
+      --green-dim: rgba(52,211,153,0.1);
+      --accent: #7c6dfa; /* primary — rich violet-blue */
+      --text: #ebebeb;
+      --body: #aaa;      /* body text — much lighter than before */
+      --muted: #777;
+      --faint: #555;     /* section tags — now clearly visible */
+      --fainter: #333;
     }
     html { background: var(--bg); scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; overflow-x: hidden; line-height: 1.6; }
-    ::selection { background: var(--accent); color: #000; }
+    ::selection { background: var(--accent); color: #fff; }
     ::-webkit-scrollbar { width: 3px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #1a1a1a; border-radius: 2px; }
+    ::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-    body::after {
-      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");
-      opacity: 0.03;
+    /* Noise */
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.028;
     }
 
-    /* NAV */
+    /* ── NAV ── */
     #nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      padding: 18px 48px; display: flex; align-items: center; justify-content: space-between;
-      transition: background 0.4s, border-color 0.4s;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      padding: 18px 52px; display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.45s, border-color 0.45s;
     }
-    #nav.stuck { background: rgba(8,8,8,0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
-    .nav-brand { font-size: 15px; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.01em; }
-    .nav-links { display: flex; align-items: center; gap: 4px; }
-    .nav-links a { color: var(--muted); font-size: 13px; font-weight: 500; text-decoration: none; padding: 6px 12px; border-radius: 100px; transition: color 0.2s, background 0.2s; }
+    #nav.stuck { background: rgba(6,6,8,0.92); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); border-bottom: 1px solid var(--border); }
+    .nav-brand { font-size: 15px; font-weight: 800; color: var(--text); text-decoration: none; letter-spacing: -0.015em; }
+    .nav-links { display: flex; align-items: center; gap: 2px; }
+    .nav-links a { color: #666; font-size: 13px; font-weight: 500; text-decoration: none; padding: 6px 13px; border-radius: 100px; transition: color 0.2s, background 0.2s; }
     .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
-    .nav-resume { font-size: 13px; font-weight: 600; color: var(--accent); text-decoration: none; padding: 7px 16px; border: 1px solid rgba(110,168,254,0.28); border-radius: 100px; transition: background 0.2s, border-color 0.2s; }
-    .nav-resume:hover { background: rgba(110,168,254,0.08); border-color: rgba(110,168,254,0.55); }
+    .nav-cta { font-size: 12px; font-weight: 700; color: var(--accent); text-decoration: none; padding: 7px 18px; border: 1px solid rgba(124,109,250,0.3); border-radius: 100px; letter-spacing: 0.02em; transition: background 0.2s, border-color 0.2s, box-shadow 0.2s; }
+    .nav-cta:hover { background: rgba(124,109,250,0.1); border-color: rgba(124,109,250,0.6); box-shadow: 0 0 20px rgba(124,109,250,0.15); }
 
-    /* HERO */
-    #hero { display: grid; grid-template-columns: 42% 58%; min-height: 100vh; }
+    /* ── HERO ── */
+    #hero { display: grid; grid-template-columns: 42% 58%; min-height: 100vh; position: relative; }
     .hero-photo { position: relative; overflow: hidden; }
     .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
-    .hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 55%, var(--bg) 100%), linear-gradient(0deg, var(--bg) 0%, transparent 15%); }
-    .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 120px 64px 80px 48px; }
-    .hero-name { font-size: clamp(56px, 7.5vw, 100px); font-weight: 800; line-height: 0.93; letter-spacing: -0.04em; color: #fff; margin-bottom: 10px; }
-    .hero-name span { background: linear-gradient(135deg, #fff 0%, #b3d0ff 45%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .hero-title { font-size: 15px; color: #666; font-weight: 400; letter-spacing: 0.01em; margin-bottom: 18px; line-height: 1.75; }
-    .hero-title strong { color: #999; font-weight: 600; }
-    .hero-status { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #555; background: rgba(255,255,255,0.03); border: 1px solid var(--fainter); border-radius: 100px; padding: 6px 14px; margin-bottom: 36px; width: fit-content; }
-    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent3); box-shadow: 0 0 7px var(--accent3); animation: pulse-dot 2.5s ease-in-out infinite; }
-    @keyframes pulse-dot { 0%,100% { opacity:1;transform:scale(1); } 50% { opacity:.4;transform:scale(.7); } }
+    .hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 50%, var(--bg) 100%), linear-gradient(0deg, var(--bg) 0%, transparent 18%); }
+    .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 120px 68px 80px 52px; position: relative; }
+
+    /* Ambient orb in hero text panel */
+    .hero-text::before {
+      content: ''; position: absolute; top: 20%; right: 5%; width: 380px; height: 380px;
+      background: radial-gradient(ellipse, rgba(124,109,250,0.08) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+      animation: orb-drift 8s ease-in-out infinite alternate;
+    }
+    @keyframes orb-drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,-20px) scale(1.08); } }
+
+    .hero-name { font-size: clamp(58px, 8vw, 104px); font-weight: 800; line-height: 0.92; letter-spacing: -0.045em; color: #fff; margin-bottom: 12px; position: relative; }
+    .hero-name .grad { background: linear-gradient(125deg, #ffffff 0%, #c4b5fd 40%, var(--purple) 75%, var(--blue) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-title { font-size: 15px; color: #888; font-weight: 400; margin-bottom: 20px; line-height: 1.8; letter-spacing: 0.01em; }
+    .hero-title strong { color: #bbb; font-weight: 600; }
+    .hero-status {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #555; background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 100px; padding: 6px 16px; margin-bottom: 36px; width: fit-content;
+    }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse-dot 2.5s ease-in-out infinite; flex-shrink: 0; }
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.65)} }
     .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 52px; }
-    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 100px; background: var(--accent); color: #000; font-size: 14px; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.2s, box-shadow 0.2s; }
-    .btn-primary:hover { background: #9fc5ff; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(110,168,254,0.22); }
-    .btn-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 100px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: #bbb; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+
+    /* Buttons */
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 30px; border-radius: 100px; background: var(--accent); color: #fff; font-size: 14px; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.2s, box-shadow 0.2s; letter-spacing: 0.01em; }
+    .btn-primary:hover { background: #9480fc; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(124,109,250,0.28); }
+    .btn-ghost { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 100px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: #ccc; font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s, border-color 0.2s, transform 0.2s; }
     .btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.22); transform: translateY(-2px); }
-    .hero-socials { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+
+    .hero-socials { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
     .hero-socials a { color: var(--fainter); text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; display: flex; align-items: center; gap: 6px; }
     .hero-socials a:hover { color: var(--text); }
-    .hero-socials .sep { color: #181818; }
+    .hero-socials .sep { color: #1a1a1a; }
 
-    /* COMPANY LOGOS STRIP */
-    .logos-strip { padding: 28px 48px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 0; flex-wrap: wrap; }
-    .logos-label { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #222; margin-right: 32px; white-space: nowrap; }
+    /* ── COMPANY LOGOS STRIP ── */
+    .logos-strip { padding: 24px 52px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0; }
+    .logos-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #2a2a2a; margin-right: 36px; white-space: nowrap; }
     .logos-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-    .logo-tile {
-      display: flex; align-items: center; gap: 10px;
-      padding: 9px 16px; border-radius: 12px;
-      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-      transition: border-color 0.25s, background 0.25s;
-    }
-    .logo-tile:hover { background: rgba(255,255,255,0.055); border-color: rgba(255,255,255,0.12); }
-    .logo-tile img { height: 20px; width: auto; object-fit: contain; filter: brightness(0) invert(0.55); transition: filter 0.25s; }
-    .logo-tile:hover img { filter: brightness(0) invert(0.82); }
-    .logo-tile span { font-size: 12px; font-weight: 600; color: #2e2e2e; transition: color 0.25s; }
-    .logo-tile:hover span { color: #888; }
-    .logo-sep { width: 1px; height: 20px; background: var(--border); margin: 0 2px; }
+    .logo-pill { display: flex; align-items: center; gap: 9px; padding: 8px 16px; border-radius: 100px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); transition: border-color 0.2s, background 0.2s; }
+    .logo-pill:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+    .logo-pill img { height: 18px; width: auto; object-fit: contain; filter: brightness(0) invert(0.4); transition: filter 0.2s; }
+    .logo-pill:hover img { filter: brightness(0) invert(0.75); }
+    .logo-pill span { font-size: 12px; font-weight: 600; color: #2a2a2a; transition: color 0.2s; }
+    .logo-pill:hover span { color: #888; }
+    .l-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.05); margin: 0 2px; }
 
-    /* MARQUEE */
-    .marquee-wrap { overflow: hidden; position: relative; border-bottom: 1px solid var(--border); padding: 16px 0; }
-    .marquee-wrap::before, .marquee-wrap::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; }
-    .marquee-wrap::before { left:0; background: linear-gradient(90deg, var(--bg), transparent); }
-    .marquee-wrap::after { right:0; background: linear-gradient(-90deg, var(--bg), transparent); }
-    .marquee-inner { display: flex; width: max-content; animation: marquee-scroll 32s linear infinite; }
-    .marquee-inner:hover { animation-play-state: paused; }
-    @keyframes marquee-scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-    .m-item { display: flex; align-items: center; gap: 24px; padding: 0 24px; white-space: nowrap; font-size: 11px; font-weight: 600; color: #222; letter-spacing: 0.06em; text-transform: uppercase; }
-    .m-dot { width: 3px; height: 3px; border-radius: 50%; background: #1c1c1c; }
+    /* ── MARQUEE ── */
+    .marquee-wrap { overflow: hidden; position: relative; background: rgba(255,255,255,0.015); padding: 15px 0; }
+    .marquee-wrap::before,.marquee-wrap::after { content:''; position:absolute; top:0; bottom:0; width:90px; z-index:2; }
+    .marquee-wrap::before { left:0; background:linear-gradient(90deg,var(--bg),transparent); }
+    .marquee-wrap::after { right:0; background:linear-gradient(-90deg,var(--bg),transparent); }
+    .marquee-inner { display:flex; width:max-content; animation:marquee-run 35s linear infinite; }
+    .marquee-inner:hover { animation-play-state:paused; }
+    @keyframes marquee-run { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .m-item { display:flex; align-items:center; gap:22px; padding:0 22px; white-space:nowrap; font-size:11px; font-weight:700; color:#252525; letter-spacing:0.07em; text-transform:uppercase; }
+    .m-dot { width:3px; height:3px; border-radius:50%; background:#1c1c1c; }
 
-    /* SECTION */
-    .section-wrap { max-width: 1200px; margin: 0 auto; padding: 96px 48px; }
-    .section-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--faint); margin-bottom: 10px; display: block; }
-    .section-headline { font-size: clamp(30px, 4.2vw, 52px); font-weight: 800; letter-spacing: -0.033em; line-height: 1.06; color: #fff; }
-    .section-headline em { font-style: normal; color: var(--accent); }
-    .section-sub { font-size: 15px; color: var(--muted); line-height: 1.75; }
+    /* ── SECTION SCAFFOLD ── */
+    .section-wrap { max-width: 1240px; margin: 0 auto; padding: 100px 52px; }
+    .section-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--faint); margin-bottom: 12px; display: block; }
+    .section-tag.purple { color: rgba(168,85,247,0.7); }
+    .section-tag.teal { color: rgba(45,212,191,0.7); }
+    .section-tag.amber { color: rgba(245,158,11,0.65); }
+    .section-tag.blue { color: rgba(91,165,245,0.7); }
+    .section-headline { font-size: clamp(34px, 4.5vw, 58px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.05; color: #fff; }
+    .section-headline .grad-purple { background: linear-gradient(120deg, #fff 0%, #c4b5fd 50%, var(--purple) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .section-headline .grad-teal { background: linear-gradient(120deg, #fff 0%, #99f6e4 50%, var(--teal) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .section-headline .grad-blue { background: linear-gradient(120deg, #fff 0%, #bae0ff 50%, var(--blue) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .body-text { font-size: 16px; line-height: 1.82; color: var(--body); }
+    .body-text a { color: var(--blue); text-decoration: none; }
+    .body-text a:hover { text-decoration: underline; }
     .divider { border: none; border-top: 1px solid var(--border); }
 
-    /* ABOUT editorial */
-    .editorial-strip { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; overflow: hidden; }
-    .editorial-text { display: flex; flex-direction: column; justify-content: center; padding: 80px 56px 80px 48px; }
+    /* ── ABOUT editorial ── */
+    .editorial-strip { display: grid; grid-template-columns: 1fr 1fr; min-height: 520px; overflow: hidden; position: relative; }
+    .editorial-text { display: flex; flex-direction: column; justify-content: center; padding: 80px 56px 80px 52px; }
     .editorial-visual { position: relative; overflow: hidden; }
-    .editorial-visual img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 6s ease; }
-    .editorial-strip:hover .editorial-visual img { transform: scale(1.04); }
-    .editorial-visual::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, var(--bg) 0%, rgba(8,8,8,0.15) 55%, transparent 100%); }
-    .editorial-para { font-size: 16px; line-height: 1.82; color: #666; margin-bottom: 14px; }
-    .editorial-para a { color: var(--accent); text-decoration: none; }
-    .editorial-para a:hover { text-decoration: underline; }
+    .editorial-visual img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 8s ease; }
+    .editorial-strip:hover .editorial-visual img { transform: scale(1.05); }
+    .editorial-visual::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, var(--bg) 0%, rgba(6,6,8,0.15) 55%, transparent 100%); }
 
-    /* STATS */
-    .stats-grid { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 10px; }
-    .stats-wide-card { position: relative; overflow: hidden; border-radius: 20px; border: 1px solid var(--border); min-height: 280px; }
-    .stats-wide-card img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
-    .stats-wide-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(8,8,8,0.94) 0%, rgba(8,8,8,0.55) 55%, rgba(8,8,8,0.12) 100%); }
-    .stats-wide-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px; z-index: 2; }
-    .stat-row { display: grid; grid-template-rows: 1fr 1fr; gap: 10px; }
-    .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 24px 22px; transition: border-color 0.3s, transform 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
-    .stat-card:hover { border-color: rgba(110,168,254,0.22); transform: translateY(-3px); }
-    .stat-num { font-size: clamp(28px, 3vw, 46px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: #fff; margin-bottom: 6px; }
-    .stat-num .hi { color: var(--accent); }
-    .stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--faint); }
+    /* Journey strip */
+    .journey-strip {
+      display: flex; align-items: stretch; gap: 0;
+      margin-top: 32px; padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .journey-node { flex: 1; padding-right: 24px; position: relative; }
+    .journey-node:not(:last-child)::after {
+      content: '→'; position: absolute; right: 4px; top: 14px;
+      color: #2a2a2a; font-size: 14px; font-weight: 400;
+    }
+    .j-city { font-size: 13px; font-weight: 800; color: #fff; letter-spacing: -0.01em; margin-bottom: 2px; }
+    .j-role { font-size: 11px; color: var(--faint); margin-bottom: 1px; }
+    .j-year { font-size: 10px; color: #2c2c2c; letter-spacing: 0.06em; font-weight: 600; }
+    .j-dot { width: 6px; height: 6px; border-radius: 50%; margin-bottom: 8px; }
 
-    /* EXPERIENCE */
-    .exp-editorial { display: grid; grid-template-columns: 1fr 1fr; min-height: 380px; border-radius: 22px; overflow: hidden; border: 1px solid var(--border); transition: border-color 0.3s; }
-    .exp-editorial:hover { border-color: rgba(110,168,254,0.18); }
+    /* ── STATS ── */
+    .stats-section { background: linear-gradient(180deg, var(--bg) 0%, #08080f 50%, var(--bg) 100%); }
+    .stats-grid { display: grid; grid-template-columns: 1.8fr repeat(3, 1fr); gap: 10px; }
+    .stats-wide { position: relative; overflow: hidden; border-radius: 22px; border: 1px solid var(--border); min-height: 300px; }
+    .stats-wide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .stats-wide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(6,6,8,0.95) 0%, rgba(6,6,8,0.6) 55%, rgba(6,6,8,0.15) 100%); }
+    .stats-wide-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 30px; z-index: 2; }
+    .stat-col { display: grid; grid-template-rows: repeat(2, 1fr); gap: 10px; }
+    .stat-tile {
+      border-radius: 20px; padding: 24px 22px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .stat-tile::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s; }
+    .stat-tile:hover { transform: translateY(-4px); }
+    .stat-tile.purple-t { border-top: 2px solid rgba(168,85,247,0.4); }
+    .stat-tile.purple-t:hover { border-color: rgba(168,85,247,0.6); box-shadow: 0 8px 30px rgba(168,85,247,0.08); }
+    .stat-tile.blue-t { border-top: 2px solid rgba(91,165,245,0.4); }
+    .stat-tile.blue-t:hover { border-color: rgba(91,165,245,0.6); box-shadow: 0 8px 30px rgba(91,165,245,0.08); }
+    .stat-tile.teal-t { border-top: 2px solid rgba(45,212,191,0.4); }
+    .stat-tile.teal-t:hover { border-color: rgba(45,212,191,0.6); box-shadow: 0 8px 30px rgba(45,212,191,0.08); }
+    .stat-tile.amber-t { border-top: 2px solid rgba(245,158,11,0.4); }
+    .stat-tile.amber-t:hover { border-color: rgba(245,158,11,0.6); box-shadow: 0 8px 30px rgba(245,158,11,0.08); }
+    .stat-tile.green-t { border-top: 2px solid rgba(52,211,153,0.4); }
+    .stat-tile.green-t:hover { border-color: rgba(52,211,153,0.6); box-shadow: 0 8px 30px rgba(52,211,153,0.08); }
+    .stat-tile.rose-t { border-top: 2px solid rgba(251,113,133,0.4); }
+    .stat-tile.rose-t:hover { border-color: rgba(251,113,133,0.6); box-shadow: 0 8px 30px rgba(251,113,133,0.08); }
+    .stat-num { font-size: clamp(28px, 3vw, 44px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 7px; }
+    .stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--faint); }
+
+    /* ── EXPERIENCE section ── */
+    .exp-section { background: linear-gradient(180deg, var(--bg) 0%, #0a0a12 40%, #0a0a12 60%, var(--bg) 100%); }
+    .exp-editorial { display: grid; grid-template-columns: 1fr 1fr; min-height: 400px; border-radius: 24px; overflow: hidden; border: 1px solid var(--border); transition: border-color 0.35s, box-shadow 0.35s; }
+    .exp-editorial:hover { border-color: rgba(255,255,255,0.12); box-shadow: 0 0 40px rgba(0,0,0,0.4); }
     .exp-editorial.reverse { direction: rtl; }
     .exp-editorial.reverse > * { direction: ltr; }
-    .exp-text { padding: 44px; display: flex; flex-direction: column; justify-content: center; background: var(--card); }
-    .exp-visual { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-    .exp-visual .bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; opacity: 0.12; transition: opacity 0.4s; }
-    .exp-editorial:hover .exp-visual .bg-img { opacity: 0.18; }
-    .exp-visual .logo-wrap { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 32px; text-align: center; }
-    .exp-visual .company-logo { width: 140px; height: 140px; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(255,255,255,0.04); }
-    .exp-visual .company-logo img { width: 100%; height: 100%; object-fit: contain; }
-    .exp-visual .co-name { font-size: 12px; font-weight: 700; color: #333; letter-spacing: 0.08em; text-transform: uppercase; }
-    .exp-visual .co-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; max-width: 220px; }
-    .exp-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25); border-radius: 100px; padding: 4px 12px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent3); margin-bottom: 14px; width: fit-content; }
-    .exp-role { font-size: clamp(17px, 2.2vw, 24px); font-weight: 800; letter-spacing: -0.022em; color: #fff; margin-bottom: 4px; line-height: 1.2; }
+    .exp-text { padding: 48px; display: flex; flex-direction: column; justify-content: center; background: var(--card); }
+    .exp-visual { position: relative; overflow: hidden; }
+
+    /* Full-bleed photo panel (MTA, EY) */
+    .exp-photo { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transition: transform 7s ease; }
+    .exp-editorial:hover .exp-photo { transform: scale(1.04); }
+    .exp-photo-veil { position: absolute; inset: 0; }
+
+    /* Logo panel (IpserLab, Consilio) */
+    .exp-logo-panel { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 40px; position: relative; overflow: hidden; }
+    .exp-logo-panel .orb { position: absolute; border-radius: 50%; pointer-events: none; animation: orb-pulse 6s ease-in-out infinite alternate; }
+    @keyframes orb-pulse { from{opacity:0.8;transform:scale(1)} to{opacity:0.4;transform:scale(1.2)} }
+    .exp-logo-box { width: 120px; height: 80px; display: flex; align-items: center; justify-content: center; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.97); padding: 12px; flex-shrink: 0; }
+    .exp-logo-box img { width: 100%; height: 100%; object-fit: contain; }
+    .exp-co-name { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -0.02em; text-align: center; }
+    .exp-co-sub { font-size: 12px; color: var(--faint); text-align: center; letter-spacing: 0.04em; }
+
+    .exp-badge { display: inline-flex; align-items: center; gap: 6px; border-radius: 100px; padding: 4px 12px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; width: fit-content; }
+    .exp-badge.current { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25); color: var(--green); }
+    .exp-role { font-size: clamp(17px, 2vw, 23px); font-weight: 800; letter-spacing: -0.022em; color: #fff; margin-bottom: 4px; line-height: 1.2; }
     .exp-sub { font-size: 12px; color: #444; font-weight: 500; margin-bottom: 10px; }
     .exp-meta { font-size: 13px; color: var(--muted); margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
-    .exp-meta a { color: #6ea8fe99; text-decoration: none; font-weight: 600; transition: color 0.2s; }
-    .exp-meta a:hover { color: var(--accent); text-decoration: underline; }
+    .exp-meta a { color: rgba(91,165,245,0.8); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+    .exp-meta a:hover { color: var(--blue); }
     .exp-sep { color: var(--fainter); }
-    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-    .exp-bullets li { display: flex; gap: 10px; font-size: 13px; color: #5a5a5a; line-height: 1.65; }
-    .exp-bullets li::before { content: '\2192'; color: #6ea8fe66; flex-shrink: 0; margin-top: 2px; font-weight: 600; }
-    .exp-plain { border-radius: 22px; overflow: hidden; border: 1px solid var(--border); background: var(--card); transition: border-color 0.3s; padding: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; min-height: 200px; }
-    .exp-plain:hover { border-color: rgba(110,168,254,0.18); }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .exp-bullets li { display: flex; gap: 10px; font-size: 13px; color: #777; line-height: 1.65; }
+    .exp-bullets li::before { content: '→'; color: rgba(124,109,250,0.5); flex-shrink: 0; margin-top: 2px; font-weight: 600; }
+    .chips-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+    .chip { display: inline-block; padding: 4px 11px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; font-weight: 500; color: #555; transition: color 0.2s, border-color 0.2s; }
+    .chip:hover { color: var(--blue); border-color: rgba(91,165,245,0.3); }
 
-    /* HOBBY tiles */
+    /* Consilio plain card */
+    .exp-plain { border-radius: 24px; border: 1px solid var(--border); background: var(--card); transition: border-color 0.3s; padding: 44px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+    .exp-plain:hover { border-color: rgba(255,255,255,0.11); }
+
+    /* ── BEYOND THE DESK ── */
+    .life-section { background: linear-gradient(180deg, var(--bg) 0%, #080810 50%, var(--bg) 100%); }
     .hobby-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    .hobby-tile { position: relative; overflow: hidden; border-radius: 20px; aspect-ratio: 3/4; border: 1px solid var(--border); transition: transform 0.4s, border-color 0.3s; }
-    .hobby-tile:hover { transform: translateY(-6px); border-color: rgba(110,168,254,0.28); }
+    .hobby-tile { position: relative; overflow: hidden; border-radius: 20px; aspect-ratio: 3/4; border: 1px solid var(--border); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.3s; }
+    .hobby-tile:hover { transform: translateY(-8px) scale(1.01); border-color: rgba(255,255,255,0.14); }
     .hobby-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 5s ease; }
-    .hobby-tile:hover img { transform: scale(1.07); }
-    .hobby-tile .veil { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.18) 55%, transparent 100%); }
-    .hobby-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 18px; z-index: 2; }
-    .hobby-label h4 { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 3px; }
-    .hobby-label p { font-size: 11px; color: #666; }
-    .hobby-tile-plain { border-radius: 20px; aspect-ratio: 3/4; border: 1px solid var(--border); background: var(--card); display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.4s; }
-    .hobby-tile-plain:hover { border-color: rgba(110,168,254,0.24); transform: translateY(-6px); }
+    .hobby-tile:hover img { transform: scale(1.08); }
+    .hobby-veil { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.15) 55%, transparent 100%); }
+    .hobby-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; z-index: 2; }
+    .hobby-label h4 { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 3px; }
+    .hobby-label p { font-size: 11px; color: #777; }
 
-    /* PROJECT cards */
+    /* ── PROJECTS ── */
     .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .proj-card { background: var(--card); border: 1px solid var(--border); border-radius: 22px; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
-    .proj-card:hover { border-color: rgba(110,168,254,0.2); transform: translateY(-4px); }
+    .proj-card { background: var(--card); border: 1px solid var(--border); border-radius: 22px; overflow: hidden; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; }
+    .proj-card:hover { border-color: rgba(124,109,250,0.2); transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
     .proj-img { width: 100%; aspect-ratio: 16/9; overflow: hidden; }
     .proj-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 5s ease; }
     .proj-card:hover .proj-img img { transform: scale(1.04); }
-    .proj-body { padding: 26px; }
-    .proj-name { font-size: 19px; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 7px; }
-    .proj-desc { font-size: 13px; color: #5a5a5a; line-height: 1.65; margin-bottom: 14px; }
+    .proj-body { padding: 28px; }
+    .proj-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); margin-bottom: 9px; }
+    .proj-name { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .proj-desc { font-size: 13px; color: #777; line-height: 1.68; margin-bottom: 16px; }
 
-    /* CHIP */
-    .chip { display: inline-block; padding: 4px 11px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; font-weight: 500; color: #4a4a4a; transition: color 0.2s, border-color 0.2s; }
-    .chip:hover { color: var(--accent); border-color: rgba(110,168,254,0.28); }
+    /* Info cards (certs/pubs/research) */
+    .info-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 14px; }
+    .info-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 26px; transition: border-color 0.3s, transform 0.3s; }
+    .info-card:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-3px); }
+    .info-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); margin-bottom: 18px; }
+    .cert-item { display: flex; gap: 12px; align-items: flex-start; }
+    .cert-icon { width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .cert-text { flex: 1; }
+    .cert-name { font-size: 13px; font-weight: 700; color: #d0d0d0; line-height: 1.35; margin-bottom: 3px; transition: color 0.2s; }
+    .cert-by { font-size: 11px; color: var(--faint); }
+    .cert-link { text-decoration: none; display: flex; gap: 12px; align-items: flex-start; }
+    .cert-link:hover .cert-name { color: var(--blue); }
+    .pub-item { margin-bottom: 14px; }
+    .pub-item:last-child { margin-bottom: 0; }
+    .pub-link { text-decoration: none; }
+    .pub-name { font-size: 13px; font-weight: 600; color: #bbb; line-height: 1.4; margin-bottom: 3px; transition: color 0.2s; }
+    .pub-link:hover .pub-name { color: var(--blue); }
+    .pub-venue { font-size: 11px; color: var(--faint); }
 
-    /* EDUCATION */
+    /* ── EDUCATION ── */
     .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .edu-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 30px; transition: border-color 0.3s, transform 0.3s; display: flex; flex-direction: column; }
-    .edu-card:hover { border-color: rgba(110,168,254,0.18); transform: translateY(-3px); }
+    .edu-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 32px; transition: border-color 0.3s, transform 0.3s; display: flex; flex-direction: column; }
+    .edu-card:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-4px); }
+    .edu-logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .edu-logo { width: 44px; height: 44px; border-radius: 11px; overflow: hidden; border: 1px solid var(--border); flex-shrink: 0; background: #0f0f0f; display: flex; align-items: center; justify-content: center; }
+    .edu-logo img { width: 100%; height: 100%; object-fit: cover; }
+    .edu-degree { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 5px; line-height: 1.2; }
+    .edu-spec { font-size: 12px; color: var(--muted); margin-bottom: 18px; }
+    .edu-footer { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .edu-year { font-size: 12px; color: var(--fainter); }
+    .edu-gpa { font-size: 16px; font-weight: 800; color: var(--accent); }
 
-    /* CONTACT */
-    .contact-email { font-size: clamp(26px, 3.8vw, 48px); font-weight: 800; letter-spacing: -0.03em; color: #fff; text-decoration: none; display: inline-block; transition: color 0.2s; border-bottom: 2px solid var(--border); padding-bottom: 4px; }
+    /* ── CONTACT ── */
+    .contact-section { background: linear-gradient(180deg, var(--bg) 0%, #09090f 100%); }
+    .contact-email { font-size: clamp(24px, 3.5vw, 46px); font-weight: 800; letter-spacing: -0.03em; color: #fff; text-decoration: none; display: inline-block; transition: color 0.25s; border-bottom: 2px solid rgba(255,255,255,0.07); padding-bottom: 4px; }
     .contact-email:hover { color: var(--accent); border-bottom-color: var(--accent); }
-    .form-field { width: 100%; padding: 13px 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; font-size: 14px; font-family: inherit; color: var(--text); outline: none; transition: border-color 0.2s, background 0.2s; }
-    .form-field::placeholder { color: #222; }
-    .form-field:focus { border-color: rgba(110,168,254,0.38); background: rgba(110,168,254,0.03); }
+    .form-field { width: 100%; padding: 14px 18px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 14px; font-size: 14px; font-family: inherit; color: var(--text); outline: none; transition: border-color 0.2s, background 0.2s; }
+    .form-field::placeholder { color: #232323; }
+    .form-field:focus { border-color: rgba(124,109,250,0.4); background: rgba(124,109,250,0.03); }
 
-    /* INFO CARDS */
-    .info-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 26px; transition: border-color 0.3s; }
-    .info-card:hover { border-color: rgba(110,168,254,0.18); }
-    .ct { font-size: 13px; font-weight: 600; color: #bbb; transition: color 0.2s; line-height: 1.4; }
-    .cert-link { text-decoration: none; display: block; }
-    .cert-link:hover .ct { color: var(--accent); }
-
-    /* REVEALS */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
+    /* ── REVEALS ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
     .reveal.vis { opacity: 1; transform: translateY(0); }
-    .reveal-l { opacity: 0; transform: translateX(-24px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-l { opacity: 0; transform: translateX(-28px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
     .reveal-l.vis { opacity: 1; transform: translateX(0); }
-    .reveal-r { opacity: 0; transform: translateX(24px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-r { opacity: 0; transform: translateX(28px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
     .reveal-r.vis { opacity: 1; transform: translateX(0); }
 
-    /* RESPONSIVE */
-    @media (max-width: 960px) {
+    /* ── RESPONSIVE ── */
+    @media (max-width: 980px) {
       #hero { grid-template-columns: 1fr; }
-      .hero-photo { height: 52vw; max-height: 340px; }
-      .hero-photo::after { background: linear-gradient(0deg, var(--bg) 0%, transparent 50%); }
-      .hero-text { padding: 28px 24px 60px; }
-      .logos-strip { padding: 20px 24px; }
+      .hero-photo { height: 56vw; max-height: 360px; }
+      .hero-photo::after { background: linear-gradient(0deg, var(--bg) 0%, transparent 55%); }
+      .hero-text { padding: 32px 24px 64px; }
+      .hero-text::before { display: none; }
+      .logos-strip { padding: 18px 24px; }
       .editorial-strip { grid-template-columns: 1fr; }
-      .editorial-visual { height: 240px; order: -1; }
-      .editorial-visual::before { background: linear-gradient(0deg, var(--bg) 0%, transparent 55%); }
-      .editorial-text { padding: 36px 24px; }
+      .editorial-visual { height: 250px; order: -1; }
+      .editorial-visual::before { background: linear-gradient(0deg, var(--bg) 0%, transparent 60%); }
+      .editorial-text { padding: 40px 24px; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
-      .stats-wide-card { grid-column: span 2; }
-      .stat-row { grid-template-rows: 1fr; grid-template-columns: 1fr 1fr; }
+      .stats-wide { grid-column: span 2; }
+      .stat-col { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
       .exp-editorial { grid-template-columns: 1fr; }
-      .exp-editorial .exp-visual { height: 200px; order: -1; }
+      .exp-editorial .exp-visual { height: 220px; order: -1; }
       .exp-editorial.reverse { direction: ltr; }
-      .exp-plain { grid-template-columns: 1fr; gap: 20px; }
+      .exp-plain { grid-template-columns: 1fr; gap: 24px; }
       .hobby-grid { grid-template-columns: repeat(2, 1fr); }
       .proj-grid { grid-template-columns: 1fr; }
+      .info-cards { grid-template-columns: 1fr; }
       .edu-grid { grid-template-columns: 1fr; }
-      #nav { padding: 14px 20px; }
+      #nav { padding: 14px 24px; }
       .nav-links { display: none; }
-      .section-wrap { padding: 68px 24px; }
+      .section-wrap { padding: 72px 24px; }
     }
     section { scroll-margin-top: 80px; }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav id="nav">
-    <a href="#hero" class="nav-brand">Sri Vasudev</a>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#life">Life</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <a href="/assets/resume/Srivasudev_resume.pdf" target="_blank" rel="noopener noreferrer" class="nav-resume">Resume &#8599;</a>
-  </nav>
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="#hero" class="nav-brand">Sri Vasudev</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#life">Life</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="/assets/resume/Srivasudev_resume.pdf" target="_blank" rel="noopener noreferrer" class="nav-cta">Resume &#8599;</a>
+</nav>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-photo">
-      <img src="assets/images/hero-portrait.jpg" alt="Sri Vasudev, Times Square New York" />
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-photo">
+    <img src="assets/images/hero-portrait.jpg" alt="Sri Vasudev at Times Square, New York" />
+  </div>
+  <div class="hero-text">
+    <h1 class="hero-name">
+      Sri<br/><span class="grad">Vasudev</span>
+    </h1>
+    <p class="hero-title">
+      <strong>Data &amp; AI</strong> &nbsp;&middot;&nbsp; <strong>Product Management</strong><br/>
+      <strong>Technology Consulting</strong>
+    </p>
+    <div class="hero-status">
+      <span class="live-dot"></span>
+      Open to 2026 full-time roles &nbsp;&middot;&nbsp; Los Angeles, CA
     </div>
-    <div class="hero-text">
-      <h1 class="hero-name">Sri<br/><span>Vasudev</span></h1>
-      <p class="hero-title">
-        <strong>Data &amp; AI</strong> &middot; <strong>Product Management</strong><br/>
-        <strong>Technology Consulting</strong>
+    <div class="hero-ctas">
+      <a href="#experience" class="btn-primary">View My Work</a>
+      <a href="/assets/resume/Srivasudev_resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-ghost">
+        Download CV
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a>
+    </div>
+    <div class="hero-socials">
+      <a href="https://github.com/srivasudev14" target="_blank" rel="noopener noreferrer">
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <span class="sep">&middot;</span>
+      <a href="https://www.linkedin.com/in/srivasudev/" target="_blank" rel="noopener noreferrer">
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <span class="sep">&middot;</span>
+      <a href="mailto:sri.vasudev14@gmail.com">sri.vasudev14@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMPANY LOGOS STRIP ── -->
+<div class="logos-strip reveal">
+  <span class="logos-label">Experience at</span>
+  <div class="logos-row">
+    <div class="logo-pill">
+      <img src="assets/images/ey-logo.jpg" alt="EY" style="height:16px;" />
+      <span>Ernst &amp; Young</span>
+    </div>
+    <div class="l-sep"></div>
+    <div class="logo-pill">
+      <img src="assets/images/mta-logo.jpg" alt="MTA" style="height:20px;border-radius:3px;" />
+      <span>MTA</span>
+    </div>
+    <div class="l-sep"></div>
+    <div class="logo-pill">
+      <img src="assets/images/ipserlab-logo.png" alt="IpserLab" style="height:18px;" />
+      <span>IpserLab</span>
+    </div>
+    <div class="l-sep"></div>
+    <div class="logo-pill">
+      <img src="assets/images/consilio-logo.jpg" alt="Consilio" style="height:16px;" />
+      <span>Consilio</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── MARQUEE ── -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <div class="m-item">Ernst &amp; Young <span class="m-dot"></span></div>
+    <div class="m-item">Metropolitan Transportation Authority <span class="m-dot"></span></div>
+    <div class="m-item">IpserLab LLC <span class="m-dot"></span></div>
+    <div class="m-item">AWS Solutions Architect <span class="m-dot"></span></div>
+    <div class="m-item">McKinsey Forward Program <span class="m-dot"></span></div>
+    <div class="m-item">Azure Databricks <span class="m-dot"></span></div>
+    <div class="m-item">GenAI &amp; LLMs <span class="m-dot"></span></div>
+    <div class="m-item">Power BI &amp; Tableau <span class="m-dot"></span></div>
+    <div class="m-item">Fortune 500 Consulting <span class="m-dot"></span></div>
+    <div class="m-item">HCI International 2026 <span class="m-dot"></span></div>
+    <div class="m-item">Product Management <span class="m-dot"></span></div>
+    <div class="m-item">Bengaluru &#8594; New York &#8594; Los Angeles <span class="m-dot"></span></div>
+    <div class="m-item">Ernst &amp; Young <span class="m-dot"></span></div>
+    <div class="m-item">Metropolitan Transportation Authority <span class="m-dot"></span></div>
+    <div class="m-item">IpserLab LLC <span class="m-dot"></span></div>
+    <div class="m-item">AWS Solutions Architect <span class="m-dot"></span></div>
+    <div class="m-item">McKinsey Forward Program <span class="m-dot"></span></div>
+    <div class="m-item">Azure Databricks <span class="m-dot"></span></div>
+    <div class="m-item">GenAI &amp; LLMs <span class="m-dot"></span></div>
+    <div class="m-item">Power BI &amp; Tableau <span class="m-dot"></span></div>
+    <div class="m-item">Fortune 500 Consulting <span class="m-dot"></span></div>
+    <div class="m-item">HCI International 2026 <span class="m-dot"></span></div>
+    <div class="m-item">Product Management <span class="m-dot"></span></div>
+    <div class="m-item">Bengaluru &#8594; New York &#8594; Los Angeles <span class="m-dot"></span></div>
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="editorial-strip">
+    <div class="editorial-text reveal-l">
+      <span class="section-tag purple">About</span>
+      <h2 class="section-headline" style="margin-bottom:24px;">
+        At the intersection of<br/><span class="grad-purple">data, AI,</span> and<br/>product strategy.
+      </h2>
+      <p class="body-text" style="margin-bottom:14px;">
+        Data &amp; Analytics Consulting Engineer with 2.5+ years delivering digital transformation, AI-enabled products, and enterprise data solutions. Currently a Product Manager Intern at <a href="https://www.linkedin.com/company/ipserlab/" target="_blank" rel="noopener noreferrer">IpserLab LLC</a> in Los Angeles &mdash; leading GenAI/LLM integration strategy and product requirements for an internal platform.
       </p>
-      <div class="hero-status">
-        <span class="live-dot"></span>
-        Open to 2026 full-time roles &nbsp;&middot;&nbsp; Los Angeles, CA
+      <p class="body-text" style="margin-bottom:14px;">
+        Previously at <a href="https://new.mta.info/" target="_blank" rel="noopener noreferrer">MTA</a> in New York and <a href="https://www.ey.com/" target="_blank" rel="noopener noreferrer">Ernst &amp; Young</a>, deploying AI-enabled SCM solutions for Fortune 500 clients and handling $10M+ in consulting engagements.
+      </p>
+      <p class="body-text" style="margin-bottom:28px;">
+        AWS Solutions Architect certified. McKinsey Forward alumnus. MS in Computer &amp; Information Systems at Pace University (3.8 GPA).
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:0;">
+        <span class="chip">Analytics &amp; BI</span><span class="chip">Data Engineering</span>
+        <span class="chip">Azure &amp; AWS</span><span class="chip">AI/ML &amp; GenAI</span>
+        <span class="chip">Product Management</span><span class="chip">Strategy &amp; Consulting</span>
+        <span class="chip">Power BI / Tableau</span><span class="chip">SCM</span>
       </div>
-      <div class="hero-ctas">
-        <a href="#experience" class="btn-primary">View My Work</a>
-        <a href="/assets/resume/Srivasudev_resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-ghost">
-          Download CV
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-        </a>
-      </div>
-      <div class="hero-socials">
-        <a href="https://github.com/srivasudev14" target="_blank" rel="noopener noreferrer">
-          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          GitHub
-        </a>
-        <span class="sep">&middot;</span>
-        <a href="https://www.linkedin.com/in/srivasudev/" target="_blank" rel="noopener noreferrer">
-          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-        <span class="sep">&middot;</span>
-        <a href="mailto:sri.vasudev14@gmail.com">sri.vasudev14@gmail.com</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMPANY LOGOS STRIP -->
-  <div class="logos-strip reveal">
-    <span class="logos-label">Experience at</span>
-    <div class="logos-row">
-      <div class="logo-tile">
-        <img src="assets/images/ey-logo.png" alt="Ernst &amp; Young"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
-             style="height:18px;width:auto;filter:brightness(0) invert(0.45);" />
-        <span style="font-size:13px;font-weight:800;color:#2a2a2a;font-style:italic;display:none;">EY</span>
-        <span>Ernst &amp; Young</span>
-      </div>
-      <div class="logo-sep"></div>
-      <div class="logo-tile">
-        <img src="assets/images/mta-logo.jpg" alt="MTA" style="height:22px;width:auto;border-radius:3px;filter:brightness(0) invert(0.45);" />
-        <span>MTA</span>
-      </div>
-      <div class="logo-sep"></div>
-      <div class="logo-tile">
-        <img src="assets/images/ipserlab-logo.png" alt="IpserLab" style="height:20px;width:auto;filter:brightness(0) invert(0.45);" />
-        <span>IpserLab</span>
-      </div>
-      <div class="logo-sep"></div>
-      <div class="logo-tile">
-        <img src="assets/images/consilio-logo.jpg" alt="Consilio" style="height:18px;width:auto;filter:brightness(0) invert(0.45);" />
-        <span>Consilio</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- MARQUEE -->
-  <div class="marquee-wrap">
-    <div class="marquee-inner">
-      <div class="m-item">Ernst &amp; Young <span class="m-dot"></span></div>
-      <div class="m-item">Metropolitan Transportation Authority <span class="m-dot"></span></div>
-      <div class="m-item">IpserLab LLC <span class="m-dot"></span></div>
-      <div class="m-item">AWS Solutions Architect <span class="m-dot"></span></div>
-      <div class="m-item">McKinsey Forward Program <span class="m-dot"></span></div>
-      <div class="m-item">Azure Databricks <span class="m-dot"></span></div>
-      <div class="m-item">GenAI &amp; LLMs <span class="m-dot"></span></div>
-      <div class="m-item">Power BI &amp; Tableau <span class="m-dot"></span></div>
-      <div class="m-item">Fortune 500 Consulting <span class="m-dot"></span></div>
-      <div class="m-item">HCI International 2026 <span class="m-dot"></span></div>
-      <div class="m-item">Product Management <span class="m-dot"></span></div>
-      <div class="m-item">Data Strategy &amp; AI <span class="m-dot"></span></div>
-      <div class="m-item">Ernst &amp; Young <span class="m-dot"></span></div>
-      <div class="m-item">Metropolitan Transportation Authority <span class="m-dot"></span></div>
-      <div class="m-item">IpserLab LLC <span class="m-dot"></span></div>
-      <div class="m-item">AWS Solutions Architect <span class="m-dot"></span></div>
-      <div class="m-item">McKinsey Forward Program <span class="m-dot"></span></div>
-      <div class="m-item">Azure Databricks <span class="m-dot"></span></div>
-      <div class="m-item">GenAI &amp; LLMs <span class="m-dot"></span></div>
-      <div class="m-item">Power BI &amp; Tableau <span class="m-dot"></span></div>
-      <div class="m-item">Fortune 500 Consulting <span class="m-dot"></span></div>
-      <div class="m-item">HCI International 2026 <span class="m-dot"></span></div>
-      <div class="m-item">Product Management <span class="m-dot"></span></div>
-      <div class="m-item">Data Strategy &amp; AI <span class="m-dot"></span></div>
-    </div>
-  </div>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="editorial-strip">
-      <div class="editorial-text reveal-l">
-        <span class="section-tag">About</span>
-        <h2 class="section-headline" style="margin-bottom:22px;">At the intersection of<br/><em>data, AI,</em> and product strategy.</h2>
-        <p class="editorial-para">
-          Data &amp; Analytics Consulting Engineer with 2.5+ years delivering digital transformation, AI-enabled products, and enterprise data solutions. Currently a Product Manager Intern at <a href="https://www.linkedin.com/company/ipserlab/" target="_blank" rel="noopener noreferrer">IpserLab LLC</a> in Los Angeles &mdash; leading GenAI/LLM integration strategy and product requirements for an internal platform.
-        </p>
-        <p class="editorial-para">
-          Previously at <a href="https://new.mta.info/" target="_blank" rel="noopener noreferrer">MTA</a> in New York building Power BI dashboards and GIS pipelines on Azure. Before that at <a href="https://www.ey.com/" target="_blank" rel="noopener noreferrer">Ernst &amp; Young</a>, leading AI-enabled SCM solutions for Fortune 500 clients &mdash; cutting time-to-market 20% and handling $10M+ in consulting engagements.
-        </p>
-        <p class="editorial-para" style="margin-bottom:26px;">
-          AWS Solutions Architect certified. McKinsey Forward alumnus. MS at Pace University (3.8 GPA). Seeking full-time roles in Data, Product, AI, and Technology Consulting.
-        </p>
-        <div style="display:flex;flex-wrap:wrap;gap:7px;">
-          <span class="chip">Analytics &amp; BI</span>
-          <span class="chip">Data Engineering</span>
-          <span class="chip">Azure &amp; AWS</span>
-          <span class="chip">AI/ML &amp; GenAI</span>
-          <span class="chip">Product Management</span>
-          <span class="chip">Strategy &amp; Consulting</span>
-          <span class="chip">Power BI &amp; Tableau</span>
-          <span class="chip">Data Governance</span>
-          <span class="chip">SCM</span>
+      <!-- Journey timeline -->
+      <div class="journey-strip">
+        <div class="journey-node">
+          <div class="j-dot" style="background:var(--amber);box-shadow:0 0 8px var(--amber);"></div>
+          <div class="j-city">Bengaluru</div>
+          <div class="j-role">India&rsquo;s Silicon Valley</div>
+          <div class="j-year">2018 &ndash; 2022</div>
+        </div>
+        <div class="journey-node">
+          <div class="j-dot" style="background:var(--blue);box-shadow:0 0 8px var(--blue);"></div>
+          <div class="j-city">New York City</div>
+          <div class="j-role">EY &middot; Consilio &middot; MTA</div>
+          <div class="j-year">2022 &ndash; 2025</div>
+        </div>
+        <div class="journey-node" style="padding-right:0;">
+          <div class="j-dot" style="background:var(--purple);box-shadow:0 0 8px var(--purple);"></div>
+          <div class="j-city">Los Angeles</div>
+          <div class="j-role">IpserLab &middot; Pace &rsquo;26</div>
+          <div class="j-year">2025 &ndash; Present</div>
         </div>
       </div>
-      <div class="editorial-visual reveal-r">
-        <img src="assets/images/data-streams.webp" alt="Data and AI visualization" />
-      </div>
     </div>
-  </section>
+    <div class="editorial-visual reveal-r">
+      <img src="assets/images/data-streams.webp" alt="Data and AI visualization" />
+    </div>
+  </div>
+</section>
 
-  <!-- STATS BENTO -->
-  <div class="section-wrap" style="padding-top:12px;padding-bottom:72px;">
+<!-- ── STATS ── -->
+<section class="stats-section">
+  <div class="section-wrap" style="padding-top:72px;padding-bottom:72px;">
     <div class="stats-grid reveal">
-      <!-- Wide analytics tile -->
-      <div class="stats-wide-card">
+      <div class="stats-wide">
         <img src="assets/images/analytics-dashboard.png" alt="Analytics dashboards" />
         <div class="stats-wide-text">
-          <p style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#444;margin-bottom:10px;">Impact delivered</p>
-          <h3 style="font-size:20px;font-weight:800;color:#fff;letter-spacing:-0.025em;line-height:1.25;">Turning data complexity<br/>into measurable business value.</h3>
+          <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#3a3a4a;margin-bottom:10px;">Impact delivered</p>
+          <h3 style="font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.025em;line-height:1.25;">Turning data complexity<br/>into measurable business value.</h3>
         </div>
       </div>
-      <!-- Right column: 2x2 grid -->
-      <div class="stat-row" style="grid-column:span 3;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
-        <div class="stat-card">
-          <div>
-            <div class="stat-num"><span class="hi">$10</span>M+</div>
-            <div class="stat-label">Engagements handled</div>
-          </div>
+      <div class="stat-col">
+        <div class="stat-tile purple-t">
+          <div class="stat-num" style="color:var(--purple);">$10<span style="font-size:0.55em;color:#555;">M+</span></div>
+          <div class="stat-label">Engagements handled</div>
         </div>
-        <div class="stat-card">
-          <div>
-            <div class="stat-num"><span class="hi">4</span>+</div>
-            <div class="stat-label">Fortune 500 clients</div>
-          </div>
+        <div class="stat-tile blue-t">
+          <div class="stat-num" style="color:var(--blue);">4<span style="font-size:0.55em;color:#555;">+</span></div>
+          <div class="stat-label">Fortune 500 clients</div>
         </div>
-        <div class="stat-card">
-          <div>
-            <div class="stat-num"><span class="hi">2.5</span>+</div>
-            <div class="stat-label">Years of experience</div>
-          </div>
+      </div>
+      <div class="stat-col">
+        <div class="stat-tile teal-t">
+          <div class="stat-num" style="color:var(--teal);">35<span style="font-size:0.55em;color:#555;">+</span></div>
+          <div class="stat-label">GTM ops delivered</div>
         </div>
-        <div class="stat-card">
-          <div>
-            <div class="stat-num"><span class="hi">20</span>%+</div>
-            <div class="stat-label">Decision accuracy lift</div>
-          </div>
+        <div class="stat-tile amber-t">
+          <div class="stat-num" style="color:var(--amber);">20<span style="font-size:0.55em;color:#555;">%+</span></div>
+          <div class="stat-label">Decision accuracy lift</div>
         </div>
-        <div class="stat-card">
-          <div>
-            <div class="stat-num"><span class="hi">35</span>+</div>
-            <div class="stat-label">GTM ops delivered</div>
-          </div>
+      </div>
+      <div class="stat-col">
+        <div class="stat-tile green-t">
+          <div class="stat-num" style="color:var(--green);">2.5<span style="font-size:0.55em;color:#555;">+</span></div>
+          <div class="stat-label">Years of experience</div>
         </div>
-        <div class="stat-card">
-          <div>
-            <div class="stat-num"><span class="hi">2</span></div>
-            <div class="stat-label">Research publications</div>
-          </div>
+        <div class="stat-tile rose-t">
+          <div class="stat-num" style="color:#fb7185;">2</div>
+          <div class="stat-label">Research publications</div>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <hr class="divider" />
+<hr class="divider" />
 
-  <!-- EXPERIENCE -->
-  <section id="experience">
-    <div class="section-wrap">
-      <span class="section-tag reveal">Experience</span>
-      <h2 class="section-headline reveal" style="margin-bottom:52px;">Where I've <em>built.</em></h2>
+<!-- ── EXPERIENCE ── -->
+<section id="experience" class="exp-section">
+  <div class="section-wrap">
+    <span class="section-tag blue reveal">Experience</span>
+    <h2 class="section-headline reveal" style="margin-bottom:52px;">Where I&rsquo;ve <span class="grad-blue">built.</span></h2>
 
-      <div style="display:flex;flex-direction:column;gap:14px;">
+    <div style="display:flex;flex-direction:column;gap:14px;">
 
-        <!-- IpserLab -->
-        <div class="exp-editorial reveal" style="transition-delay:50ms;">
-          <div class="exp-text">
-            <div class="exp-badge"><span class="live-dot"></span>Current Role</div>
-            <h3 class="exp-role">Product Manager Intern</h3>
-            <div class="exp-meta">
-              <a href="https://www.linkedin.com/company/ipserlab/" target="_blank" rel="noopener noreferrer">IpserLab LLC</a>
-              <span class="exp-sep">&middot;</span><span>Los Angeles, CA</span>
-              <span class="exp-sep">&middot;</span><span>Aug 2026 &ndash; Present</span>
-            </div>
-            <ul class="exp-bullets">
-              <li>Lead product requirements for an internal platform, structuring business goals and engineering constraints into a PRD, user stories, and acceptance criteria anchoring a prioritized Agile backlog and roadmap tracked in Jira/Confluence.</li>
-              <li>Drive GenAI/LLM integration strategy, evaluating use cases against system architecture and user needs, designing the UAT framework that validates each release against stakeholder requirements.</li>
-            </ul>
-            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:18px;">
-              <span class="chip">GenAI/LLMs</span><span class="chip">PRD Writing</span>
-              <span class="chip">Jira/Confluence</span><span class="chip">UAT Design</span><span class="chip">Agile</span>
-            </div>
+      <!-- IpserLab — logo panel -->
+      <div class="exp-editorial reveal" style="transition-delay:40ms;">
+        <div class="exp-text">
+          <div class="exp-badge current"><span class="live-dot" style="width:6px;height:6px;"></span>Current Role</div>
+          <h3 class="exp-role">Product Manager Intern</h3>
+          <div class="exp-meta">
+            <a href="https://www.linkedin.com/company/ipserlab/" target="_blank" rel="noopener noreferrer">IpserLab LLC</a>
+            <span class="exp-sep">&middot;</span><span>Los Angeles, CA</span>
+            <span class="exp-sep">&middot;</span><span>Aug 2026 &ndash; Present</span>
           </div>
-          <div class="exp-visual" style="background:linear-gradient(135deg,#080d1a 0%,#0a0a18 100%);">
-            <div class="logo-wrap">
-              <div class="company-logo">
-                <img src="assets/images/ipserlab-logo.png" alt="IpserLab LLC" />
-              </div>
-              <div class="co-name">IpserLab LLC</div>
-              <div style="font-size:11px;color:#2a2a2a;">Los Angeles, CA</div>
+          <ul class="exp-bullets">
+            <li>Lead product requirements for an internal platform, structuring business goals and engineering constraints into a PRD, user stories, and acceptance criteria anchoring a prioritized Agile backlog and roadmap.</li>
+            <li>Drive GenAI/LLM integration strategy, evaluating use cases against system architecture and user needs, designing the UAT framework that validates each release against stakeholder requirements.</li>
+          </ul>
+          <div class="chips-row">
+            <span class="chip">GenAI/LLMs</span><span class="chip">PRD Writing</span>
+            <span class="chip">Jira/Confluence</span><span class="chip">UAT Design</span><span class="chip">Agile</span>
+          </div>
+        </div>
+        <div class="exp-visual" style="background:linear-gradient(135deg,#07091c 0%,#0a0c1e 100%);">
+          <!-- Purple ambient orb -->
+          <div style="position:absolute;top:20%;left:30%;width:200px;height:200px;background:radial-gradient(circle,rgba(168,85,247,0.18) 0%,transparent 70%);border-radius:50%;animation:orb-pulse 5s ease-in-out infinite alternate;pointer-events:none;"></div>
+          <div class="exp-logo-panel">
+            <div class="exp-logo-box" style="width:160px;height:100px;">
+              <img src="assets/images/ipserlab-logo.png" alt="IpserLab LLC" />
+            </div>
+            <div class="exp-co-name">IpserLab LLC</div>
+            <div class="exp-co-sub">Los Angeles &middot; California</div>
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;max-width:220px;">
+              <span class="chip" style="font-size:10px;">GenAI</span>
+              <span class="chip" style="font-size:10px;">Product</span>
+              <span class="chip" style="font-size:10px;">Agile</span>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- MTA -->
-        <div class="exp-editorial reverse reveal" style="transition-delay:80ms;">
-          <div class="exp-text">
-            <h3 class="exp-role">Data Strategy Analyst</h3>
-            <div class="exp-meta">
-              <a href="https://new.mta.info/" target="_blank" rel="noopener noreferrer">Metropolitan Transportation Authority</a>
-              <span class="exp-sep">&middot;</span><span>New York, NY</span>
-              <span class="exp-sep">&middot;</span><span>Jul &ndash; Dec 2025</span>
-            </div>
-            <ul class="exp-bullets">
-              <li>Analyzed operational and asset datasets with SQL and AI-assisted analytics, applying GenAI tools for data transformation to surface efficiency opportunities, improving decision-making accuracy by 20%+.</li>
-              <li>Designed 3+ data models and Power BI dashboards on Azure Data Lake, enhanced GIS data pipelines within HxGN EAM &mdash; improving real-time asset visibility across enterprise reporting.</li>
-              <li>Streamlined cross-functional governance using Jira &amp; Confluence, improving project alignment by 25%.</li>
-            </ul>
-            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:18px;">
-              <span class="chip">Azure Data Lake</span><span class="chip">Power BI</span>
-              <span class="chip">SQL</span><span class="chip">GIS / HxGN EAM</span><span class="chip">Jira</span>
-            </div>
+      <!-- MTA — full-bleed NYC skyline, no logo box -->
+      <div class="exp-editorial reverse reveal" style="transition-delay:70ms;">
+        <div class="exp-text">
+          <h3 class="exp-role">Data Strategy Analyst</h3>
+          <div class="exp-meta">
+            <a href="https://new.mta.info/" target="_blank" rel="noopener noreferrer">Metropolitan Transportation Authority</a>
+            <span class="exp-sep">&middot;</span><span>New York, NY</span>
+            <span class="exp-sep">&middot;</span><span>Jul &ndash; Dec 2025</span>
           </div>
-          <div class="exp-visual" style="background:linear-gradient(135deg,#0a0e16 0%,#08090f 100%);">
-            <img class="bg-img" src="assets/images/nyc-skyline.webp" alt="" />
-            <div class="logo-wrap">
-              <div class="company-logo">
-                <img src="assets/images/mta-logo.jpg" alt="MTA" style="filter:brightness(1.2) contrast(1.1);" />
+          <ul class="exp-bullets">
+            <li>Analyzed operational and asset datasets with SQL and AI-assisted analytics; applied GenAI tools for data transformation, improving decision-making accuracy by 20%+.</li>
+            <li>Designed 3+ data models and Power BI dashboards on Azure Data Lake; enhanced GIS pipelines within HxGN EAM, improving real-time asset visibility across enterprise reporting.</li>
+            <li>Streamlined cross-functional governance via Jira &amp; Confluence, improving project alignment by 25%.</li>
+          </ul>
+          <div class="chips-row">
+            <span class="chip">Azure Data Lake</span><span class="chip">Power BI</span>
+            <span class="chip">SQL</span><span class="chip">GIS / HxGN EAM</span>
+          </div>
+        </div>
+        <div class="exp-visual">
+          <!-- NYC skyline full-bleed, prominent -->
+          <img class="exp-photo" src="assets/images/nyc-skyline.webp" alt="New York City skyline" style="opacity:0.55;" />
+          <div class="exp-photo-veil" style="background:linear-gradient(90deg,rgba(6,6,8,0.05) 0%,rgba(6,6,8,0.5) 100%);"></div>
+          <!-- MTA wordmark overlay -->
+          <div style="position:absolute;bottom:28px;left:28px;z-index:3;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:6px;">Metropolitan Transportation Authority</div>
+            <div style="font-size:36px;font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1;opacity:0.9;">MTA</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:4px;">New York City</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EY — EY experience image + clean logo badge -->
+      <div class="exp-editorial reveal" style="transition-delay:100ms;">
+        <div class="exp-text">
+          <h3 class="exp-role">Advanced Analyst, Staff II</h3>
+          <div class="exp-sub">Business Consulting, Analytics &amp; Strategy</div>
+          <div class="exp-meta">
+            <a href="https://www.ey.com/" target="_blank" rel="noopener noreferrer">Ernst &amp; Young LLP</a>
+            <span class="exp-sep">&middot;</span><span>Bengaluru, India</span>
+            <span class="exp-sep">&middot;</span><span>Dec 2022 &ndash; Aug 2024</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Spearheaded EY ASTERISK SaaS platform digital transformation &mdash; product roadmaps and GTM strategies for AI-enabled SCM solutions across Automotive and FMCG verticals.</li>
+            <li>Orchestrated ETL pipelines (Python, SQL, Azure Databricks) for Fortune 500 clients; improved data accuracy 30% and cut time-to-market 20%.</li>
+            <li>Deployed 10+ Power BI dashboards with KPI and geo-based vendor analytics &mdash; 35%+ operational efficiency gain.</li>
+            <li>Handled $10M+ consulting engagements end-to-end with C-suite stakeholders.</li>
+          </ul>
+          <div class="chips-row">
+            <span class="chip">Azure Databricks</span><span class="chip">Python / SQL</span>
+            <span class="chip">Power BI</span><span class="chip">SCM / GTM</span>
+          </div>
+        </div>
+        <div class="exp-visual">
+          <img class="exp-photo" src="assets/images/ey-experience.png" alt="Ernst &amp; Young" style="opacity:0.5;object-position:center;" />
+          <div class="exp-photo-veil" style="background:linear-gradient(90deg,rgba(6,6,8,0.92) 0%,rgba(6,6,8,0.4) 60%,rgba(6,6,8,0.05) 100%);"></div>
+          <!-- EY badge bottom-right -->
+          <div style="position:absolute;bottom:28px;right:28px;z-index:3;text-align:right;">
+            <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(6,6,8,0.7);border:1px solid rgba(255,230,0,0.2);border-radius:14px;padding:10px 16px;backdrop-filter:blur(12px);">
+              <img src="assets/images/ey-logo.jpg" alt="EY" style="height:22px;width:auto;" />
+              <div style="text-align:left;">
+                <div style="font-size:12px;font-weight:800;color:#fff;">Ernst &amp; Young</div>
+                <div style="font-size:10px;color:rgba(255,230,0,0.5);">Bengaluru, India</div>
               </div>
-              <div class="co-name">MTA</div>
-              <div style="font-size:11px;color:#2a2a2a;">New York, NY</div>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- EY -->
-        <div class="exp-editorial reveal" style="transition-delay:110ms;">
-          <div class="exp-text">
-            <h3 class="exp-role">Advanced Analyst, Staff II</h3>
-            <div class="exp-sub">Business Consulting, Analytics &amp; Strategy</div>
-            <div class="exp-meta">
-              <a href="https://www.ey.com/" target="_blank" rel="noopener noreferrer">Ernst &amp; Young LLP</a>
-              <span class="exp-sep">&middot;</span><span>Bengaluru, India</span>
-              <span class="exp-sep">&middot;</span><span>Dec 2022 &ndash; Aug 2024</span>
-            </div>
-            <ul class="exp-bullets">
-              <li>Spearheaded EY ASTERISK SaaS platform digital transformation &mdash; product roadmaps and GTM strategies for AI-enabled SCM solutions across Automotive and FMCG verticals.</li>
-              <li>Orchestrated ETL pipelines (Python, SQL, Azure Databricks) for Fortune 500 clients; cut time-to-market 20% and improved data accuracy 30%.</li>
-              <li>Deployed 10+ Power BI dashboards with KPI and geo-based vendor analytics &mdash; 35% operational efficiency gain and significant infrastructure cost reduction.</li>
-              <li>Drove CRM integration and customer experience analytics with C-suite stakeholders; handled $10M+ consulting engagements end-to-end.</li>
-            </ul>
-            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:18px;">
-              <span class="chip">Azure Databricks</span><span class="chip">Python / SQL</span>
-              <span class="chip">Power BI</span><span class="chip">SCM / GTM</span><span class="chip">CRM</span>
-            </div>
+      <!-- Consilio -->
+      <div class="exp-plain reveal" style="transition-delay:130ms;">
+        <div>
+          <h3 class="exp-role" style="font-size:19px;margin-bottom:4px;">Data Operations Analyst</h3>
+          <div class="exp-meta">
+            <a href="https://www.consilio.com/" target="_blank" rel="noopener noreferrer">Consilio LLC</a>
+            <span class="exp-sep">&middot;</span><span>Bengaluru, India</span>
+            <span class="exp-sep">&middot;</span><span>Oct &ndash; Dec 2022</span>
           </div>
-          <div class="exp-visual" style="background:#06060a;">
-            <img class="bg-img" src="assets/images/ey-experience.png" alt="" style="opacity:0.22;object-fit:cover;" />
-            <div class="logo-wrap">
-              <div class="company-logo" style="background:rgba(255,230,0,0.05);border-color:rgba(255,230,0,0.12);">
-                <img src="assets/images/ey-logo.jpg" alt="Ernst &amp; Young" style="filter:none;" />
-              </div>
-              <div class="co-name" style="color:#2a2600;">Ernst &amp; Young</div>
-              <div style="font-size:11px;color:#222;">Bengaluru, India</div>
-            </div>
-          </div>
+          <ul class="exp-bullets">
+            <li>Designed &amp; implemented cloud-based data pipelines for legal eDiscovery forensics, enforcing data privacy compliance across 5,000+ legal records.</li>
+            <li>Built data warehousing solutions and automated analytics workflows, improving pipeline efficiency by 20% and analytical output by 30%.</li>
+          </ul>
         </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;flex-shrink:0;">
+          <div style="width:100px;height:68px;display:flex;align-items:center;justify-content:center;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:rgba(255,255,255,0.97);padding:10px;">
+            <img src="assets/images/consilio-logo.jpg" alt="Consilio" style="width:100%;height:100%;object-fit:contain;" />
+          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--faint);letter-spacing:0.07em;text-transform:uppercase;">Consilio LLC</div>
+        </div>
+      </div>
 
-        <!-- Consilio -->
-        <div class="exp-plain reveal" style="transition-delay:140ms;">
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── BEYOND THE DESK ── -->
+<section id="life" class="life-section">
+  <div class="section-wrap">
+    <span class="section-tag teal reveal">Beyond the Desk</span>
+    <h2 class="section-headline reveal" style="margin-bottom:12px;">What keeps me <span class="grad-teal">energized.</span></h2>
+    <p class="reveal body-text" style="max-width:560px;margin-bottom:44px;">
+      Outside of tech, I&rsquo;m into automotive culture, sports, fitness and mountains, and travel &mdash; things that bring fresh perspectives to how I approach challenges.
+    </p>
+    <div class="hobby-grid">
+      <div class="hobby-tile reveal" style="transition-delay:40ms;">
+        <img src="assets/images/badminton.webp" alt="Badminton" />
+        <div class="hobby-veil"></div>
+        <div class="hobby-label">
+          <h4>Sports</h4>
+          <p>Badminton &middot; Cricket &middot; Pickleball</p>
+        </div>
+      </div>
+      <div class="hobby-tile reveal" style="transition-delay:80ms;">
+        <img src="assets/images/mountain.jpg" alt="Western Ghats" />
+        <div class="hobby-veil"></div>
+        <div class="hobby-label">
+          <h4>Mountains &amp; Nature</h4>
+          <p>Hiking &amp; outdoors</p>
+        </div>
+      </div>
+      <div class="hobby-tile reveal" style="transition-delay:120ms;">
+        <img src="assets/images/nyc-skyline.webp" alt="New York City" />
+        <div class="hobby-veil"></div>
+        <div class="hobby-label">
+          <h4>Cities &amp; Travel</h4>
+          <p>Bengaluru &middot; New York &middot; San Francisco &middot; LA</p>
+        </div>
+      </div>
+      <div class="hobby-tile reveal" style="transition-delay:160ms;">
+        <img src="assets/images/mercedes-g-class.png" alt="Automotive" />
+        <div class="hobby-veil"></div>
+        <div class="hobby-label">
+          <h4>Automotive</h4>
+          <p>Car culture &amp; motorsport</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── PROJECTS ── -->
+<section id="projects">
+  <div class="section-wrap">
+    <span class="section-tag reveal">Projects &amp; Research</span>
+    <h2 class="section-headline reveal" style="margin-bottom:48px;">Selected <span style="color:var(--accent);">work.</span></h2>
+    <div class="proj-grid">
+      <div class="proj-card reveal" style="transition-delay:40ms;">
+        <div class="proj-img">
+          <img src="assets/images/smartchurn-preview.png" alt="SmartChurn" />
+        </div>
+        <div class="proj-body">
+          <div class="proj-eyebrow">Machine Learning &middot; Mar 2025</div>
+          <h3 class="proj-name">SmartChurn</h3>
+          <p class="proj-desc">Credit card attrition prediction &mdash; 97.17% accuracy, 90.77% precision. CatBoost + SMOTE on 10K records, scaling to 100K+ customers at Great One Bank.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;">
+            <span class="chip">Python</span><span class="chip">CatBoost</span><span class="chip">SMOTE</span><span class="chip">Tableau</span>
+          </div>
+          <a href="https://github.com/srivasudev14/SMARTCHURN-CREDIT-CARD-ATTRITION-PREDICTION-SYSTEM" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--accent);text-decoration:none;">
+            View on GitHub <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="proj-card reveal" style="transition-delay:80ms;">
+        <div class="proj-img">
+          <img src="assets/images/heartbeacon-preview.png" alt="HeartBeacon" />
+        </div>
+        <div class="proj-body">
+          <div class="proj-eyebrow">Machine Learning &middot; Nov 2024</div>
+          <h3 class="proj-name">HeartBeacon</h3>
+          <p class="proj-desc">Cardiovascular disease prediction pipeline &mdash; 90% accuracy on 319K records. Random Forest, Logistic Regression, and SMOTE for clinical risk modeling.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;">
+            <span class="chip">Python</span><span class="chip">Scikit-learn</span><span class="chip">SMOTE</span><span class="chip">Seaborn</span>
+          </div>
+          <a href="https://github.com/srivasudev14/HeartBeacon--CardioVascular-Prediction-Model" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--accent);text-decoration:none;">
+            View on GitHub <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7V17"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certs / Pubs / Research -->
+    <div class="info-cards reveal" style="transition-delay:60ms;">
+
+      <!-- Certifications -->
+      <div class="info-card">
+        <div class="info-eyebrow">Certifications</div>
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <a href="https://www.credly.com/badges/2bedf794-b479-4926-88bc-34b6e30e1507" target="_blank" rel="noopener noreferrer" class="cert-link">
+            <div class="cert-icon" style="background:rgba(255,153,0,0.12);border:1px solid rgba(255,153,0,0.2);">
+              <!-- AWS logo mark -->
+              <svg width="20" height="12" viewBox="0 0 60 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.6 13.4l-2.6 9.6-2.7-9.6H9.1L6.4 23l-2.5-9.6H0l4.1 14h3.5l2.7-9.4 2.7 9.4h3.5l4.1-14h-3zM33.4 13.4l-2.6 9.6-2.7-9.6h-3.2L22.2 23l-2.5-9.6h-3.9l4.1 14h3.5l2.7-9.4 2.7 9.4h3.5l4.1-14h-3zM49.2 13.4l-2.6 9.6-2.7-9.6h-3.2L38 23l-2.5-9.6H31.6l4.1 14h3.5l2.7-9.4 2.7 9.4h3.5l4.1-14h-3z" fill="#FF9900"/>
+              </svg>
+            </div>
+            <div class="cert-text">
+              <div class="cert-name">AWS Solutions Architect Associate &#8599;</div>
+              <div class="cert-by">Amazon Web Services &middot; Jan 2026</div>
+            </div>
+          </a>
+          <a href="https://www.credly.com/badges/e9ad49fa-4673-4748-8f98-e5b1bcc48a65/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert-link">
+            <div class="cert-icon" style="background:rgba(0,100,64,0.12);border:1px solid rgba(0,100,64,0.25);">
+              <!-- McKinsey M -->
+              <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 20V4l10 9 10-9v16" fill="none" stroke="#00643c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="cert-text">
+              <div class="cert-name">McKinsey Forward Program &#8599;</div>
+              <div class="cert-by">McKinsey &amp; Company &middot; Dec 2025</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Publications -->
+      <div class="info-card">
+        <div class="info-eyebrow">Publications</div>
+        <div class="pub-item">
+          <a href="WatsonLLM_HCII2026_final.pdf" target="_blank" rel="noopener noreferrer" class="pub-link">
+            <div class="pub-name">Revisiting IBM Watson Personality Insights with LLMs &#8599;</div>
+            <div class="pub-venue">HCI International 2026</div>
+          </a>
+        </div>
+        <div class="pub-item">
+          <a href="https://www.jetir.org/view?paper=JETIRFM06008" target="_blank" rel="noopener noreferrer" class="pub-link">
+            <div class="pub-name">Bipolar Occurrence Prediction &#8599;</div>
+            <div class="pub-venue">Journal of Emerging Technologies and Innovative Research &middot; 2022</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Research -->
+      <div class="info-card">
+        <div class="info-eyebrow">Academic Research</div>
+        <div style="font-size:15px;font-weight:800;color:#d0d0d0;line-height:1.35;margin-bottom:8px;">"The Suggestive Banker"</div>
+        <div style="font-size:13px;color:var(--faint);line-height:1.65;">Capstone: Consumer Trust in Agentic AI for Digital Banking</div>
+        <div style="font-size:11px;color:#2a2a2a;margin-top:6px;">Pace University &middot; 2026</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── EDUCATION ── -->
+<section id="education">
+  <div class="section-wrap" style="padding-bottom:60px;">
+    <span class="section-tag amber reveal">Education</span>
+    <h2 class="section-headline reveal" style="margin-bottom:36px;">Academic <span style="color:var(--amber);">foundation.</span></h2>
+    <div class="edu-grid">
+      <div class="edu-card reveal" style="transition-delay:40ms;">
+        <div class="edu-logo-row">
+          <div class="edu-logo"><img src="assets/images/pace-logo.jpg" alt="Pace University" /></div>
           <div>
-            <h3 class="exp-role" style="font-size:18px;margin-bottom:4px;">Data Operations Analyst</h3>
-            <div class="exp-meta">
-              <a href="https://www.consilio.com/" target="_blank" rel="noopener noreferrer">Consilio LLC</a>
-              <span class="exp-sep">&middot;</span><span>Bengaluru, India</span>
-              <span class="exp-sep">&middot;</span><span>Oct &ndash; Dec 2022</span>
-            </div>
-            <ul class="exp-bullets">
-              <li>Designed &amp; implemented cloud-based data pipelines for legal eDiscovery forensics, enforcing data privacy compliance across 5,000+ legal records.</li>
-              <li>Built data warehousing solutions and automated analytics workflows, improving pipeline efficiency by 20% and analytical output by 30%.</li>
-            </ul>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
-            <div style="width:110px;height:110px;border-radius:20px;overflow:hidden;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(255,255,255,0.03);">
-              <img src="assets/images/consilio-logo.jpg" alt="Consilio" style="width:100%;height:100%;object-fit:contain;" />
-            </div>
-            <div style="font-size:11px;font-weight:700;color:#333;letter-spacing:0.08em;text-transform:uppercase;">Consilio LLC</div>
+            <div style="font-size:14px;font-weight:700;color:#ccc;">Pace University</div>
+            <div style="font-size:11px;color:var(--muted);">Seidenberg School &middot; New York</div>
           </div>
         </div>
-
+        <div class="edu-degree">MS, Computer &amp; Information Systems</div>
+        <div class="edu-spec">Data Science Engineering &amp; Analytics</div>
+        <div class="edu-footer">
+          <span class="edu-year">May 2026</span>
+          <span class="edu-gpa">GPA 3.8</span>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- BEYOND THE DESK -->
-  <section id="life">
-    <div class="section-wrap">
-      <span class="section-tag reveal">Beyond the Desk</span>
-      <h2 class="section-headline reveal" style="margin-bottom:10px;">What keeps me <em>energized.</em></h2>
-      <p class="reveal section-sub" style="max-width:560px;margin-bottom:44px;">
-        Outside of tech, I'm into automotive culture, sports, fitness and mountains, and travel &mdash; things that bring fresh perspectives to how I approach challenges.
-      </p>
-
-      <div class="hobby-grid">
-
-        <div class="hobby-tile reveal" style="transition-delay:40ms;">
-          <img src="assets/images/badminton.webp" alt="Badminton" />
-          <div class="veil"></div>
-          <div class="hobby-label">
-            <h4>Sports</h4>
-            <p>Badminton &middot; Cricket &middot; Pickleball</p>
-          </div>
-        </div>
-
-        <div class="hobby-tile reveal" style="transition-delay:80ms;">
-          <img src="assets/images/mountain.jpg" alt="Western Ghats mountains" />
-          <div class="veil"></div>
-          <div class="hobby-label">
-            <h4>Mountains &amp; Nature</h4>
-            <p>Hiking &amp; outdoors</p>
-          </div>
-        </div>
-
-        <div class="hobby-tile reveal" style="transition-delay:120ms;">
-          <img src="assets/images/nyc-skyline.webp" alt="New York City" />
-          <div class="veil"></div>
-          <div class="hobby-label">
-            <h4>Cities &amp; Travel</h4>
-            <p>Bengaluru &middot; New York &middot; San Francisco &middot; LA</p>
-          </div>
-        </div>
-
-        <div class="hobby-tile reveal" style="transition-delay:160ms;">
-          <img src="assets/images/mercedes-g-class.png" alt="Mercedes G-Class" style="object-position:center center;" />
-          <div class="veil"></div>
-          <div class="hobby-label">
-            <h4>Automotive</h4>
-            <p>Car culture &amp; motorsport</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="section-wrap">
-      <span class="section-tag reveal">Projects &amp; Research</span>
-      <h2 class="section-headline reveal" style="margin-bottom:48px;">Selected <em>work.</em></h2>
-
-      <div class="proj-grid">
-
-        <div class="proj-card reveal" style="transition-delay:40ms;">
-          <div class="proj-img">
-            <img src="assets/images/smartchurn-preview.png" alt="SmartChurn dashboard" />
-          </div>
-          <div class="proj-body">
-            <div style="font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--faint);margin-bottom:9px;">Machine Learning &middot; Mar 2025</div>
-            <h3 class="proj-name">SmartChurn</h3>
-            <p class="proj-desc">Credit card attrition prediction &mdash; 97.17% accuracy, 90.77% precision. CatBoost + SMOTE on 10K records, scaling to 100K+ customers at Great One Bank.</p>
-            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;">
-              <span class="chip">Python</span><span class="chip">CatBoost</span><span class="chip">SMOTE</span><span class="chip">Tableau</span>
-            </div>
-            <a href="https://github.com/srivasudev14/SMARTCHURN-CREDIT-CARD-ATTRITION-PREDICTION-SYSTEM" target="_blank" rel="noopener noreferrer"
-               style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--accent);text-decoration:none;">
-              View on GitHub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="proj-card reveal" style="transition-delay:80ms;">
-          <div class="proj-img">
-            <img src="assets/images/heartbeacon-preview.png" alt="HeartBeacon model" />
-          </div>
-          <div class="proj-body">
-            <div style="font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--faint);margin-bottom:9px;">Machine Learning &middot; Nov 2024</div>
-            <h3 class="proj-name">HeartBeacon</h3>
-            <p class="proj-desc">Cardiovascular disease prediction pipeline &mdash; 90% accuracy on 319K records. Random Forest, Logistic Regression, and SMOTE for clinical risk modeling.</p>
-            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;">
-              <span class="chip">Python</span><span class="chip">Scikit-learn</span><span class="chip">SMOTE</span><span class="chip">Seaborn</span>
-            </div>
-            <a href="https://github.com/srivasudev14/HeartBeacon--CardioVascular-Prediction-Model" target="_blank" rel="noopener noreferrer"
-               style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--accent);text-decoration:none;">
-              View on GitHub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7V17"/></svg>
-            </a>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Certs / Publications / Research -->
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px;" class="reveal">
-
-        <div class="info-card">
-          <div style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--faint);margin-bottom:14px;">Certifications</div>
-          <div style="display:flex;flex-direction:column;gap:14px;">
-            <a href="https://www.credly.com/badges/2bedf794-b479-4926-88bc-34b6e30e1507" target="_blank" rel="noopener noreferrer" class="cert-link">
-              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-                <div style="width:24px;height:24px;border-radius:6px;background:rgba(255,153,0,0.1);border:1px solid rgba(255,153,0,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="#ff9900"><path d="M13.527.099C6.955-.744.942 3.9.099 10.473c-.843 6.572 3.8 12.584 10.373 13.428 6.573.843 12.587-3.801 13.428-10.374C24.744 6.955 20.101.943 13.527.099zm3.613 10.093c0-1.162-.94-2.103-2.1-2.103h-3.44v4.212h3.44c1.16 0 2.1-.94 2.1-2.109zm0 0"/></svg>
-                </div>
-                <div class="ct">AWS Solutions Architect Associate &#8599;</div>
-              </div>
-              <div style="font-size:11px;color:var(--faint);padding-left:32px;">Amazon Web Services &middot; Jan 2026</div>
-            </a>
-            <a href="https://www.credly.com/badges/e9ad49fa-4673-4748-8f98-e5b1bcc48a65/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert-link">
-              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-                <div style="width:24px;height:24px;border-radius:6px;background:rgba(0,140,90,0.1);border:1px solid rgba(0,140,90,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><text y="18" font-size="20" font-weight="900" fill="#008c5a">M</text></svg>
-                </div>
-                <div class="ct">McKinsey Forward Program &#8599;</div>
-              </div>
-              <div style="font-size:11px;color:var(--faint);padding-left:32px;">McKinsey &amp; Company &middot; Dec 2025</div>
-            </a>
-          </div>
-        </div>
-
-        <div class="info-card">
-          <div style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--faint);margin-bottom:14px;">Publications</div>
-          <div style="display:flex;flex-direction:column;gap:14px;">
-            <a href="WatsonLLM_HCII2026_final.pdf" target="_blank" rel="noopener noreferrer" class="cert-link">
-              <div class="ct">Revisiting IBM Watson Personality Insights with LLMs &#8599;</div>
-              <div style="font-size:11px;color:var(--faint);margin-top:3px;">HCI International 2026</div>
-            </a>
-            <a href="https://www.jetir.org/view?paper=JETIRFM06008" target="_blank" rel="noopener noreferrer" class="cert-link">
-              <div class="ct">Bipolar Occurrence Prediction &#8599;</div>
-              <div style="font-size:11px;color:var(--faint);margin-top:3px;">JETIR &middot; 2022</div>
-            </a>
-          </div>
-        </div>
-
-        <div class="info-card">
-          <div style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--faint);margin-bottom:14px;">Academic Research</div>
-          <div style="font-size:14px;font-weight:700;color:#c0c0c0;line-height:1.4;margin-bottom:6px;">"The Suggestive Banker"</div>
-          <div style="font-size:12px;color:var(--faint);line-height:1.65;">Capstone: Consumer Trust in Agentic AI for Digital Banking &middot; Pace University 2026</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- EDUCATION -->
-  <section id="education">
-    <div class="section-wrap" style="padding-bottom:56px;">
-      <span class="section-tag reveal">Education</span>
-      <h2 class="section-headline reveal" style="margin-bottom:36px;">Academic <em>foundation.</em></h2>
-      <div class="edu-grid">
-
-        <div class="edu-card reveal" style="transition-delay:40ms;">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
-            <div style="width:44px;height:44px;border-radius:11px;overflow:hidden;border:1px solid var(--border);flex-shrink:0;background:#111;display:flex;align-items:center;justify-content:center;">
-              <img src="assets/images/pace-logo.jpg" alt="Pace University" style="width:100%;height:100%;object-fit:cover;" />
-            </div>
-            <div>
-              <div style="font-size:13px;font-weight:700;color:#bbb;">Pace University</div>
-              <div style="font-size:11px;color:var(--muted);">Seidenberg School &middot; New York</div>
-            </div>
-          </div>
-          <div style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.02em;margin-bottom:5px;">MS, Computer &amp; Information Systems</div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:18px;">Data Science Engineering &amp; Analytics</div>
-          <div style="margin-top:auto;padding-top:18px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:12px;color:var(--faint);">May 2026</span>
-            <span style="font-size:16px;font-weight:800;color:var(--accent);">GPA 3.8</span>
-          </div>
-        </div>
-
-        <div class="edu-card reveal" style="transition-delay:80ms;">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
-            <div style="width:44px;height:44px;border-radius:11px;overflow:hidden;border:1px solid var(--border);flex-shrink:0;background:#111;display:flex;align-items:center;justify-content:center;">
-              <img src="assets/images/jain-logo.jpg" alt="Jain University" style="width:100%;height:100%;object-fit:cover;" />
-            </div>
-            <div>
-              <div style="font-size:13px;font-weight:700;color:#bbb;">Jain University</div>
-              <div style="font-size:11px;color:var(--muted);">School of CS &amp; IT &middot; Bengaluru</div>
-            </div>
-          </div>
-          <div style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.02em;margin-bottom:5px;">BS, Computer Science</div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:18px;">Applied CS, Cloud, Data &amp; Analytics</div>
-          <div style="margin-top:auto;padding-top:18px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:12px;color:var(--faint);">Jul 2022</span>
-            <span style="font-size:16px;font-weight:800;color:var(--accent);">GPA 3.64</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-wrap">
-      <span class="section-tag reveal">Contact</span>
-      <h2 class="section-headline reveal" style="margin-bottom:14px;">Let's <em>talk.</em></h2>
-      <p class="reveal section-sub" style="max-width:480px;margin-bottom:32px;">
-        Seeking 2026 full-time opportunities in Data, AI, Product Management, Analytics, and Technology Consulting.
-      </p>
-      <div class="reveal" style="margin-bottom:32px;">
-        <a href="mailto:sri.vasudev14@gmail.com" class="contact-email">sri.vasudev14@gmail.com</a>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:56px;" class="reveal">
-        <a href="https://github.com/srivasudev14" target="_blank" rel="noopener noreferrer"
-           style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:100px;font-size:12px;font-weight:600;color:var(--faint);text-decoration:none;transition:all 0.2s;"
-           onmouseover="this.style.color='var(--text)';this.style.borderColor='rgba(255,255,255,0.14)'"
-           onmouseout="this.style.color='var(--faint)';this.style.borderColor='var(--border)'">
-          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-          GitHub
-        </a>
-        <a href="https://www.linkedin.com/in/srivasudev/" target="_blank" rel="noopener noreferrer"
-           style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:100px;font-size:12px;font-weight:600;color:var(--faint);text-decoration:none;transition:all 0.2s;"
-           onmouseover="this.style.color='var(--text)';this.style.borderColor='rgba(255,255,255,0.14)'"
-           onmouseout="this.style.color='var(--faint)';this.style.borderColor='var(--border)'">
-          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </a>
-        <a href="/assets/resume/Srivasudev_resume.pdf" target="_blank" rel="noopener noreferrer"
-           style="display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:rgba(110,168,254,0.05);border:1px solid rgba(110,168,254,0.18);border-radius:100px;font-size:12px;font-weight:600;color:var(--accent);text-decoration:none;transition:all 0.2s;"
-           onmouseover="this.style.background='rgba(110,168,254,0.1)'"
-           onmouseout="this.style.background='rgba(110,168,254,0.05)'">
-          Resume PDF &#8599;
-        </a>
-      </div>
-
-      <form action="https://formsubmit.co/sri.vasudev14@gmail.com" method="POST"
-            style="max-width:580px;" class="reveal">
-        <input type="hidden" name="_subject" value="New Contact from Portfolio" />
-        <input type="hidden" name="_template" value="box" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_next" value="https://srivasudev.com/#contact" />
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+      <div class="edu-card reveal" style="transition-delay:80ms;">
+        <div class="edu-logo-row">
+          <div class="edu-logo"><img src="assets/images/jain-logo.jpg" alt="Jain University" /></div>
           <div>
-            <label style="display:block;font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);margin-bottom:7px;">Name</label>
-            <input type="text" name="name" required placeholder="Your name" class="form-field" />
-          </div>
-          <div>
-            <label style="display:block;font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);margin-bottom:7px;">Email</label>
-            <input type="email" name="email" required placeholder="your@email.com" class="form-field" />
+            <div style="font-size:14px;font-weight:700;color:#ccc;">Jain University</div>
+            <div style="font-size:11px;color:var(--muted);">School of CS &amp; IT &middot; Bengaluru</div>
           </div>
         </div>
-        <div style="margin-bottom:14px;">
-          <label style="display:block;font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);margin-bottom:7px;">Message</label>
-          <textarea name="message" required rows="4" placeholder="Hello Sri, I'd like to talk about..." class="form-field" style="resize:none;"></textarea>
+        <div class="edu-degree">BS, Computer Science</div>
+        <div class="edu-spec">Applied CS, Cloud, Data &amp; Analytics</div>
+        <div class="edu-footer">
+          <span class="edu-year">Jul 2022</span>
+          <span class="edu-gpa">GPA 3.64</span>
         </div>
-        <button type="submit" class="btn-primary" style="border:none;cursor:pointer;font-family:inherit;">
-          Send Message
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
-        </button>
-      </form>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer style="border-top:1px solid var(--border);padding:22px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-    <span style="font-size:11px;color:#1c1c1c;">&#169; 2026 Sri Vasudev Ravi Pyati &nbsp;&middot;&nbsp; California, United States</span>
-    <div style="display:flex;gap:18px;">
-      <a href="#hero" style="font-size:11px;color:#1c1c1c;text-decoration:none;transition:color 0.2s;"
-         onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='#1c1c1c'">&#8593; Back to top</a>
-      <a href="https://github.com/srivasudev14/Portfolio-assets" target="_blank" rel="noopener noreferrer"
-         style="font-size:11px;color:#1c1c1c;text-decoration:none;transition:color 0.2s;"
-         onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='#1c1c1c'">Source</a>
+<hr class="divider" />
+
+<!-- ── CONTACT ── -->
+<section id="contact" class="contact-section">
+  <div class="section-wrap">
+    <span class="section-tag purple reveal">Contact</span>
+    <h2 class="section-headline reveal" style="margin-bottom:14px;">Let&rsquo;s <span class="grad-purple">talk.</span></h2>
+    <p class="reveal body-text" style="max-width:480px;margin-bottom:32px;">
+      Seeking 2026 full-time opportunities in Data, AI, Product Management, Analytics, and Technology Consulting.
+    </p>
+    <div class="reveal" style="margin-bottom:32px;">
+      <a href="mailto:sri.vasudev14@gmail.com" class="contact-email">sri.vasudev14@gmail.com</a>
     </div>
-  </footer>
+    <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:56px;" class="reveal">
+      <a href="https://github.com/srivasudev14" target="_blank" rel="noopener noreferrer"
+         style="display:inline-flex;align-items:center;gap:7px;padding:9px 18px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:100px;font-size:12px;font-weight:600;color:var(--faint);text-decoration:none;transition:all 0.2s;"
+         onmouseover="this.style.color='var(--text)';this.style.borderColor='rgba(255,255,255,0.14)'"
+         onmouseout="this.style.color='var(--faint)';this.style.borderColor='var(--border)'">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/srivasudev/" target="_blank" rel="noopener noreferrer"
+         style="display:inline-flex;align-items:center;gap:7px;padding:9px 18px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:100px;font-size:12px;font-weight:600;color:var(--faint);text-decoration:none;transition:all 0.2s;"
+         onmouseover="this.style.color='var(--text)';this.style.borderColor='rgba(255,255,255,0.14)'"
+         onmouseout="this.style.color='var(--faint)';this.style.borderColor='var(--border)'">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="/assets/resume/Srivasudev_resume.pdf" target="_blank" rel="noopener noreferrer"
+         style="display:inline-flex;align-items:center;gap:7px;padding:9px 18px;background:rgba(124,109,250,0.06);border:1px solid rgba(124,109,250,0.22);border-radius:100px;font-size:12px;font-weight:700;color:var(--accent);text-decoration:none;transition:all 0.2s;"
+         onmouseover="this.style.background='rgba(124,109,250,0.12)'"
+         onmouseout="this.style.background='rgba(124,109,250,0.06)'">
+        Resume PDF &#8599;
+      </a>
+    </div>
 
-  <script>
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => { nav.classList.toggle('stuck', window.scrollY > 50); }, { passive: true });
-    const ro = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); } });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => ro.observe(el));
-  </script>
+    <form action="https://formsubmit.co/sri.vasudev14@gmail.com" method="POST" style="max-width:580px;" class="reveal">
+      <input type="hidden" name="_subject" value="New Contact from Portfolio" />
+      <input type="hidden" name="_template" value="box" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next" value="https://srivasudev.com/#contact" />
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+        <div>
+          <label style="display:block;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint);margin-bottom:7px;">Name</label>
+          <input type="text" name="name" required placeholder="Your name" class="form-field" />
+        </div>
+        <div>
+          <label style="display:block;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint);margin-bottom:7px;">Email</label>
+          <input type="email" name="email" required placeholder="your@email.com" class="form-field" />
+        </div>
+      </div>
+      <div style="margin-bottom:14px;">
+        <label style="display:block;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint);margin-bottom:7px;">Message</label>
+        <textarea name="message" required rows="4" placeholder="Hello Sri, I'd like to talk about..." class="form-field" style="resize:none;"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="border:none;cursor:pointer;font-family:inherit;">
+        Send Message
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer style="border-top:1px solid var(--border);padding:22px 52px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+  <span style="font-size:11px;color:#1e1e1e;">&#169; 2026 Sri Vasudev Ravi Pyati &nbsp;&middot;&nbsp; California, United States</span>
+  <div style="display:flex;gap:18px;">
+    <a href="#hero" style="font-size:11px;color:#1e1e1e;text-decoration:none;transition:color 0.2s;"
+       onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='#1e1e1e'">&#8593; Back to top</a>
+    <a href="https://github.com/srivasudev14/Portfolio-assets" target="_blank" rel="noopener noreferrer"
+       style="font-size:11px;color:#1e1e1e;text-decoration:none;transition:color 0.2s;"
+       onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='#1e1e1e'">Source</a>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('stuck', window.scrollY > 50); }, { passive: true });
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); } });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => ro.observe(el));
+</script>
 </body>
 </html>
