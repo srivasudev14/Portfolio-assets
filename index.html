@@ -262,6 +262,12 @@
       92%      { opacity: 0; }
       100%     { opacity: 1; }
     }
+    @keyframes hobby-fade-2 {
+      0%, 45%  { opacity: 1; }
+      50%      { opacity: 0; }
+      95%      { opacity: 0; }
+      100%     { opacity: 1; }
+    }
     .hobby-veil { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.15) 55%, transparent 100%); }
     .hobby-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; z-index: 2; }
     .hobby-label h4 { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 3px; }
@@ -972,7 +978,7 @@
         </div>
         <div class="hobby-veil"></div>
         <div class="hobby-label">
-          <h4>Athletics</h4>
+          <h4>Athleticism</h4>
           <p>Badminton &middot; Cricket &middot; Pickleball &middot; Tennis</p>
         </div>
       </div>
@@ -998,7 +1004,10 @@
         </div>
       </div>
       <div class="hobby-tile reveal" style="transition-delay:160ms;">
-        <img src="assets/images/mercedes-g-class.png" alt="Automotive" />
+        <div class="hobby-slides">
+          <img class="hobby-slide" src="assets/images/mercedes-g-class.png" alt="Mercedes G-Class" style="animation-name:hobby-fade-2;animation-delay:0s;" />
+          <img class="hobby-slide" src="assets/images/auto-porsche.webp" alt="Porsche 911" style="animation-name:hobby-fade-2;animation-delay:-10s;" />
+        </div>
         <div class="hobby-veil"></div>
         <div class="hobby-label">
           <h4>Automotive</h4>
