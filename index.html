@@ -83,7 +83,7 @@
     @keyframes orb-drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,-20px) scale(1.08); } }
 
     .hero-name { font-size: clamp(58px, 8vw, 104px); font-weight: 800; line-height: 0.92; letter-spacing: -0.045em; color: #fff; margin-bottom: 12px; position: relative; }
-    .hero-name .grad { background: linear-gradient(125deg, #ffffff 0%, #c4b5fd 40%, var(--purple) 75%, var(--blue) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-name .grad { background: linear-gradient(125deg, #ffffff 0%, #e8e8e8 60%, #c0bfc4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .hero-title { font-size: 15px; color: #888; font-weight: 400; margin-bottom: 20px; line-height: 1.8; letter-spacing: 0.01em; }
     .hero-title strong { color: #bbb; font-weight: 600; }
     .hero-status {
@@ -364,7 +364,7 @@
 <!-- ── HERO ── -->
 <section id="hero">
   <div class="hero-photo">
-    <img src="assets/images/hero-portrait.jpg" alt="Sri Vasudev at Times Square, New York" />
+    <img src="assets/images/hero-portrait.jpg" alt="Sri Vasudev at Times Square, New York" style="object-position: center 25%;" />
   </div>
   <div class="hero-text">
     <h1 class="hero-name">
@@ -486,19 +486,19 @@
           <div class="j-dot" style="background:var(--amber);box-shadow:0 0 8px var(--amber);"></div>
           <div class="j-city">Bengaluru</div>
           <div class="j-role">India&rsquo;s Silicon Valley</div>
-          <div class="j-year">2018 &ndash; 2022</div>
+          <div class="j-year">2022 &ndash; 2024</div>
         </div>
         <div class="journey-node">
           <div class="j-dot" style="background:var(--blue);box-shadow:0 0 8px var(--blue);"></div>
           <div class="j-city">New York City</div>
           <div class="j-role">EY &middot; Consilio &middot; MTA</div>
-          <div class="j-year">2022 &ndash; 2025</div>
+          <div class="j-year">2024 &ndash; 2026</div>
         </div>
         <div class="journey-node" style="padding-right:0;">
           <div class="j-dot" style="background:var(--purple);box-shadow:0 0 8px var(--purple);"></div>
           <div class="j-city">Los Angeles</div>
           <div class="j-role">IpserLab &middot; Pace &rsquo;26</div>
-          <div class="j-year">2025 &ndash; Present</div>
+          <div class="j-year">2026 &ndash; Present</div>
         </div>
       </div>
     </div>
@@ -508,47 +508,94 @@
   </div>
 </section>
 
-<!-- ── STATS ── -->
+<!-- ── EDITORIAL TILES (Accenture-style) ── -->
 <section class="stats-section">
   <div class="section-wrap" style="padding-top:72px;padding-bottom:72px;">
-    <div class="stats-grid reveal">
-      <div class="stats-wide">
-        <img src="assets/images/analytics-dashboard.png" alt="Analytics dashboards" />
-        <div class="stats-wide-text">
-          <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#3a3a4a;margin-bottom:10px;">Impact delivered</p>
-          <h3 style="font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.025em;line-height:1.25;">Turning data complexity<br/>into measurable business value.</h3>
+    <div class="reveal" style="display:grid;grid-template-columns:1.15fr 0.9fr 1fr 0.95fr;gap:12px;align-items:stretch;">
+
+      <!-- Tile 1 — Deep violet: Journey story -->
+      <div style="background:linear-gradient(150deg,#1a0847 0%,#2d1266 60%,#1e0952 100%);border-radius:20px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;min-height:440px;position:relative;overflow:hidden;">
+        <!-- Subtle orb -->
+        <div style="position:absolute;bottom:-40px;right:-40px;width:220px;height:220px;background:radial-gradient(circle,rgba(168,85,247,0.22) 0%,transparent 70%);border-radius:50%;pointer-events:none;"></div>
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(168,85,247,0.7);margin-bottom:20px;">Journey</div>
+          <div style="font-size:22px;font-weight:800;color:#fff;letter-spacing:-0.03em;line-height:1.25;margin-bottom:14px;">From Bengaluru&rsquo;s Silicon Valley to New York, then LA — chasing the hardest problems at the edge of data and AI.</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;">Started in India&rsquo;s tech capital. Built enterprise solutions at EY. Navigated New York&rsquo;s transit data at MTA. Now shaping AI products in Los Angeles.</div>
+        </div>
+        <div style="display:flex;gap:20px;margin-top:28px;flex-wrap:wrap;">
+          <div><div style="font-size:30px;font-weight:900;color:#fff;letter-spacing:-0.04em;line-height:1;">2.5<span style="font-size:0.6em;opacity:0.6;margin-left:2px;">+</span></div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.35);margin-top:4px;">Years</div></div>
+          <div><div style="font-size:30px;font-weight:900;color:#fff;letter-spacing:-0.04em;line-height:1;">3</div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.35);margin-top:4px;">Cities</div></div>
+          <div><div style="font-size:30px;font-weight:900;color:#fff;letter-spacing:-0.04em;line-height:1;">4<span style="font-size:0.6em;opacity:0.6;margin-left:2px;">+</span></div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.35);margin-top:4px;">Companies</div></div>
         </div>
       </div>
-      <div class="stat-col">
-        <div class="stat-tile purple-t">
-          <div class="stat-num" style="color:var(--purple);">$10<span style="font-size:0.65em;opacity:0.75;margin-left:3px;">M+</span></div>
-          <div class="stat-label">Engagements handled</div>
+
+      <!-- Tile 2 — Near-white cream: Consulting impact -->
+      <div style="background:#f0ece6;border-radius:20px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;min-height:440px;position:relative;overflow:hidden;">
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(80,60,20,0.5);margin-bottom:20px;">Impact</div>
+          <div style="font-size:20px;font-weight:800;color:#111;letter-spacing:-0.025em;line-height:1.3;margin-bottom:14px;">Enterprise scale, measurable results. $10M+ in engagements across Fortune 500 clients.</div>
+          <div style="font-size:13px;color:#666;line-height:1.7;">Consulting BI at EY. Transit analytics at MTA. Legal data ops at Consilio. Every engagement accountable to numbers.</div>
         </div>
-        <div class="stat-tile blue-t">
-          <div class="stat-num" style="color:var(--blue);">4<span style="font-size:0.65em;opacity:0.75;margin-left:2px;">+</span></div>
-          <div class="stat-label">Fortune 500 clients</div>
-        </div>
-      </div>
-      <div class="stat-col">
-        <div class="stat-tile teal-t">
-          <div class="stat-num" style="color:var(--teal);">35<span style="font-size:0.65em;opacity:0.75;margin-left:2px;">+</span></div>
-          <div class="stat-label">GTM ops delivered</div>
-        </div>
-        <div class="stat-tile amber-t">
-          <div class="stat-num" style="color:var(--amber);">20<span style="font-size:0.65em;opacity:0.75;margin-left:1px;">%+</span></div>
-          <div class="stat-label">Decision accuracy lift</div>
-        </div>
-      </div>
-      <div class="stat-col">
-        <div class="stat-tile green-t">
-          <div class="stat-num" style="color:var(--green);">2.5<span style="font-size:0.65em;opacity:0.75;margin-left:2px;">+</span></div>
-          <div class="stat-label">Years of experience</div>
-        </div>
-        <div class="stat-tile rose-t">
-          <div class="stat-num" style="color:#fb7185;">2</div>
-          <div class="stat-label">Research publications</div>
+        <div style="margin-top:24px;">
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid rgba(0,0,0,0.08);">
+              <span style="font-size:12px;color:#555;font-weight:500;">Engagements</span>
+              <span style="font-size:16px;font-weight:900;color:#111;">$10M<span style="font-size:0.7em;opacity:0.5;">+</span></span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid rgba(0,0,0,0.08);">
+              <span style="font-size:12px;color:#555;font-weight:500;">F500 Clients</span>
+              <span style="font-size:16px;font-weight:900;color:#111;">4<span style="font-size:0.7em;opacity:0.5;">+</span></span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid rgba(0,0,0,0.08);">
+              <span style="font-size:12px;color:#555;font-weight:500;">GTM Ops</span>
+              <span style="font-size:16px;font-weight:900;color:#111;">35<span style="font-size:0.7em;opacity:0.5;">+</span></span>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- Tile 3 — Dark slate with photo: Technology -->
+      <div style="border-radius:20px;overflow:hidden;min-height:440px;position:relative;">
+        <img src="assets/images/analytics-dashboard.png" alt="Analytics" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.55;" />
+        <div style="position:absolute;inset:0;background:linear-gradient(160deg,rgba(8,8,16,0.9) 0%,rgba(8,8,28,0.55) 100%);"></div>
+        <div style="position:relative;z-index:2;padding:32px;height:100%;display:flex;flex-direction:column;justify-content:space-between;">
+          <div>
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(45,212,191,0.7);margin-bottom:20px;">Technology</div>
+            <div style="font-size:20px;font-weight:800;color:#fff;letter-spacing:-0.025em;line-height:1.3;margin-bottom:14px;">Azure. Databricks. GenAI. AWS. Power BI. The full stack of modern enterprise data.</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;">ETL pipelines, cloud data lakes, ML models, and BI dashboards — built for scale, designed for decisions.</div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:24px;">
+            <span style="padding:4px 12px;background:rgba(45,212,191,0.12);border:1px solid rgba(45,212,191,0.25);border-radius:100px;font-size:11px;font-weight:600;color:var(--teal);">Azure Databricks</span>
+            <span style="padding:4px 12px;background:rgba(91,165,245,0.12);border:1px solid rgba(91,165,245,0.25);border-radius:100px;font-size:11px;font-weight:600;color:var(--blue);">Power BI</span>
+            <span style="padding:4px 12px;background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.25);border-radius:100px;font-size:11px;font-weight:600;color:var(--purple);">GenAI / LLMs</span>
+            <span style="padding:4px 12px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.25);border-radius:100px;font-size:11px;font-weight:600;color:var(--amber);">AWS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tile 4 — Light gray: Research & credentials -->
+      <div style="background:#e8e4df;border-radius:20px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;min-height:440px;">
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(80,60,20,0.45);margin-bottom:20px;">Research &amp; Credentials</div>
+          <div style="font-size:20px;font-weight:800;color:#111;letter-spacing:-0.025em;line-height:1.3;margin-bottom:14px;">Published researcher. McKinsey Forward Fellow. AWS certified. GPA 3.8 at Pace University.</div>
+          <div style="font-size:13px;color:#666;line-height:1.7;">HCI International 2026 publication on LLMs and personality insights. Capstone on agentic AI trust in digital banking.</div>
+        </div>
+        <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,153,0,0.15);border:1px solid rgba(255,153,0,0.25);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#FF9900;letter-spacing:0.03em;flex-shrink:0;">AWS</div>
+            <span style="font-size:12px;font-weight:600;color:#333;">Solutions Architect Associate</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:32px;height:32px;border-radius:8px;background:rgba(0,100,64,0.12);border:1px solid rgba(0,100,64,0.22);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#00643c;font-style:italic;flex-shrink:0;font-family:Georgia,serif;">M</div>
+            <span style="font-size:12px;font-weight:600;color:#333;">McKinsey Forward Fellow</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:32px;height:32px;border-radius:8px;background:rgba(91,165,245,0.12);border:1px solid rgba(91,165,245,0.22);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:var(--blue);flex-shrink:0;">2x</div>
+            <span style="font-size:12px;font-weight:600;color:#333;">Published Author, 2022–2026</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -568,9 +615,7 @@
         <div class="exp-text">
           <!-- Company identity header -->
           <div style="display:flex;align-items:center;gap:13px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--border);">
-            <div style="width:54px;height:38px;background:rgba(255,255,255,0.95);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px;border:1px solid rgba(255,255,255,0.08);flex-shrink:0;">
-              <img src="assets/images/ipserlab-logo.png" alt="IpserLab" style="width:100%;height:100%;object-fit:contain;" />
-            </div>
+            <img src="assets/images/ipserlab-logo.png" alt="IpserLab" style="height:38px;width:auto;border-radius:8px;flex-shrink:0;display:block;" />
             <div>
               <a href="https://www.linkedin.com/company/ipserlab/" target="_blank" rel="noopener noreferrer" style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.02em;line-height:1.15;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--purple)'" onmouseout="this.style.color='#fff'">IpserLab LLC</a>
               <div style="font-size:11px;color:var(--faint);">Los Angeles, California</div>
@@ -612,9 +657,7 @@
       <div class="exp-editorial reverse reveal" style="transition-delay:70ms;">
         <div class="exp-text">
           <div style="display:flex;align-items:center;gap:13px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--border);">
-            <div style="width:46px;height:46px;background:rgba(255,255,255,0.95);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:6px;overflow:hidden;flex-shrink:0;border:1px solid rgba(255,255,255,0.08);">
-              <img src="assets/images/mta-logo.jpg" alt="MTA" style="width:100%;height:100%;object-fit:contain;" />
-            </div>
+            <img src="assets/images/mta-logo.jpg" alt="MTA" style="height:42px;width:auto;border-radius:8px;flex-shrink:0;display:block;" />
             <div>
               <a href="https://new.mta.info/" target="_blank" rel="noopener noreferrer" style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.02em;line-height:1.15;text-decoration:none;transition:color 0.2s;display:block;" onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color='#fff'">Metropolitan Transportation Authority</a>
               <div style="font-size:11px;color:var(--faint);">New York, NY</div>
@@ -649,9 +692,7 @@
       <div class="exp-editorial reveal" style="transition-delay:100ms;">
         <div class="exp-text">
           <div style="display:flex;align-items:center;gap:13px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--border);">
-            <div style="width:46px;height:46px;background:rgba(255,255,255,0.95);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px;overflow:hidden;flex-shrink:0;border:1px solid rgba(255,218,0,0.15);">
-              <img src="assets/images/ey-logo.jpg" alt="EY" style="width:100%;height:100%;object-fit:contain;" />
-            </div>
+            <img src="assets/images/ey-logo.jpg" alt="EY" style="height:42px;width:auto;border-radius:8px;flex-shrink:0;display:block;" />
             <div>
               <a href="https://www.ey.com/" target="_blank" rel="noopener noreferrer" style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.02em;line-height:1.15;text-decoration:none;transition:color 0.2s;display:block;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='#fff'">Ernst &amp; Young LLP</a>
               <div style="font-size:11px;color:var(--faint);">Bengaluru, India &middot; Dec 2022 &ndash; Aug 2024</div>
@@ -675,9 +716,7 @@
           </div>
         </div>
         <div class="exp-visual">
-          <!-- EY image vivid — position:absolute so it fills panel without overspilling -->
-          <img src="assets/images/ey-experience.png" alt="Ernst &amp; Young" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:0.85;display:block;transition:transform 7s ease;" />
-          <div class="exp-photo-veil" style="background:linear-gradient(90deg,rgba(6,6,8,0.5) 0%,rgba(6,6,8,0.1) 60%,rgba(6,6,8,0.0) 100%);z-index:1;"></div>
+          <img src="assets/images/ey-experience.png" alt="Ernst &amp; Young" style="width:100%;height:auto;object-fit:contain;opacity:0.9;display:block;" />
         </div>
       </div>
 
@@ -685,9 +724,7 @@
       <div class="exp-editorial reverse reveal" style="transition-delay:130ms;">
         <div class="exp-text">
           <div style="display:flex;align-items:center;gap:13px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--border);">
-            <div style="width:54px;height:38px;background:rgba(255,255,255,0.95);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px;border:1px solid rgba(255,255,255,0.08);flex-shrink:0;">
-              <img src="assets/images/consilio-logo.jpg" alt="Consilio" style="width:100%;height:100%;object-fit:contain;" />
-            </div>
+            <img src="assets/images/consilio-logo.jpg" alt="Consilio" style="height:38px;width:auto;border-radius:8px;flex-shrink:0;display:block;" />
             <div>
               <a href="https://www.consilio.com/" target="_blank" rel="noopener noreferrer" style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.02em;line-height:1.15;text-decoration:none;transition:color 0.2s;display:block;" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='#fff'">Consilio LLC</a>
               <div style="font-size:11px;color:var(--faint);">Bengaluru, India &middot; Oct &ndash; Dec 2022</div>
@@ -827,10 +864,7 @@
         <div style="display:flex;flex-direction:column;gap:18px;">
           <a href="https://www.credly.com/badges/2bedf794-b479-4926-88bc-34b6e30e1507" target="_blank" rel="noopener noreferrer" class="cert-link">
             <div class="cert-icon" style="background:rgba(255,153,0,0.12);border:1px solid rgba(255,153,0,0.2);">
-              <!-- AWS logo mark -->
-              <svg width="20" height="12" viewBox="0 0 60 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.6 13.4l-2.6 9.6-2.7-9.6H9.1L6.4 23l-2.5-9.6H0l4.1 14h3.5l2.7-9.4 2.7 9.4h3.5l4.1-14h-3zM33.4 13.4l-2.6 9.6-2.7-9.6h-3.2L22.2 23l-2.5-9.6h-3.9l4.1 14h3.5l2.7-9.4 2.7 9.4h3.5l4.1-14h-3zM49.2 13.4l-2.6 9.6-2.7-9.6h-3.2L38 23l-2.5-9.6H31.6l4.1 14h3.5l2.7-9.4 2.7 9.4h3.5l4.1-14h-3z" fill="#FF9900"/>
-              </svg>
+              <span style="font-size:9px;font-weight:900;color:#FF9900;letter-spacing:0.04em;font-family:'Courier New',monospace;">AWS</span>
             </div>
             <div class="cert-text">
               <div class="cert-name">AWS Solutions Architect Associate &#8599;</div>
@@ -839,10 +873,7 @@
           </a>
           <a href="https://www.credly.com/badges/e9ad49fa-4673-4748-8f98-e5b1bcc48a65/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert-link">
             <div class="cert-icon" style="background:rgba(0,100,64,0.12);border:1px solid rgba(0,100,64,0.25);">
-              <!-- McKinsey M -->
-              <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 20V4l10 9 10-9v16" fill="none" stroke="#00643c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
-              </svg>
+              <span style="font-size:18px;font-weight:900;color:#00643c;font-family:Georgia,serif;font-style:italic;line-height:1;">M</span>
             </div>
             <div class="cert-text">
               <div class="cert-name">McKinsey Forward Program &#8599;</div>
