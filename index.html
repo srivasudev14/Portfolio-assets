@@ -227,17 +227,17 @@
 
     .exp-badge { display: inline-flex; align-items: center; gap: 6px; border-radius: 100px; padding: 4px 12px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; width: fit-content; }
     .exp-badge.current { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25); color: var(--green); }
-    .exp-role { font-size: clamp(17px, 2vw, 23px); font-weight: 800; letter-spacing: -0.022em; color: #fff; margin-bottom: 4px; line-height: 1.2; }
+    .exp-role { font-size: clamp(16px, 1.8vw, 20px); font-weight: 700; letter-spacing: -0.018em; color: #d8d8d8; margin-bottom: 4px; line-height: 1.2; }
     .exp-sub { font-size: 12px; color: #444; font-weight: 500; margin-bottom: 10px; }
     .exp-meta { font-size: 13px; color: var(--muted); margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; }
     .exp-meta a { color: rgba(91,165,245,0.8); text-decoration: none; font-weight: 600; transition: color 0.2s; }
     .exp-meta a:hover { color: var(--blue); }
     .exp-sep { color: var(--fainter); }
     .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .exp-bullets li { display: flex; gap: 10px; font-size: 13px; color: #777; line-height: 1.65; }
-    .exp-bullets li::before { content: '→'; color: rgba(124,109,250,0.5); flex-shrink: 0; margin-top: 2px; font-weight: 600; }
+    .exp-bullets li { display: flex; gap: 10px; font-size: 13px; color: #999; line-height: 1.65; }
+    .exp-bullets li::before { content: '→'; color: rgba(124,109,250,0.6); flex-shrink: 0; margin-top: 2px; font-weight: 600; }
     .chips-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
-    .chip { display: inline-block; padding: 4px 11px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; font-weight: 500; color: #555; transition: color 0.2s, border-color 0.2s; }
+    .chip { display: inline-block; padding: 4px 11px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; font-weight: 500; color: #666; transition: color 0.2s, border-color 0.2s; }
     .chip:hover { color: var(--blue); border-color: rgba(91,165,245,0.3); }
 
     /* Consilio plain card */
@@ -521,27 +521,27 @@
       </div>
       <div class="stat-col">
         <div class="stat-tile purple-t">
-          <div class="stat-num" style="color:var(--purple);">$10<span style="font-size:0.55em;color:#555;">M+</span></div>
+          <div class="stat-num" style="color:var(--purple);">$10<span style="font-size:0.65em;opacity:0.75;margin-left:3px;">M+</span></div>
           <div class="stat-label">Engagements handled</div>
         </div>
         <div class="stat-tile blue-t">
-          <div class="stat-num" style="color:var(--blue);">4<span style="font-size:0.55em;color:#555;">+</span></div>
+          <div class="stat-num" style="color:var(--blue);">4<span style="font-size:0.65em;opacity:0.75;margin-left:2px;">+</span></div>
           <div class="stat-label">Fortune 500 clients</div>
         </div>
       </div>
       <div class="stat-col">
         <div class="stat-tile teal-t">
-          <div class="stat-num" style="color:var(--teal);">35<span style="font-size:0.55em;color:#555;">+</span></div>
+          <div class="stat-num" style="color:var(--teal);">35<span style="font-size:0.65em;opacity:0.75;margin-left:2px;">+</span></div>
           <div class="stat-label">GTM ops delivered</div>
         </div>
         <div class="stat-tile amber-t">
-          <div class="stat-num" style="color:var(--amber);">20<span style="font-size:0.55em;color:#555;">%+</span></div>
+          <div class="stat-num" style="color:var(--amber);">20<span style="font-size:0.65em;opacity:0.75;margin-left:1px;">%+</span></div>
           <div class="stat-label">Decision accuracy lift</div>
         </div>
       </div>
       <div class="stat-col">
         <div class="stat-tile green-t">
-          <div class="stat-num" style="color:var(--green);">2.5<span style="font-size:0.55em;color:#555;">+</span></div>
+          <div class="stat-num" style="color:var(--green);">2.5<span style="font-size:0.65em;opacity:0.75;margin-left:2px;">+</span></div>
           <div class="stat-label">Years of experience</div>
         </div>
         <div class="stat-tile rose-t">
@@ -568,11 +568,11 @@
         <div class="exp-text">
           <!-- Company identity header -->
           <div style="display:flex;align-items:center;gap:13px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--border);">
-            <div style="width:54px;height:38px;background:rgba(255,255,255,0.97);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;">
+            <div style="width:54px;height:38px;background:rgba(255,255,255,0.95);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px;border:1px solid rgba(255,255,255,0.08);flex-shrink:0;">
               <img src="assets/images/ipserlab-logo.png" alt="IpserLab" style="width:100%;height:100%;object-fit:contain;" />
             </div>
             <div>
-              <div style="font-size:15px;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1.15;">IpserLab LLC</div>
+              <a href="https://www.linkedin.com/company/ipserlab/" target="_blank" rel="noopener noreferrer" style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.02em;line-height:1.15;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--purple)'" onmouseout="this.style.color='#fff'">IpserLab LLC</a>
               <div style="font-size:11px;color:var(--faint);">Los Angeles, California</div>
             </div>
           </div>
@@ -612,11 +612,11 @@
       <div class="exp-editorial reverse reveal" style="transition-delay:70ms;">
         <div class="exp-text">
           <div style="display:flex;align-items:center;gap:13px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--border);">
-            <div style="width:46px;height:46px;background:#003063;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:5px;overflow:hidden;flex-shrink:0;">
-              <img src="assets/images/mta-logo.jpg" alt="MTA" style="width:100%;height:100%;object-fit:contain;border-radius:6px;" />
+            <div style="width:46px;height:46px;background:rgba(255,255,255,0.95);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:6px;overflow:hidden;flex-shrink:0;border:1px solid rgba(255,255,255,0.08);">
+              <img src="assets/images/mta-logo.jpg" alt="MTA" style="width:100%;height:100%;object-fit:contain;" />
             </div>
             <div>
-              <div style="font-size:15px;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1.15;">Metropolitan Transportation Authority</div>
+              <a href="https://new.mta.info/" target="_blank" rel="noopener noreferrer" style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.02em;line-height:1.15;text-decoration:none;transition:color 0.2s;display:block;" onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color='#fff'">Metropolitan Transportation Authority</a>
               <div style="font-size:11px;color:var(--faint);">New York, NY</div>
             </div>
           </div>
@@ -638,16 +638,9 @@
         <div class="exp-visual">
           <img class="exp-photo" src="assets/images/nyc-skyline.webp" alt="New York City skyline" style="opacity:0.6;" />
           <div class="exp-photo-veil" style="background:linear-gradient(90deg,rgba(6,6,8,0.08) 0%,rgba(6,6,8,0.45) 100%);"></div>
-          <!-- MTA logo centered at bottom -->
-          <div style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:3;">
-            <div style="width:60px;height:60px;background:rgba(0,48,99,0.88);border:1px solid rgba(255,255,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;padding:8px;backdrop-filter:blur(10px);">
-              <img src="assets/images/mta-logo.jpg" alt="MTA" style="width:100%;height:100%;object-fit:contain;border-radius:50%;" />
-            </div>
-          </div>
-          <!-- MTA text at bottom right -->
+          <!-- New York City label bottom-right only -->
           <div style="position:absolute;bottom:28px;right:28px;z-index:3;text-align:right;">
-            <div style="font-size:38px;font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1;opacity:0.88;">MTA</div>
-            <div style="font-size:9px;color:rgba(255,255,255,0.3);margin-top:3px;letter-spacing:0.1em;text-transform:uppercase;">New York City</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.28);letter-spacing:0.12em;text-transform:uppercase;font-weight:700;">New York City</div>
           </div>
         </div>
       </div>
@@ -656,11 +649,11 @@
       <div class="exp-editorial reveal" style="transition-delay:100ms;">
         <div class="exp-text">
           <div style="display:flex;align-items:center;gap:13px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--border);">
-            <div style="width:46px;height:46px;background:#ffe600;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px;overflow:hidden;flex-shrink:0;">
+            <div style="width:46px;height:46px;background:rgba(255,255,255,0.95);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px;overflow:hidden;flex-shrink:0;border:1px solid rgba(255,218,0,0.15);">
               <img src="assets/images/ey-logo.jpg" alt="EY" style="width:100%;height:100%;object-fit:contain;" />
             </div>
             <div>
-              <div style="font-size:15px;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1.15;">Ernst &amp; Young LLP</div>
+              <a href="https://www.ey.com/" target="_blank" rel="noopener noreferrer" style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.02em;line-height:1.15;text-decoration:none;transition:color 0.2s;display:block;" onmouseover="this.style.color='var(--amber)'" onmouseout="this.style.color='#fff'">Ernst &amp; Young LLP</a>
               <div style="font-size:11px;color:var(--faint);">Bengaluru, India &middot; Dec 2022 &ndash; Aug 2024</div>
             </div>
           </div>
@@ -682,9 +675,9 @@
           </div>
         </div>
         <div class="exp-visual">
-          <!-- EY image vivid, minimal dimming -->
-          <img class="exp-photo" src="assets/images/ey-experience.png" alt="Ernst &amp; Young" style="opacity:0.88;object-position:center;" />
-          <div class="exp-photo-veil" style="background:linear-gradient(90deg,rgba(6,6,8,0.55) 0%,rgba(6,6,8,0.15) 55%,rgba(6,6,8,0.0) 100%);"></div>
+          <!-- EY image vivid — position:absolute so it fills panel without overspilling -->
+          <img src="assets/images/ey-experience.png" alt="Ernst &amp; Young" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:0.85;display:block;transition:transform 7s ease;" />
+          <div class="exp-photo-veil" style="background:linear-gradient(90deg,rgba(6,6,8,0.5) 0%,rgba(6,6,8,0.1) 60%,rgba(6,6,8,0.0) 100%);z-index:1;"></div>
         </div>
       </div>
 
@@ -692,11 +685,11 @@
       <div class="exp-editorial reverse reveal" style="transition-delay:130ms;">
         <div class="exp-text">
           <div style="display:flex;align-items:center;gap:13px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--border);">
-            <div style="width:54px;height:38px;background:rgba(255,255,255,0.97);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;">
+            <div style="width:54px;height:38px;background:rgba(255,255,255,0.95);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px;border:1px solid rgba(255,255,255,0.08);flex-shrink:0;">
               <img src="assets/images/consilio-logo.jpg" alt="Consilio" style="width:100%;height:100%;object-fit:contain;" />
             </div>
             <div>
-              <div style="font-size:15px;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1.15;">Consilio LLC</div>
+              <a href="https://www.consilio.com/" target="_blank" rel="noopener noreferrer" style="font-size:19px;font-weight:800;color:#fff;letter-spacing:-0.02em;line-height:1.15;text-decoration:none;transition:color 0.2s;display:block;" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='#fff'">Consilio LLC</a>
               <div style="font-size:11px;color:var(--faint);">Bengaluru, India &middot; Oct &ndash; Dec 2022</div>
             </div>
           </div>
