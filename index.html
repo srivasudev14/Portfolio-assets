@@ -563,14 +563,23 @@
 
     <div style="display:flex;flex-direction:column;gap:14px;">
 
-      <!-- IpserLab — logo panel -->
+      <!-- IpserLab — company header + logo panel -->
       <div class="exp-editorial reveal" style="transition-delay:40ms;">
         <div class="exp-text">
+          <!-- Company identity header -->
+          <div style="display:flex;align-items:center;gap:13px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+            <div style="width:54px;height:38px;background:rgba(255,255,255,0.97);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;">
+              <img src="assets/images/ipserlab-logo.png" alt="IpserLab" style="width:100%;height:100%;object-fit:contain;" />
+            </div>
+            <div>
+              <div style="font-size:15px;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1.15;">IpserLab LLC</div>
+              <div style="font-size:11px;color:var(--faint);">Los Angeles, California</div>
+            </div>
+          </div>
           <div class="exp-badge current"><span class="live-dot" style="width:6px;height:6px;"></span>Current Role</div>
           <h3 class="exp-role">Product Manager Intern</h3>
           <div class="exp-meta">
-            <a href="https://www.linkedin.com/company/ipserlab/" target="_blank" rel="noopener noreferrer">IpserLab LLC</a>
-            <span class="exp-sep">&middot;</span><span>Los Angeles, CA</span>
+            <span>Los Angeles, CA</span>
             <span class="exp-sep">&middot;</span><span>Aug 2026 &ndash; Present</span>
           </div>
           <ul class="exp-bullets">
@@ -583,10 +592,9 @@
           </div>
         </div>
         <div class="exp-visual" style="background:linear-gradient(135deg,#07091c 0%,#0a0c1e 100%);">
-          <!-- Purple ambient orb -->
           <div style="position:absolute;top:20%;left:30%;width:200px;height:200px;background:radial-gradient(circle,rgba(168,85,247,0.18) 0%,transparent 70%);border-radius:50%;animation:orb-pulse 5s ease-in-out infinite alternate;pointer-events:none;"></div>
           <div class="exp-logo-panel">
-            <div class="exp-logo-box" style="width:160px;height:100px;">
+            <div class="exp-logo-box" style="width:180px;height:112px;">
               <img src="assets/images/ipserlab-logo.png" alt="IpserLab LLC" />
             </div>
             <div class="exp-co-name">IpserLab LLC</div>
@@ -600,13 +608,21 @@
         </div>
       </div>
 
-      <!-- MTA — full-bleed NYC skyline, no logo box -->
+      <!-- MTA — company header + NYC skyline + logo center + MTA text right -->
       <div class="exp-editorial reverse reveal" style="transition-delay:70ms;">
         <div class="exp-text">
+          <div style="display:flex;align-items:center;gap:13px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+            <div style="width:46px;height:46px;background:#003063;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:5px;overflow:hidden;flex-shrink:0;">
+              <img src="assets/images/mta-logo.jpg" alt="MTA" style="width:100%;height:100%;object-fit:contain;border-radius:6px;" />
+            </div>
+            <div>
+              <div style="font-size:15px;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1.15;">Metropolitan Transportation Authority</div>
+              <div style="font-size:11px;color:var(--faint);">New York, NY</div>
+            </div>
+          </div>
           <h3 class="exp-role">Data Strategy Analyst</h3>
           <div class="exp-meta">
-            <a href="https://new.mta.info/" target="_blank" rel="noopener noreferrer">Metropolitan Transportation Authority</a>
-            <span class="exp-sep">&middot;</span><span>New York, NY</span>
+            <span>New York, NY</span>
             <span class="exp-sep">&middot;</span><span>Jul &ndash; Dec 2025</span>
           </div>
           <ul class="exp-bullets">
@@ -620,26 +636,38 @@
           </div>
         </div>
         <div class="exp-visual">
-          <!-- NYC skyline full-bleed, prominent -->
-          <img class="exp-photo" src="assets/images/nyc-skyline.webp" alt="New York City skyline" style="opacity:0.55;" />
-          <div class="exp-photo-veil" style="background:linear-gradient(90deg,rgba(6,6,8,0.05) 0%,rgba(6,6,8,0.5) 100%);"></div>
-          <!-- MTA wordmark overlay -->
-          <div style="position:absolute;bottom:28px;left:28px;z-index:3;">
-            <div style="font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:6px;">Metropolitan Transportation Authority</div>
-            <div style="font-size:36px;font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1;opacity:0.9;">MTA</div>
-            <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:4px;">New York City</div>
+          <img class="exp-photo" src="assets/images/nyc-skyline.webp" alt="New York City skyline" style="opacity:0.6;" />
+          <div class="exp-photo-veil" style="background:linear-gradient(90deg,rgba(6,6,8,0.08) 0%,rgba(6,6,8,0.45) 100%);"></div>
+          <!-- MTA logo centered at bottom -->
+          <div style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:3;">
+            <div style="width:60px;height:60px;background:rgba(0,48,99,0.88);border:1px solid rgba(255,255,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;padding:8px;backdrop-filter:blur(10px);">
+              <img src="assets/images/mta-logo.jpg" alt="MTA" style="width:100%;height:100%;object-fit:contain;border-radius:50%;" />
+            </div>
+          </div>
+          <!-- MTA text at bottom right -->
+          <div style="position:absolute;bottom:28px;right:28px;z-index:3;text-align:right;">
+            <div style="font-size:38px;font-weight:900;color:#fff;letter-spacing:-0.03em;line-height:1;opacity:0.88;">MTA</div>
+            <div style="font-size:9px;color:rgba(255,255,255,0.3);margin-top:3px;letter-spacing:0.1em;text-transform:uppercase;">New York City</div>
           </div>
         </div>
       </div>
 
-      <!-- EY — EY experience image + clean logo badge -->
+      <!-- EY — company header + vivid EY image + small badge -->
       <div class="exp-editorial reveal" style="transition-delay:100ms;">
         <div class="exp-text">
+          <div style="display:flex;align-items:center;gap:13px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+            <div style="width:46px;height:46px;background:#ffe600;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px;overflow:hidden;flex-shrink:0;">
+              <img src="assets/images/ey-logo.jpg" alt="EY" style="width:100%;height:100%;object-fit:contain;" />
+            </div>
+            <div>
+              <div style="font-size:15px;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1.15;">Ernst &amp; Young LLP</div>
+              <div style="font-size:11px;color:var(--faint);">Bengaluru, India &middot; Dec 2022 &ndash; Aug 2024</div>
+            </div>
+          </div>
           <h3 class="exp-role">Advanced Analyst, Staff II</h3>
           <div class="exp-sub">Business Consulting, Analytics &amp; Strategy</div>
           <div class="exp-meta">
-            <a href="https://www.ey.com/" target="_blank" rel="noopener noreferrer">Ernst &amp; Young LLP</a>
-            <span class="exp-sep">&middot;</span><span>Bengaluru, India</span>
+            <span>Bengaluru, India</span>
             <span class="exp-sep">&middot;</span><span>Dec 2022 &ndash; Aug 2024</span>
           </div>
           <ul class="exp-bullets">
@@ -654,40 +682,53 @@
           </div>
         </div>
         <div class="exp-visual">
-          <img class="exp-photo" src="assets/images/ey-experience.png" alt="Ernst &amp; Young" style="opacity:0.5;object-position:center;" />
-          <div class="exp-photo-veil" style="background:linear-gradient(90deg,rgba(6,6,8,0.92) 0%,rgba(6,6,8,0.4) 60%,rgba(6,6,8,0.05) 100%);"></div>
-          <!-- EY badge bottom-right -->
-          <div style="position:absolute;bottom:28px;right:28px;z-index:3;text-align:right;">
-            <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(6,6,8,0.7);border:1px solid rgba(255,230,0,0.2);border-radius:14px;padding:10px 16px;backdrop-filter:blur(12px);">
-              <img src="assets/images/ey-logo.jpg" alt="EY" style="height:22px;width:auto;" />
-              <div style="text-align:left;">
-                <div style="font-size:12px;font-weight:800;color:#fff;">Ernst &amp; Young</div>
-                <div style="font-size:10px;color:rgba(255,230,0,0.5);">Bengaluru, India</div>
-              </div>
-            </div>
-          </div>
+          <!-- EY image vivid, minimal dimming -->
+          <img class="exp-photo" src="assets/images/ey-experience.png" alt="Ernst &amp; Young" style="opacity:0.88;object-position:center;" />
+          <div class="exp-photo-veil" style="background:linear-gradient(90deg,rgba(6,6,8,0.55) 0%,rgba(6,6,8,0.15) 55%,rgba(6,6,8,0.0) 100%);"></div>
         </div>
       </div>
 
-      <!-- Consilio -->
-      <div class="exp-plain reveal" style="transition-delay:130ms;">
-        <div>
-          <h3 class="exp-role" style="font-size:19px;margin-bottom:4px;">Data Operations Analyst</h3>
+      <!-- Consilio — full editorial with logo panel + 3 bullets -->
+      <div class="exp-editorial reverse reveal" style="transition-delay:130ms;">
+        <div class="exp-text">
+          <div style="display:flex;align-items:center;gap:13px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+            <div style="width:54px;height:38px;background:rgba(255,255,255,0.97);border-radius:10px;display:flex;align-items:center;justify-content:center;padding:7px;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;">
+              <img src="assets/images/consilio-logo.jpg" alt="Consilio" style="width:100%;height:100%;object-fit:contain;" />
+            </div>
+            <div>
+              <div style="font-size:15px;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1.15;">Consilio LLC</div>
+              <div style="font-size:11px;color:var(--faint);">Bengaluru, India &middot; Oct &ndash; Dec 2022</div>
+            </div>
+          </div>
+          <h3 class="exp-role">Data Operations Analyst</h3>
           <div class="exp-meta">
-            <a href="https://www.consilio.com/" target="_blank" rel="noopener noreferrer">Consilio LLC</a>
-            <span class="exp-sep">&middot;</span><span>Bengaluru, India</span>
+            <span>Bengaluru, India</span>
             <span class="exp-sep">&middot;</span><span>Oct &ndash; Dec 2022</span>
           </div>
           <ul class="exp-bullets">
-            <li>Designed &amp; implemented cloud-based data pipelines for legal eDiscovery forensics, enforcing data privacy compliance across 5,000+ legal records.</li>
-            <li>Built data warehousing solutions and automated analytics workflows, improving pipeline efficiency by 20% and analytical output by 30%.</li>
+            <li>Designed &amp; implemented cloud-based ETL pipelines for legal eDiscovery forensics, enforcing data privacy and chain-of-custody compliance across 5,000+ legal records under strict regulatory standards.</li>
+            <li>Built scalable data warehousing solutions and automated analytics workflows in Python and SQL, improving pipeline throughput by 20% and accelerating analytical report generation by 30%.</li>
+            <li>Partnered with legal and engineering teams to document data lineage and implement audit trails, reducing manual review cycles and strengthening evidentiary integrity across multi-jurisdiction matters.</li>
           </ul>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;flex-shrink:0;">
-          <div style="width:100px;height:68px;display:flex;align-items:center;justify-content:center;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:rgba(255,255,255,0.97);padding:10px;">
-            <img src="assets/images/consilio-logo.jpg" alt="Consilio" style="width:100%;height:100%;object-fit:contain;" />
+          <div class="chips-row">
+            <span class="chip">Python / SQL</span><span class="chip">ETL Pipelines</span>
+            <span class="chip">eDiscovery</span><span class="chip">Data Compliance</span>
           </div>
-          <div style="font-size:11px;font-weight:700;color:var(--faint);letter-spacing:0.07em;text-transform:uppercase;">Consilio LLC</div>
+        </div>
+        <div class="exp-visual" style="background:linear-gradient(135deg,#090b18 0%,#0c0e1c 100%);">
+          <div style="position:absolute;top:30%;left:20%;width:180px;height:180px;background:radial-gradient(circle,rgba(91,165,245,0.14) 0%,transparent 70%);border-radius:50%;animation:orb-pulse 6s ease-in-out infinite alternate;pointer-events:none;"></div>
+          <div class="exp-logo-panel">
+            <div class="exp-logo-box" style="width:190px;height:116px;">
+              <img src="assets/images/consilio-logo.jpg" alt="Consilio LLC" />
+            </div>
+            <div class="exp-co-name">Consilio LLC</div>
+            <div class="exp-co-sub">Bengaluru, India</div>
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;max-width:220px;">
+              <span class="chip" style="font-size:10px;">eDiscovery</span>
+              <span class="chip" style="font-size:10px;">Data</span>
+              <span class="chip" style="font-size:10px;">Legal Tech</span>
+            </div>
+          </div>
         </div>
       </div>
 
