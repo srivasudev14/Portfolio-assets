@@ -253,6 +253,15 @@
     .hobby-tile:hover { transform: translateY(-8px) scale(1.01); border-color: rgba(255,255,255,0.14); }
     .hobby-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 5s ease; }
     .hobby-tile:hover img { transform: scale(1.08); }
+    .hobby-slides { position: absolute; inset: 0; }
+    .hobby-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; animation: hobby-fade 20s ease-in-out infinite; transition: transform 5s ease; }
+    .hobby-tile:hover .hobby-slide { transform: scale(1.08); }
+    @keyframes hobby-fade {
+      0%, 20%  { opacity: 1; }
+      25%      { opacity: 0; }
+      92%      { opacity: 0; }
+      100%     { opacity: 1; }
+    }
     .hobby-veil { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.15) 55%, transparent 100%); }
     .hobby-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; z-index: 2; }
     .hobby-label h4 { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 3px; }
@@ -971,7 +980,12 @@
         </div>
       </div>
       <div class="hobby-tile reveal" style="transition-delay:120ms;">
-        <img src="assets/images/nyc-skyline.webp" alt="New York City" />
+        <div class="hobby-slides">
+          <img class="hobby-slide" src="assets/images/city-bengaluru.webp" alt="Bengaluru" style="animation-delay:0s;" />
+          <img class="hobby-slide" src="assets/images/city-sf.webp" alt="San Francisco" style="animation-delay:-15s;" />
+          <img class="hobby-slide" src="assets/images/city-ny.webp" alt="New York" style="animation-delay:-10s;" />
+          <img class="hobby-slide" src="assets/images/city-la.webp" alt="Los Angeles" style="animation-delay:-5s;" />
+        </div>
         <div class="hobby-veil"></div>
         <div class="hobby-label">
           <h4>Cities &amp; Travel</h4>
