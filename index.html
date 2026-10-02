@@ -109,14 +109,14 @@
 
     /* ── COMPANY LOGOS STRIP ── */
     .logos-strip { padding: 24px 52px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0; }
-    .logos-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #2a2a2a; margin-right: 36px; white-space: nowrap; }
+    .logos-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #555; margin-right: 36px; white-space: nowrap; }
     .logos-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-    .logo-pill { display: flex; align-items: center; gap: 9px; padding: 8px 16px; border-radius: 100px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); transition: border-color 0.2s, background 0.2s; }
-    .logo-pill:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
-    .logo-pill img { height: 18px; width: auto; object-fit: contain; filter: brightness(0) invert(0.4); transition: filter 0.2s; }
-    .logo-pill:hover img { filter: brightness(0) invert(0.75); }
-    .logo-pill span { font-size: 12px; font-weight: 600; color: #2a2a2a; transition: color 0.2s; }
-    .logo-pill:hover span { color: #888; }
+    .logo-pill { display: flex; align-items: center; gap: 9px; padding: 8px 16px; border-radius: 100px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); transition: border-color 0.2s, background 0.2s; }
+    .logo-pill:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.2); }
+    .logo-pill img { height: 18px; width: auto; object-fit: contain; filter: brightness(0.85) saturate(0.6); transition: filter 0.2s; }
+    .logo-pill:hover img { filter: brightness(1) saturate(1); }
+    .logo-pill span { font-size: 12px; font-weight: 600; color: #888; transition: color 0.2s; }
+    .logo-pill:hover span { color: #ccc; }
     .l-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.05); margin: 0 2px; }
 
     /* ── MARQUEE ── */
@@ -371,8 +371,7 @@
       Sri<br/><span class="grad">Vasudev</span>
     </h1>
     <p class="hero-title">
-      <strong>Data &amp; AI</strong> &nbsp;&middot;&nbsp; <strong>Product Management</strong><br/>
-      <strong>Technology Consulting</strong>
+      <strong>Technology &amp; Management Consulting</strong>
     </p>
     <div class="hero-status">
       <span class="live-dot"></span>
@@ -438,7 +437,7 @@
     <div class="m-item">Azure Databricks <span class="m-dot"></span></div>
     <div class="m-item">GenAI &amp; LLMs <span class="m-dot"></span></div>
     <div class="m-item">Power BI &amp; Tableau <span class="m-dot"></span></div>
-    <div class="m-item">Fortune 500 Consulting <span class="m-dot"></span></div>
+    <div class="m-item">Management Consulting &nbsp;·&nbsp; Fortune 500, Strategy <span class="m-dot"></span></div>
     <div class="m-item">HCI International 2026 <span class="m-dot"></span></div>
     <div class="m-item">Product Management <span class="m-dot"></span></div>
     <div class="m-item">Bengaluru &#8594; New York &#8594; Los Angeles <span class="m-dot"></span></div>
@@ -450,7 +449,7 @@
     <div class="m-item">Azure Databricks <span class="m-dot"></span></div>
     <div class="m-item">GenAI &amp; LLMs <span class="m-dot"></span></div>
     <div class="m-item">Power BI &amp; Tableau <span class="m-dot"></span></div>
-    <div class="m-item">Fortune 500 Consulting <span class="m-dot"></span></div>
+    <div class="m-item">Management Consulting &nbsp;·&nbsp; Fortune 500, Strategy <span class="m-dot"></span></div>
     <div class="m-item">HCI International 2026 <span class="m-dot"></span></div>
     <div class="m-item">Product Management <span class="m-dot"></span></div>
     <div class="m-item">Bengaluru &#8594; New York &#8594; Los Angeles <span class="m-dot"></span></div>
@@ -483,7 +482,7 @@
       <!-- Journey timeline -->
       <div class="journey-strip">
         <div class="journey-node">
-          <div class="j-dot" style="background:var(--amber);box-shadow:0 0 8px var(--amber);"></div>
+          <div class="j-dot" style="background:var(--green);box-shadow:0 0 8px var(--green);"></div>
           <div class="j-city">Bengaluru</div>
           <div class="j-role">India&rsquo;s Silicon Valley</div>
           <div class="j-year">2022 &ndash; 2024</div>
@@ -495,7 +494,7 @@
           <div class="j-year">2024 &ndash; 2026</div>
         </div>
         <div class="journey-node" style="padding-right:0;">
-          <div class="j-dot" style="background:var(--purple);box-shadow:0 0 8px var(--purple);"></div>
+          <div class="j-dot" style="background:var(--amber);box-shadow:0 0 8px var(--amber);"></div>
           <div class="j-city">Los Angeles</div>
           <div class="j-role">IpserLab &middot; Pace &rsquo;26</div>
           <div class="j-year">2026 &ndash; Present</div>
@@ -858,29 +857,41 @@
     <!-- Certs / Pubs / Research -->
     <div class="info-cards reveal" style="transition-delay:60ms;">
 
-      <!-- Certifications -->
-      <div class="info-card">
-        <div class="info-eyebrow">Certifications</div>
-        <div style="display:flex;flex-direction:column;gap:18px;">
-          <a href="https://www.credly.com/badges/2bedf794-b479-4926-88bc-34b6e30e1507" target="_blank" rel="noopener noreferrer" class="cert-link">
-            <div class="cert-icon" style="background:rgba(255,153,0,0.12);border:1px solid rgba(255,153,0,0.2);">
-              <span style="font-size:9px;font-weight:900;color:#FF9900;letter-spacing:0.04em;font-family:'Courier New',monospace;">AWS</span>
+      <!-- Certification — AWS -->
+      <div class="info-card" style="padding:0;overflow:hidden;">
+        <a href="https://www.credly.com/badges/2bedf794-b479-4926-88bc-34b6e30e1507" target="_blank" rel="noopener noreferrer" style="display:block;text-decoration:none;">
+          <div style="position:relative;height:130px;overflow:hidden;">
+            <img src="assets/images/aws-cert.png" alt="AWS" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;transition:transform 6s ease;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,8,0.1) 0%,rgba(6,6,8,0.65) 100%);"></div>
+            <div style="position:absolute;bottom:12px;left:14px;font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Certification</div>
+          </div>
+          <div style="padding:16px 20px 20px;">
+            <div style="font-size:14px;font-weight:700;color:#d0d0d0;line-height:1.35;margin-bottom:4px;">AWS Solutions Architect Associate &#8599;</div>
+            <div style="font-size:11px;color:var(--faint);">Amazon Web Services &middot; Jan 2026</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Fellowship — McKinsey Forward -->
+      <div class="info-card" style="padding:0;overflow:hidden;">
+        <a href="https://www.credly.com/badges/e9ad49fa-4673-4748-8f98-e5b1bcc48a65/linked_in_profile" target="_blank" rel="noopener noreferrer" style="display:block;text-decoration:none;">
+          <!-- Blue wave bg layer -->
+          <div style="position:relative;height:160px;overflow:hidden;">
+            <img src="assets/images/mckinsey-bg.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;" />
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,8,0) 0%,rgba(6,6,8,0.55) 100%);"></div>
+            <!-- Birds image centered on top -->
+            <img src="assets/images/mckinsey-forward.png" alt="McKinsey Forward" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.82;mix-blend-mode:lighten;display:block;transition:transform 6s ease;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" />
+            <!-- McKinsey logo bottom-left -->
+            <div style="position:absolute;bottom:12px;left:14px;display:flex;align-items:center;gap:8px;">
+              <img src="assets/images/mckinsey-logo.png" alt="McKinsey" style="height:18px;width:auto;display:block;filter:brightness(0) invert(1);opacity:0.85;" />
             </div>
-            <div class="cert-text">
-              <div class="cert-name">AWS Solutions Architect Associate &#8599;</div>
-              <div class="cert-by">Amazon Web Services &middot; Jan 2026</div>
-            </div>
-          </a>
-          <a href="https://www.credly.com/badges/e9ad49fa-4673-4748-8f98-e5b1bcc48a65/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert-link">
-            <div class="cert-icon" style="background:rgba(0,100,64,0.12);border:1px solid rgba(0,100,64,0.25);">
-              <span style="font-size:18px;font-weight:900;color:#00643c;font-family:Georgia,serif;font-style:italic;line-height:1;">M</span>
-            </div>
-            <div class="cert-text">
-              <div class="cert-name">McKinsey Forward Program &#8599;</div>
-              <div class="cert-by">McKinsey &amp; Company &middot; Dec 2025</div>
-            </div>
-          </a>
-        </div>
+            <div style="position:absolute;bottom:12px;right:14px;font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.5);">Consulting Fellowship</div>
+          </div>
+          <div style="padding:16px 20px 20px;">
+            <div style="font-size:14px;font-weight:700;color:#d0d0d0;line-height:1.35;margin-bottom:4px;">McKinsey Forward Fellow &#8599;</div>
+            <div style="font-size:11px;color:var(--faint);">McKinsey &amp; Company &middot; Dec 2025</div>
+          </div>
+        </a>
       </div>
 
       <!-- Publications -->
