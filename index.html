@@ -70,7 +70,7 @@
     .nav-cta:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); color: #fff; }
 
     /* ── HERO ── */
-    #hero { display: grid; grid-template-columns: 42% 58%; min-height: 100vh; position: relative; }
+    #hero { display: grid; grid-template-columns: 42% 58%; min-height: min(100vh, 1000px); position: relative; }
     .hero-photo { position: relative; overflow: hidden; }
     .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
     .hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 50%, var(--bg) 100%), linear-gradient(0deg, var(--bg) 0%, transparent 18%); }
@@ -335,11 +335,12 @@
     .reveal-r.vis { opacity: 1; transform: translateX(0); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 980px) {
-      #hero { grid-template-columns: 1fr; }
-      .hero-photo { height: 56vw; max-height: 360px; }
+    @media (max-width: 1100px) {
+      #hero { grid-template-columns: 1fr; min-height: 0; }
+      .hero-photo { height: 82vw; max-height: 400px; }
+      .hero-photo img { object-position: 50% 40% !important; }
       .hero-photo::after { background: linear-gradient(0deg, var(--bg) 0%, transparent 55%); }
-      .hero-text { padding: 32px 24px 64px; }
+      .hero-text { padding: 28px 24px 52px; }
       .hero-text::before { display: none; }
       .logos-strip { padding: 18px 24px; }
       .editorial-strip { grid-template-columns: 1fr; }
@@ -350,8 +351,10 @@
       .stats-wide { grid-column: span 2; }
       .stat-col { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
       .exp-editorial { grid-template-columns: 1fr; }
-      .exp-editorial .exp-visual { height: 220px; order: -1; }
+      .exp-editorial .exp-visual { height: 200px; order: -1; }
+      .exp-editorial .exp-visual.logo-visual { display: none; }
       .exp-editorial.reverse { direction: ltr; }
+      .exp-text { padding: 28px 24px; }
       .exp-plain { grid-template-columns: 1fr; gap: 24px; }
       .hobby-grid { grid-template-columns: repeat(2, 1fr); }
       .proj-grid { grid-template-columns: 1fr; }
@@ -670,7 +673,7 @@
             <span class="chip">Jira/Confluence</span><span class="chip">UAT Design</span><span class="chip">Agile</span>
           </div>
         </div>
-        <div class="exp-visual" style="background:linear-gradient(135deg,#07091c 0%,#0a0c1e 100%);">
+        <div class="exp-visual logo-visual" style="background:linear-gradient(135deg,#07091c 0%,#0a0c1e 100%);">
           <div style="position:absolute;top:20%;left:30%;width:200px;height:200px;background:radial-gradient(circle,rgba(168,85,247,0.18) 0%,transparent 70%);border-radius:50%;animation:orb-pulse 5s ease-in-out infinite alternate;pointer-events:none;"></div>
           <div class="exp-logo-panel">
             <div class="exp-logo-box" style="width:180px;height:112px;">
@@ -776,7 +779,7 @@
             <span class="chip">eDiscovery</span><span class="chip">Data Compliance</span>
           </div>
         </div>
-        <div class="exp-visual" style="background:linear-gradient(135deg,#090b18 0%,#0c0e1c 100%);">
+        <div class="exp-visual logo-visual" style="background:linear-gradient(135deg,#090b18 0%,#0c0e1c 100%);">
           <div style="position:absolute;top:30%;left:20%;width:180px;height:180px;background:radial-gradient(circle,rgba(45,212,191,0.1) 0%,transparent 70%);border-radius:50%;animation:orb-pulse 6s ease-in-out infinite alternate;pointer-events:none;"></div>
           <div class="exp-logo-panel">
             <div style="width:140px;height:140px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
