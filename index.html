@@ -1030,7 +1030,7 @@
         <div class="proj-body">
           <div class="proj-eyebrow">Machine Learning &middot; Nov 2024</div>
           <h3 class="proj-name">HeartBeacon</h3>
-          <p class="proj-desc"><strong style="color:#b8b8b8;font-weight:600;">Which patients carry undetected cardiovascular risk?</strong> Risk pipeline over 319K CDC survey records on a heavily imbalanced target, where raw accuracy is misleading &mdash; Random Forest and Logistic Regression with SMOTE, tuned for recall on the positive class.</p>
+          <p class="proj-desc"><strong style="color:#b8b8b8;font-weight:600;">Which patients carry undetected cardiovascular risk?</strong> Across 319K CDC records at a ~9% positive rate, Random Forest posted the highest accuracy (0.89) but caught only <strong style="color:#a8a8a8;font-weight:600;">20%</strong> of at-risk patients. Logistic Regression with resampling reached <strong style="color:#a8a8a8;font-weight:600;">0.77 recall</strong> at 0.73 accuracy &mdash; the model I shipped, because a missed case costs more than a false alarm.</p>
           <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;">
             <span class="chip">Python</span><span class="chip">Scikit-learn</span><span class="chip">SMOTE</span><span class="chip">Seaborn</span>
           </div>
