@@ -243,6 +243,19 @@
     .chip { display: inline-block; padding: 4px 11px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 100px; font-size: 11px; font-weight: 500; color: #666; transition: color 0.2s, border-color 0.2s; }
     .chip:hover { color: var(--blue); border-color: rgba(91,165,245,0.3); }
 
+    /* Hero role chips — neutral, uniform */
+    .role-chip { padding: 5px 15px; background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.11); border-radius: 100px; font-size: 12px; font-weight: 600; color: #9c9c9c; letter-spacing: 0.005em; transition: color 0.2s, border-color 0.2s; }
+    .role-chip:hover { color: #d6d6d6; border-color: rgba(255,255,255,0.2); }
+
+    /* ── SKILLS PANEL ── */
+    .skills-panel { background: var(--card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
+    .skill-row { display: grid; grid-template-columns: 215px 1fr; gap: 32px; padding: 24px 30px; align-items: start; }
+    .skill-row + .skill-row { border-top: 1px solid var(--border); }
+    .skill-label { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #8a8a8a; padding-top: 6px; }
+    .skill-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .skill-chips .chip { font-size: 12px; padding: 5px 13px; color: #949494; }
+    .skill-chips .chip:hover { color: #e0e0e0; border-color: rgba(255,255,255,0.22); }
+
     /* Consilio plain card */
     .exp-plain { border-radius: 24px; border: 1px solid var(--border); background: var(--card); transition: border-color 0.3s; padding: 44px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
     .exp-plain:hover { border-color: rgba(255,255,255,0.11); }
@@ -363,8 +376,8 @@
       .proj-grid { grid-template-columns: 1fr; }
       .info-cards { grid-template-columns: 1fr; }
       .edu-grid { grid-template-columns: 1fr; }
-      .skills-grid { grid-template-columns: 1fr !important; }
-      .skills-grid > * { grid-column: span 1 !important; }
+      .skill-row { grid-template-columns: 1fr; gap: 12px; padding: 22px 22px; }
+      .skill-label { padding-top: 0; }
       #nav { padding: 14px 24px; }
       .nav-links { display: none; }
       .section-wrap { padding: 72px 24px; }
@@ -407,11 +420,11 @@
     <p style="font-size:15px;color:#8d8d8d;font-weight:400;margin-bottom:20px;line-height:1.7;max-width:520px;">
       Turning enterprise data into decisions &mdash; across Fortune 500 consulting, public-sector transit, and AI product teams.
     </p>
-    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px;">
-      <span style="padding:4px 14px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.22);border-radius:100px;font-size:11px;font-weight:700;color:var(--amber);">Analytics &amp; BI</span>
-      <span style="padding:4px 14px;background:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.22);border-radius:100px;font-size:11px;font-weight:700;color:var(--teal);">Data &amp; Cloud</span>
-      <span style="padding:4px 14px;background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.22);border-radius:100px;font-size:11px;font-weight:700;color:var(--green);">Product Management</span>
-      <span style="padding:4px 14px;background:rgba(124,109,250,0.1);border:1px solid rgba(124,109,250,0.25);border-radius:100px;font-size:11px;font-weight:700;color:var(--accent);">Consulting &amp; Strategy</span>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;">
+      <span class="role-chip">Analytics &amp; BI</span>
+      <span class="role-chip">Data &amp; Cloud</span>
+      <span class="role-chip">Product Management</span>
+      <span class="role-chip">Consulting &amp; Strategy</span>
     </div>
     <div class="hero-status">
       <span class="live-dot"></span>
@@ -814,40 +827,40 @@
   <div class="section-wrap" style="padding-top:80px;padding-bottom:80px;">
     <span class="section-tag blue reveal">Technical Skills</span>
     <h2 class="section-headline reveal" style="margin-bottom:40px;">The <span class="grad-blue">stack</span> I work with.</h2>
-    <div class="skills-grid reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;transition-delay:40ms;">
+    <div class="skills-panel reveal" style="transition-delay:40ms;">
 
-      <div style="background:var(--card);border:1px solid var(--border);border-top:2px solid rgba(245,158,11,0.45);border-radius:18px;padding:26px;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:14px;">Analytics &amp; BI</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+      <div class="skill-row">
+        <div class="skill-label">Analytics &amp; BI</div>
+        <div class="skill-chips">
           <span class="chip">Power BI</span><span class="chip">Tableau</span><span class="chip">Data Visualization</span><span class="chip">Google Analytics</span><span class="chip">KPI &amp; Metrics Frameworks</span><span class="chip">Predictive Analytics</span><span class="chip">RapidMiner</span><span class="chip">GIS</span>
         </div>
       </div>
 
-      <div style="background:var(--card);border:1px solid var(--border);border-top:2px solid rgba(168,85,247,0.45);border-radius:18px;padding:26px;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--purple);margin-bottom:14px;">AI / ML</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+      <div class="skill-row">
+        <div class="skill-label">Strategy &amp; Product</div>
+        <div class="skill-chips">
+          <span class="chip">SDLC</span><span class="chip">PDLC</span><span class="chip">Business Strategy</span><span class="chip">Product &amp; Stakeholder Management</span><span class="chip">GTM Strategy</span><span class="chip">Product Roadmapping</span><span class="chip">Requirements Gathering</span><span class="chip">Program &amp; Project Management</span><span class="chip">SCM Analytics</span><span class="chip">Process Mapping</span><span class="chip">Agile / Scrum</span><span class="chip">Jira / Confluence</span><span class="chip">ServiceNow</span><span class="chip">CX</span>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <div class="skill-label">AI / ML</div>
+        <div class="skill-chips">
           <span class="chip">GenAI</span><span class="chip">LLMs</span><span class="chip">Agentic AI</span><span class="chip">RAG</span><span class="chip">Prompt &amp; Context Engineering</span><span class="chip">AI Adoption &amp; Enablement</span><span class="chip">Claude</span><span class="chip">OpenAI</span><span class="chip">Microsoft Copilot</span>
         </div>
       </div>
 
-      <div style="background:var(--card);border:1px solid var(--border);border-top:2px solid rgba(91,165,245,0.45);border-radius:18px;padding:26px;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;">Programming &amp; Core</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;">
-          <span class="chip">Python</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">PyTorch</span><span class="chip">SQL</span><span class="chip">OS</span><span class="chip">Git</span><span class="chip">Docker</span><span class="chip">MS 365</span><span class="chip">Excel</span><span class="chip">Access</span><span class="chip">PowerPoint</span>
-        </div>
-      </div>
-
-      <div style="background:var(--card);border:1px solid var(--border);border-top:2px solid rgba(45,212,191,0.45);border-radius:18px;padding:26px;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:14px;">Data &amp; Cloud</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+      <div class="skill-row">
+        <div class="skill-label">Data &amp; Cloud</div>
+        <div class="skill-chips">
           <span class="chip">ETL / ELT Orchestration</span><span class="chip">Data Modeling</span><span class="chip">Airflow</span><span class="chip">Microsoft Fabric</span><span class="chip">Azure Data Lake</span><span class="chip">Azure Databricks</span><span class="chip">AWS S3</span><span class="chip">Hadoop / Hive</span><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">Microsoft SQL Server</span>
         </div>
       </div>
 
-      <div style="grid-column:span 2;background:var(--card);border:1px solid var(--border);border-top:2px solid rgba(52,211,153,0.45);border-radius:18px;padding:26px;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--green);margin-bottom:14px;">Strategy &amp; Product</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;">
-          <span class="chip">SDLC</span><span class="chip">PDLC</span><span class="chip">Business Strategy</span><span class="chip">Product &amp; Stakeholder Management</span><span class="chip">GTM Strategy</span><span class="chip">Product Roadmapping</span><span class="chip">Requirements Gathering</span><span class="chip">Program &amp; Project Management</span><span class="chip">SCM Analytics</span><span class="chip">Process Mapping</span><span class="chip">Agile / Scrum</span><span class="chip">Jira / Confluence</span><span class="chip">ServiceNow</span><span class="chip">CX</span>
+      <div class="skill-row">
+        <div class="skill-label">Programming &amp; Core</div>
+        <div class="skill-chips">
+          <span class="chip">Python</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">PyTorch</span><span class="chip">SQL</span><span class="chip">OS</span><span class="chip">Git</span><span class="chip">Docker</span><span class="chip">MS 365</span><span class="chip">Excel</span><span class="chip">Access</span><span class="chip">PowerPoint</span>
         </div>
       </div>
 
