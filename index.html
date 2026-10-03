@@ -337,14 +337,17 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
       #hero { grid-template-columns: 1fr; min-height: 0; }
-      .hero-photo { height: 82vw; max-height: 400px; }
-      .hero-photo img { object-position: 50% 40% !important; }
+      .hero-photo { height: 82vw; max-height: 520px; }
+      .hero-photo img { object-position: 50% 45% !important; }
       .hero-photo::after { background: linear-gradient(0deg, var(--bg) 0%, transparent 55%); }
       .hero-text { padding: 28px 24px 52px; }
       .hero-text::before { display: none; }
       .logos-strip { padding: 18px 24px; }
+      .editorial-tiles { grid-template-columns: 1fr 1fr !important; }
+      .info-cards { grid-template-columns: 1fr !important; }
+      .form-row { grid-template-columns: 1fr !important; }
       .editorial-strip { grid-template-columns: 1fr; }
-      .editorial-visual { height: 250px; order: -1; }
+      .editorial-visual { height: 34vw; min-height: 210px; max-height: 320px; order: -1; }
       .editorial-visual::before { background: linear-gradient(0deg, var(--bg) 0%, transparent 60%); }
       .editorial-text { padding: 40px 24px; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -365,6 +368,10 @@
       #nav { padding: 14px 24px; }
       .nav-links { display: none; }
       .section-wrap { padding: 72px 24px; }
+    }
+    @media (max-width: 680px) {
+      .editorial-tiles { grid-template-columns: 1fr !important; }
+      .editorial-tiles > div { min-height: 0 !important; padding: 26px !important; }
     }
     section { scroll-margin-top: 80px; }
   </style>
@@ -549,7 +556,7 @@
 <!-- ── EDITORIAL TILES (Accenture-style) ── -->
 <section class="stats-section">
   <div class="section-wrap" style="padding-top:72px;padding-bottom:72px;">
-    <div class="reveal" style="display:grid;grid-template-columns:1.15fr 0.9fr 1fr 0.95fr;gap:12px;align-items:stretch;">
+    <div class="editorial-tiles reveal" style="display:grid;grid-template-columns:1.15fr 0.9fr 1fr 0.95fr;gap:12px;align-items:stretch;">
 
       <!-- Tile 1 — Deep violet: Journey story -->
       <div style="background:linear-gradient(150deg,#1a0847 0%,#2d1266 60%,#1e0952 100%);border-radius:20px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;min-height:440px;position:relative;overflow:hidden;">
@@ -1126,7 +1133,7 @@
       <input type="hidden" name="_template" value="box" />
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_next" value="https://srivasudev.com/#contact" />
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+      <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
         <div>
           <label style="display:block;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--faint);margin-bottom:7px;">Name</label>
           <input type="text" name="name" required placeholder="Your name" class="form-field" />
