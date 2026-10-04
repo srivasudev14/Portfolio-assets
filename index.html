@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sri Vasudev — Data, Analytics &amp; AI · Product · Consulting</title>
   <meta name="description" content="Sri Vasudev — Data &amp; Analytics professional with 2.5+ years across EY, MTA, Consilio and IpserLab. AWS Solutions Architect certified, McKinsey Forward Program graduate, MS MIS (GPA 3.8) Pace University. Seeking full-time roles in Data &amp; Analytics Engineering, BI, Product Management, and Technology &amp; Management Consulting." />
-  <meta name="keywords" content="Analytics Engineer, BI Engineer, Business Intelligence Engineer, Data and Analytics Engineer, Data Engineer, Data Analyst, Product Manager, Technology Consulting, Management Consulting, Strategy Consulting, Power BI, Tableau, Databricks, Airflow, Microsoft Fabric, Azure, AWS Solutions Architect, Python, SQL, ETL ELT Pipelines, Data Modeling, Predictive Analytics, KPI Frameworks, GenAI, LLMs, Agentic AI, RAG, Prompt Engineering, McKinsey Forward, Ernst Young EY, MTA Metropolitan Transportation Authority, IpserLab, Consilio, Pace University, Los Angeles, New York" />
+  <meta name="keywords" content="Analytics Engineer, BI Engineer, Business Intelligence Engineer, Data and Analytics Engineer, Data Engineer, Data Analyst, Product Manager, Technology Consulting, Management Consulting, Strategy Consulting, Supply Chain Consulting, Supply Chain Analyst, SCM Analytics, S&amp;OP, Sales and Operations Planning, Demand Forecasting, Supply Planning, Vendor Management, Supplier Performance, Supplier Scorecards, Procurement Analytics, Power BI, Tableau, Databricks, Airflow, Microsoft Fabric, Azure, AWS Solutions Architect, Python, SQL, ETL ELT Pipelines, Data Modeling, Predictive Analytics, KPI Frameworks, GenAI, LLMs, Agentic AI, RAG, Prompt Engineering, McKinsey Forward, Ernst Young EY, MTA Metropolitan Transportation Authority, IpserLab, Consilio, Pace University, Los Angeles, New York" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Plus Jakarta Sans','system-ui','sans-serif'] } } } };</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -247,6 +247,24 @@
     .role-chip { padding: 5px 15px; background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.11); border-radius: 100px; font-size: 12px; font-weight: 600; color: #9c9c9c; letter-spacing: 0.005em; transition: color 0.2s, border-color 0.2s; }
     .role-chip:hover { color: #d6d6d6; border-color: rgba(255,255,255,0.2); }
 
+    /* ── SUPPLY CHAIN ── */
+    .scm-section { background: linear-gradient(180deg, var(--bg) 0%, #080a0f 45%, var(--bg) 100%); }
+    .scm-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-items: start; }
+    .scm-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 26px 24px; transition: border-color 0.3s, transform 0.3s; position: relative; overflow: hidden; }
+    .scm-card:hover { border-color: rgba(45,212,191,0.28); transform: translateY(-4px); }
+    .scm-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--teal), transparent); opacity: 0.45; }
+    .scm-num { font-size: 10px; font-weight: 800; letter-spacing: 0.16em; color: rgba(45,212,191,0.75); margin-bottom: 14px; }
+    .scm-card h4 { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 10px; }
+    .scm-card p { font-size: 13px; line-height: 1.7; color: #8e8e8e; margin-bottom: 14px; }
+    .scm-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .scm-tag { font-size: 10.5px; font-weight: 600; color: #7d7d7d; background: rgba(255,255,255,0.035); border: 1px solid var(--border); border-radius: 100px; padding: 3px 10px; }
+
+    .scm-proof { margin-top: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 28px 30px; }
+    .scm-proof-lab { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint); margin-bottom: 20px; }
+    .scm-proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
+    .scm-pf-v { font-size: clamp(22px, 2.4vw, 30px); font-weight: 800; color: #fff; letter-spacing: -0.03em; line-height: 1; margin-bottom: 7px; }
+    .scm-pf-l { font-size: 11px; color: #7e7e7e; line-height: 1.55; }
+
     /* ── SKILLS GRID ── */
     .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; align-items: start; }
     .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 24px; transition: border-color 0.3s; }
@@ -303,6 +321,36 @@
     .proj-badge { position: absolute; top: 13px; right: 13px; font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.8); background: rgba(0,0,0,0.48); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 5px 11px; border-radius: 5px; }
     .proj-cta { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: var(--accent); transition: gap 0.25s; }
     .proj-card:hover .proj-cta { gap: 11px; }
+
+    /* ── HOVER PEEK PANEL ── */
+    .proj-peek {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 4;
+      padding: 18px 20px 17px;
+      background: linear-gradient(0deg, rgba(6,6,8,0.96) 42%, rgba(6,6,8,0.82) 72%, transparent 100%);
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;
+      transform: translateY(101%); opacity: 0;
+      transition: transform 0.42s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease;
+    }
+    .proj-card:hover .proj-peek, .proj-card:focus-within .proj-peek { transform: translateY(0); opacity: 1; }
+    .proj-peek-stats { display: flex; gap: 22px; }
+    .proj-peek-stats div { line-height: 1.25; }
+    .proj-peek-stats b { display: block; font-size: 17px; font-weight: 800; color: #fff; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+    .proj-peek-stats span { display: block; font-size: 9.5px; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 3px; }
+    .proj-expand {
+      display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0;
+      font-size: 12px; font-weight: 700; color: #fff;
+      padding: 8px 15px; border-radius: 100px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.22);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      transition: background 0.25s, border-color 0.25s, gap 0.25s;
+    }
+    .proj-card:hover .proj-expand { background: var(--accent); border-color: var(--accent); gap: 10px; }
+    @media (prefers-reduced-motion: reduce) { .proj-peek { transition: opacity 0.2s; } }
+    /* Touch devices never fire hover — show the panel statically */
+    @media (hover: none) {
+      .proj-peek { transform: none; opacity: 1; }
+      .proj-expand { background: var(--accent); border-color: var(--accent); }
+    }
 
     /* ── CLICKABLE AFFORDANCE ── */
     .proj-card, .edu-card, .info-card { position: relative; }
@@ -408,6 +456,8 @@
       .edu-grid { grid-template-columns: 1fr; }
       .skills-grid { grid-template-columns: 1fr 1fr; }
       .skill-card { padding: 22px; }
+      .scm-grid { grid-template-columns: 1fr 1fr; }
+      .scm-proof-grid { grid-template-columns: 1fr 1fr; gap: 22px; }
       #nav { padding: 14px 24px; }
       .nav-links { display: none; }
       .section-wrap { padding: 72px 24px; }
@@ -417,6 +467,8 @@
       .editorial-tiles > div { min-height: 0 !important; padding: 26px !important; }
       .skills-grid { grid-template-columns: 1fr; }
       .skill-card.wide { grid-column: span 1; }
+      .scm-grid { grid-template-columns: 1fr; }
+      .scm-proof { padding: 24px; }
     }
     section { scroll-margin-top: 80px; }
   </style>
@@ -429,6 +481,7 @@
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
+    <a href="#supply-chain">Supply Chain</a>
     <a href="#skills">Skills</a>
     <a href="#projects">Portfolio</a>
     <a href="#life">Life</a>
@@ -454,7 +507,7 @@
     </p>
     <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;">
       <span class="role-chip">Analytics &amp; BI</span>
-      <span class="role-chip">Data &amp; Cloud</span>
+      <span class="role-chip">Supply Chain</span>
       <span class="role-chip">Product Management</span>
       <span class="role-chip">Consulting &amp; Strategy</span>
     </div>
@@ -854,6 +907,69 @@
 
 <hr class="divider" />
 
+<!-- ── SUPPLY CHAIN ── -->
+<section id="supply-chain" class="scm-section">
+  <div class="section-wrap">
+    <span class="section-tag teal reveal">Domain Depth</span>
+    <h2 class="section-headline reveal" style="margin-bottom:14px;">Supply chain, <span class="grad-teal">end to end.</span></h2>
+    <p class="reveal body-text" style="max-width:620px;margin-bottom:40px;">
+      Two years at EY delivering analytics into supply chain engagements for Automotive and FMCG clients &mdash;
+      building the dashboards, vendor scorecards and data pipelines that planning teams run on.
+    </p>
+
+    <div class="scm-grid reveal" style="transition-delay:40ms;">
+      <div class="scm-card">
+        <div class="scm-num">01</div>
+        <h4>Sales &amp; Operations Planning</h4>
+        <p>The monthly cadence where commercial forecasts meet what operations can actually deliver &mdash; and where the gap gets costed rather than argued about.</p>
+        <div class="scm-tags"><span class="scm-tag">S&amp;OP cycle</span><span class="scm-tag">Scenario planning</span><span class="scm-tag">Exec reporting</span></div>
+      </div>
+      <div class="scm-card">
+        <div class="scm-num">02</div>
+        <h4>Demand Forecasting</h4>
+        <p>Anticipating volume from history, seasonality and commercial signal &mdash; then measuring forecast accuracy and bias so the plan improves rather than repeats.</p>
+        <div class="scm-tags"><span class="scm-tag">Forecast accuracy</span><span class="scm-tag">Bias tracking</span><span class="scm-tag">Predictive analytics</span></div>
+      </div>
+      <div class="scm-card">
+        <div class="scm-num">03</div>
+        <h4>Supply Planning</h4>
+        <p>Turning a demand plan into procurement and production schedules, with inventory policy balanced against service levels and working capital.</p>
+        <div class="scm-tags"><span class="scm-tag">Inventory policy</span><span class="scm-tag">Service levels</span><span class="scm-tag">Capacity</span></div>
+      </div>
+      <div class="scm-card">
+        <div class="scm-num">04</div>
+        <h4>Vendor &amp; Supplier Management</h4>
+        <p>Supplier scorecards, KPI tracking and performance monitoring &mdash; the area I built directly at EY, including geo-based vendor analytics across client networks.</p>
+        <div class="scm-tags"><span class="scm-tag">Supplier KPIs</span><span class="scm-tag">Scorecards</span><span class="scm-tag">Geo analytics</span></div>
+      </div>
+    </div>
+
+    <div class="scm-proof reveal" style="transition-delay:80ms;">
+      <div class="scm-proof-lab">Where this came from &mdash; Ernst &amp; Young, Business Consulting</div>
+      <div class="scm-proof-grid">
+        <div>
+          <div class="scm-pf-v">10+</div>
+          <div class="scm-pf-l">Power BI dashboards built with KPI and geo-based vendor analytics</div>
+        </div>
+        <div>
+          <div class="scm-pf-v">35%<span style="font-size:0.55em;opacity:0.6;">+</span></div>
+          <div class="scm-pf-l">Operational efficiency gain delivered across client engagements</div>
+        </div>
+        <div>
+          <div class="scm-pf-v">2</div>
+          <div class="scm-pf-l">Verticals &mdash; Automotive and FMCG, on Fortune 500 accounts</div>
+        </div>
+        <div>
+          <div class="scm-pf-v">30%</div>
+          <div class="scm-pf-l">Data accuracy improvement through ETL pipeline redesign</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
 <!-- ── TECH STACK ── -->
 <section id="skills">
   <div class="section-wrap" style="padding-top:80px;padding-bottom:80px;">
@@ -871,7 +987,7 @@
       <div class="skill-card wide">
         <div class="skill-label">Strategy &amp; Product</div>
         <div class="skill-chips">
-          <span class="chip">SDLC</span><span class="chip">PDLC</span><span class="chip">Business Strategy</span><span class="chip">Product &amp; Stakeholder Management</span><span class="chip">GTM Strategy</span><span class="chip">Product Roadmapping</span><span class="chip">Requirements Gathering</span><span class="chip">Program &amp; Project Management</span><span class="chip">SCM Analytics</span><span class="chip">Process Mapping</span><span class="chip">Agile / Scrum</span><span class="chip">Jira / Confluence</span><span class="chip">ServiceNow</span><span class="chip">CX</span>
+          <span class="chip">SDLC</span><span class="chip">PDLC</span><span class="chip">Business Strategy</span><span class="chip">Product &amp; Stakeholder Management</span><span class="chip">GTM Strategy</span><span class="chip">Product Roadmapping</span><span class="chip">Requirements Gathering</span><span class="chip">Program &amp; Project Management</span><span class="chip">SCM Analytics</span><span class="chip">S&amp;OP</span><span class="chip">Demand Forecasting</span><span class="chip">Supply Planning</span><span class="chip">Vendor &amp; Supplier Management</span><span class="chip">Process Mapping</span><span class="chip">Agile / Scrum</span><span class="chip">Jira / Confluence</span><span class="chip">ServiceNow</span><span class="chip">CX</span>
         </div>
       </div>
 
@@ -1041,6 +1157,13 @@
           <div class="proj-img">
             <img src="assets/images/smartchurn-preview.png" alt="SmartChurn" />
             <span class="proj-badge">Case Study</span>
+            <div class="proj-peek">
+              <div class="proj-peek-stats">
+                <div><b>96.51%</b><span>Phase 3 accuracy</span></div>
+                <div><b>8 / 2</b><span>Ratio hit exactly</span></div>
+              </div>
+              <span class="proj-expand">Expand <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M9 18l6-6-6-6"/></svg></span>
+            </div>
           </div>
           <div class="proj-body">
             <div class="proj-eyebrow">Machine Learning &middot; Mar 2025</div>
@@ -1060,6 +1183,13 @@
           <div class="proj-img">
             <img src="assets/images/heartbeacon-preview.png" alt="HeartBeacon" />
             <span class="proj-badge">Case Study</span>
+            <div class="proj-peek">
+              <div class="proj-peek-stats">
+                <div><b>0.77</b><span>Recall on at-risk</span></div>
+                <div><b>319,795</b><span>CDC records</span></div>
+              </div>
+              <span class="proj-expand">Expand <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M9 18l6-6-6-6"/></svg></span>
+            </div>
           </div>
           <div class="proj-body">
             <div class="proj-eyebrow">Machine Learning &middot; Nov 2024</div>
