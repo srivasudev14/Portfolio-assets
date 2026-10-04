@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HeartBeacon — Case Study · Sri Vasudev</title>
+  <meta name="description" content="HeartBeacon cardiovascular risk case study — why the highest-accuracy model was the wrong choice on a 10.68:1 imbalanced target, and how recall drove model selection across 319,795 CDC records." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #060608;
+      --card: #0d0d11;
+      --border: rgba(255,255,255,0.07);
+      --accent: #7c6dfa;
+      --blue: #5ba5f5;
+      --teal: #2dd4bf;
+      --amber: #f59e0b;
+      --green: #34d399;
+      --rose: #fb7185;
+      --text: #ebebeb;
+      --body: #a6a6a6;
+      --muted: #8a8a8a;
+      --faint: #5e5e5e;
+    }
+    html { background: var(--bg); scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; line-height: 1.65; overflow-x: hidden; }
+    ::selection { background: var(--accent); color: #fff; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.028;
+    }
+
+    /* ── NAV ── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      padding: 18px 48px; display: flex; align-items: center; justify-content: space-between;
+      background: rgba(6,6,8,0.6); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-back { display: inline-flex; align-items: center; gap: 8px; color: #c0c0c0; font-size: 14px; font-weight: 600; text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: #fff; }
+    .nav-cta { font-size: 13px; font-weight: 600; color: #e4e4e4; text-decoration: none; padding: 8px 20px; border: 1px solid rgba(255,255,255,0.25); border-radius: 100px; transition: background 0.2s, border-color 0.2s; }
+    .nav-cta:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
+
+    /* ── LAYOUT ── */
+    .wrap { max-width: 980px; margin: 0 auto; padding: 0 48px; }
+    .wrap-wide { max-width: 1180px; margin: 0 auto; padding: 0 48px; }
+    section { padding: 72px 0; }
+    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; display: block; }
+    .eyebrow.muted { color: var(--faint); }
+    h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; color: #fff; margin-bottom: 22px; }
+    h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.015em; color: #ddd; margin-bottom: 10px; }
+    p { font-size: 16px; line-height: 1.8; color: var(--body); margin-bottom: 18px; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: #dcdcdc; font-weight: 600; }
+    .lede { font-size: 19px; line-height: 1.75; color: #b8b8b8; }
+    hr.div { border: none; border-top: 1px solid var(--border); }
+
+    /* ── HERO ── */
+    .hero { padding: 150px 0 60px; position: relative; overflow: hidden; }
+    .hero::before {
+      content: ''; position: absolute; top: -10%; right: -5%; width: 520px; height: 520px;
+      background: radial-gradient(ellipse, rgba(124,109,250,0.10) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero h1 { font-size: clamp(42px, 6.5vw, 76px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; color: #fff; margin-bottom: 20px; position: relative; }
+    .hero-thesis { font-size: clamp(18px, 2.1vw, 23px); line-height: 1.55; color: #c2c2c2; font-weight: 500; max-width: 760px; letter-spacing: -0.01em; }
+    .hero-thesis em { color: #fff; font-style: normal; font-weight: 700; }
+
+    .metric-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 48px; }
+    .metric { background: var(--card); padding: 22px 24px; }
+    .metric-val { font-size: clamp(22px, 2.6vw, 30px); font-weight: 800; letter-spacing: -0.03em; color: #fff; line-height: 1.1; margin-bottom: 6px; }
+    .metric-lab { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); }
+
+    .meta-bar { display: flex; flex-wrap: wrap; gap: 10px 32px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .meta-item { font-size: 13px; color: var(--muted); }
+    .meta-item span { color: #d0d0d0; font-weight: 600; }
+
+    /* ── CALLOUT ── */
+    .callout { border-left: 2px solid var(--accent); background: rgba(124,109,250,0.05); padding: 24px 28px; border-radius: 0 14px 14px 0; margin: 32px 0; }
+    .callout p { margin-bottom: 0; color: #c4c4c4; }
+    .callout.amber { border-left-color: var(--amber); background: rgba(245,158,11,0.05); }
+
+    /* ── CHART CARD (light, Accenture-style) ── */
+    .chart-card { background: #f4f2ef; border-radius: 18px; padding: 26px; margin: 28px 0; }
+    .chart-card img { width: 100%; height: auto; display: block; border-radius: 8px; }
+    .chart-cap { font-size: 12.5px; color: #55504a; margin-top: 16px; line-height: 1.6; font-weight: 500; }
+    .chart-cap b { color: #1c1a18; font-weight: 700; }
+
+    /* ── RESULTS BARS ── */
+    .bars { display: flex; flex-direction: column; gap: 22px; margin: 32px 0 12px; }
+    .bar-row { display: grid; grid-template-columns: 160px 1fr; gap: 20px; align-items: center; }
+    .bar-model { font-size: 14px; font-weight: 700; color: #ddd; line-height: 1.3; }
+    .bar-model small { display: block; font-size: 11px; font-weight: 500; color: var(--faint); margin-top: 3px; }
+    .bar-pair { display: flex; flex-direction: column; gap: 7px; }
+    .bar-line { display: flex; align-items: center; gap: 12px; }
+    .bar-track { flex: 1; height: 24px; background: rgba(255,255,255,0.04); border-radius: 5px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 5px; display: flex; align-items: center; justify-content: flex-end; padding-right: 9px; font-size: 11px; font-weight: 700; color: #fff; }
+    .bar-fill.acc { background: rgba(255,255,255,0.16); }
+    .bar-fill.rec { background: var(--accent); }
+    .bar-fill.rec.low { background: var(--rose); }
+    .bar-tag { width: 62px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); flex-shrink: 0; }
+    .bar-legend { display: flex; gap: 22px; font-size: 12px; color: var(--muted); margin-top: 8px; padding-left: 180px; }
+    .bar-legend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 7px; vertical-align: -1px; }
+
+    /* ── TABLE ── */
+    .tbl-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid var(--border); border-radius: 14px; }
+    table { width: 100%; border-collapse: collapse; min-width: 620px; }
+    th { text-align: left; font-size: 10px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--faint); padding: 14px 18px; background: rgba(255,255,255,0.025); border-bottom: 1px solid var(--border); white-space: nowrap; }
+    td { font-size: 14px; color: var(--body); padding: 15px 18px; border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    tr.chosen td { background: rgba(124,109,250,0.06); color: #d8d8d8; }
+    tr.chosen td:first-child { font-weight: 700; color: #fff; box-shadow: inset 2px 0 0 var(--accent); }
+    td.num { font-variant-numeric: tabular-nums; font-weight: 600; color: #d4d4d4; }
+    td.dim { color: var(--faint); }
+
+    /* ── STEPS ── */
+    .steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 28px; }
+    .step { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+    .step-n { font-size: 11px; font-weight: 800; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 10px; }
+    .step p { font-size: 14px; line-height: 1.7; margin-bottom: 0; }
+    .step ul { list-style: none; margin-top: 10px; }
+    .step li { font-size: 13.5px; color: var(--body); line-height: 1.7; padding-left: 16px; position: relative; }
+    .step li::before { content: '·'; position: absolute; left: 4px; color: var(--accent); font-weight: 800; }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
+    .pill { padding: 5px 13px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 100px; font-size: 12px; font-weight: 500; color: #949494; }
+    .pill.on { background: rgba(124,109,250,0.1); border-color: rgba(124,109,250,0.3); color: #b3a8ff; }
+
+    /* ── NEXT / FOOTER ── */
+    .next { background: linear-gradient(180deg, var(--bg) 0%, #0a0a12 100%); border-top: 1px solid var(--border); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 100px; font-size: 14px; font-weight: 700; text-decoration: none; transition: transform 0.2s, background 0.2s; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #9480fc; transform: translateY(-2px); }
+    .btn-ghost { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: #ccc; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+    footer { padding: 36px 0; border-top: 1px solid var(--border); font-size: 13px; color: var(--faint); }
+
+    /* ── REVEAL ── */
+    .rv { opacity: 0; transform: translateY(22px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .rv.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } }
+
+    @media (max-width: 860px) {
+      #nav { padding: 14px 20px; }
+      .wrap, .wrap-wide { padding: 0 20px; }
+      section { padding: 52px 0; }
+      .hero { padding: 120px 0 44px; }
+      .metric-strip { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .bar-row { grid-template-columns: 1fr; gap: 10px; }
+      .bar-legend { padding-left: 0; }
+      .chart-card { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="../index.html#projects" class="nav-back">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Sri Vasudev
+  </a>
+  <a href="../assets/resume/Srivasudev_resume.pdf" target="_blank" rel="noopener noreferrer" class="nav-cta">Resume &#8599;</a>
+</nav>
+
+<!-- ── HERO ── -->
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Analytics Case Study</span>
+    <h1>HeartBeacon</h1>
+    <p class="hero-thesis">
+      The most accurate model was the <em>worst</em> one to ship. On a target where
+      92% of patients are healthy, accuracy rewards a model for staying silent &mdash;
+      so the selection metric had to change before the modelling did.
+    </p>
+
+    <div class="metric-strip">
+      <div class="metric">
+        <div class="metric-val">319,795</div>
+        <div class="metric-lab">CDC Records</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">10.68:1</div>
+        <div class="metric-lab">Class Imbalance</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">0.77</div>
+        <div class="metric-lab">Recall Achieved</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">5 &times; 3</div>
+        <div class="metric-lab">Sampling &times; Models</div>
+      </div>
+    </div>
+
+    <div class="meta-bar">
+      <div class="meta-item">Domain &nbsp;<span>Healthcare Risk Analytics</span></div>
+      <div class="meta-item">Stack &nbsp;<span>Python &middot; scikit-learn &middot; Seaborn</span></div>
+      <div class="meta-item">Year &nbsp;<span>2024</span></div>
+    </div>
+  </div>
+</header>
+
+<hr class="div" />
+
+<!-- ── SITUATION ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">01 &mdash; Situation</span>
+    <h2>Screening is a volume problem<br/>before it is a modelling problem.</h2>
+    <p class="lede">
+      Cardiovascular disease is largely preventable when caught early, but screening every
+      adult in a population is not economically possible. The question is therefore not
+      <em>who has heart disease</em> &mdash; it is <strong>who is worth a clinician's time</strong>.
+    </p>
+    <p>
+      The dataset is the CDC's annual health survey: <strong>319,795 respondents across 18 variables</strong>,
+      mixing behavioural, demographic and self-reported clinical signals &mdash; BMI, smoking and alcohol use,
+      stroke history, days of poor physical and mental health, difficulty walking, age band, diabetes status,
+      physical activity, general health rating and sleep duration.
+    </p>
+    <p>
+      That makes it a triage dataset rather than a diagnostic one. Nothing here is a blood panel or an ECG.
+      The realistic goal is to narrow a population down to a group worth testing properly, which sets the bar
+      for what a useful model looks like.
+    </p>
+  </div>
+</section>
+
+<hr class="div" />
+
+<!-- ── COMPLICATION ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">02 &mdash; Complication</span>
+    <h2>The metric everyone reaches for<br/>was actively misleading.</h2>
+    <p>
+      The target splits <strong>10.68 to 1</strong> &mdash; roughly 92% of respondents report no heart disease.
+      That ratio has an uncomfortable consequence:
+    </p>
+
+    <div class="callout amber">
+      <p>
+        A model that predicts <strong>&ldquo;no heart disease&rdquo; for every single person</strong> scores
+        about <strong>91% accuracy</strong> on this data &mdash; while finding nobody at all. Any model
+        reporting accuracy in the high eighties has to be checked against that floor before the number means anything.
+      </p>
+    </div>
+
+    <p>
+      So accuracy was ruled out as a selection metric at the start. The metric that actually matters for screening
+      is <strong>recall on the positive class</strong>: of the people who do have heart disease, how many did we flag?
+      A missed case walks out of the clinic undiagnosed. A false alarm costs one follow-up test. Those are not
+      symmetric errors, and the metric should not pretend they are.
+    </p>
+
+    <div class="chart-card">
+      <img src="../assets/images/projects/hb-class-imbalance.png" alt="Kernel density plots of BMI, physical health, mental health and sleep time, split by heart disease status" loading="lazy" />
+      <div class="chart-cap">
+        <b>The imbalance, visually.</b> Across every continuous feature, the positive class (orange) is
+        dwarfed by the negative class (blue). The distributions also overlap heavily &mdash; no single
+        variable separates the classes cleanly, which rules out a simple threshold rule.
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div" />
+
+<!-- ── APPROACH ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">03 &mdash; Approach</span>
+    <h2>Fix the data, then fix the balance,<br/>then compare honestly.</h2>
+    <p>
+      The work split into three stages. Each one was constrained by the same principle: do not let a
+      preprocessing choice quietly inflate the final numbers.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">STAGE 01</div>
+        <h3>Clean and condition</h3>
+        <p>Duplicates removed, then outliers handled per-feature rather than with one blanket rule:</p>
+        <ul>
+          <li><strong>BMI</strong> &mdash; 2.95% beyond [12.60, 43.08], removed</li>
+          <li><strong>Sleep time</strong> &mdash; 1.50% beyond [3.0, 11.0], removed</li>
+          <li><strong>Physical health</strong> &mdash; 15.62% outliers, log-transformed</li>
+          <li><strong>Mental health</strong> &mdash; 13.16% outliers, log-transformed</li>
+        </ul>
+      </div>
+      <div class="step">
+        <div class="step-n">STAGE 02</div>
+        <h3>Encode and scale</h3>
+        <p>
+          Label encoding across fourteen categorical variables, then standardisation of the continuous
+          features so no single variable dominated on magnitude alone.
+        </p>
+        <p style="margin-top:12px;">
+          The two health-day variables were log-transformed rather than trimmed, because the heavy right tail
+          is real signal &mdash; people genuinely do report thirty bad days &mdash; not measurement error.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-n">STAGE 03</div>
+        <h3>Rebalance five ways</h3>
+        <p>Rather than defaulting to SMOTE, five strategies were evaluated against each other:</p>
+        <div class="pill-row">
+          <span class="pill on">Random under-sampling</span>
+          <span class="pill">Random over-sampling</span>
+          <span class="pill">Tomek links</span>
+          <span class="pill">SMOTE</span>
+          <span class="pill">Near Miss</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">STAGE 04</div>
+        <h3>Compare three model families</h3>
+        <p>
+          Logistic Regression, Decision Tree and Random Forest &mdash; deliberately spanning a linear baseline,
+          a single interpretable tree and an ensemble, so the comparison would show whether added complexity
+          was buying anything real.
+        </p>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <img src="../assets/images/projects/hb-outliers.png" alt="Box plots showing outlier distribution across BMI, physical health, mental health and sleep time" loading="lazy" />
+      <div class="chart-cap">
+        <b>Why outliers got per-feature treatment.</b> BMI carries extreme high-side outliers that are
+        implausible as measurements and were removed. Physical and mental health days cluster at zero with a
+        long tail to thirty &mdash; that shape is the real distribution, so those were transformed instead.
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div" />
+
+<!-- ── RESULTS ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">04 &mdash; Results</span>
+    <h2>Accuracy and recall pointed<br/>at opposite models.</h2>
+    <p>
+      Random Forest won on accuracy by a wide margin and lost on the only metric that mattered.
+      Plotted side by side, the trade-off is unambiguous:
+    </p>
+
+    <div class="bars">
+      <div class="bar-row">
+        <div class="bar-model">Logistic Regression<small>Random under-sampling</small></div>
+        <div class="bar-pair">
+          <div class="bar-line"><span class="bar-tag">Accuracy</span><div class="bar-track"><div class="bar-fill acc" style="width:73.3%;">0.73</div></div></div>
+          <div class="bar-line"><span class="bar-tag">Recall</span><div class="bar-track"><div class="bar-fill rec" style="width:77%;">0.77</div></div></div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-model">Decision Tree<small>Random over-sampling</small></div>
+        <div class="bar-pair">
+          <div class="bar-line"><span class="bar-tag">Accuracy</span><div class="bar-track"><div class="bar-fill acc" style="width:73.3%;">0.73</div></div></div>
+          <div class="bar-line"><span class="bar-tag">Recall</span><div class="bar-track"><div class="bar-fill rec" style="width:70%;">0.70</div></div></div>
+        </div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-model">Random Forest<small>Random over-sampling</small></div>
+        <div class="bar-pair">
+          <div class="bar-line"><span class="bar-tag">Accuracy</span><div class="bar-track"><div class="bar-fill acc" style="width:88.7%;">0.89</div></div></div>
+          <div class="bar-line"><span class="bar-tag">Recall</span><div class="bar-track"><div class="bar-fill rec low" style="width:20%;">0.20</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="bar-legend">
+      <span><i style="background:rgba(255,255,255,0.16);"></i>Overall accuracy</span>
+      <span><i style="background:var(--accent);"></i>Recall, positive class</span>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th><th>Sampling</th><th>Accuracy</th><th>Recall (class 1)</th><th>Precision (class 0)</th><th>F1 (class 1)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="chosen">
+            <td>Logistic Regression</td><td>Random under-sampling</td><td class="num">0.7328</td><td class="num">0.77</td><td class="num">0.97</td><td class="num">0.33</td>
+          </tr>
+          <tr>
+            <td>Decision Tree</td><td>Random over-sampling</td><td class="num">0.7330</td><td class="num">0.70</td><td class="num">0.96</td><td class="num">0.31</td>
+          </tr>
+          <tr>
+            <td>Random Forest</td><td>Random over-sampling</td><td class="num">0.8874</td><td class="num">0.20</td><td class="num">0.93</td><td class="dim">&mdash;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <p>
+        <strong>Random Forest caught one in five.</strong> It scored fifteen accuracy points above Logistic
+        Regression while finding 20% of at-risk patients against 77%. On a screening problem that is not a
+        close call &mdash; the ensemble was learning to agree with the majority class, which is exactly what
+        the imbalance rewards.
+      </p>
+    </div>
+
+    <p>
+      Random under-sampling produced the strongest positive-class recall across model families, which is
+      consistent with what it does: it removes the majority-class mass that was drowning the signal, at the
+      cost of throwing away data. Here that trade was worth taking.
+    </p>
+
+    <p>
+      <strong>The honest caveat:</strong> F1 on the positive class sits at 0.33, which means precision is low &mdash;
+      most flagged patients will not have heart disease. For a triage step that routes people to a cheap
+      follow-up test, that is an acceptable cost. For anything that drives treatment, it is not. The model is
+      fit for the first job and unfit for the second.
+    </p>
+  </div>
+</section>
+
+<hr class="div" />
+
+<!-- ── DECISION ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">05 &mdash; The Decision</span>
+    <h2>Choose the metric first,<br/>and the model follows.</h2>
+    <p class="lede">
+      Logistic Regression with random under-sampling was selected &mdash; the lowest-accuracy model of the three,
+      and the only one that did the job it was built for.
+    </p>
+    <p>
+      Choosing it also meant accepting a simpler model than the ensemble, which turned out to be an advantage
+      rather than a concession. Logistic Regression exposes its coefficients, so a clinician can see which
+      factors pushed a patient over the line. On a screening tool that someone has to trust and act on, an
+      explainable model beats an opaque one with better paper metrics.
+    </p>
+
+    <div class="chart-card">
+      <img src="../assets/images/projects/hb-eda-distributions.png" alt="Histograms of BMI, physical health days, mental health days and sleep time across the full population" loading="lazy" />
+      <div class="chart-cap">
+        <b>The underlying population.</b> BMI is near-normal with a right skew; the health-day variables are
+        zero-inflated with a spike at thirty; sleep time concentrates tightly between six and eight hours.
+        These shapes drove both the transformation choices and the decision to standardise before modelling.
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div" />
+
+<!-- ── WHAT I'D DO DIFFERENTLY ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">06 &mdash; What I&rsquo;d Do Differently</span>
+    <h2>Where this falls short.</h2>
+    <p>
+      The model answers the question it was given. Several things would need to change before it could answer
+      a harder one.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <h3>Report PR-AUC, not F1</h3>
+        <p>
+          On a heavily imbalanced target, precision&ndash;recall AUC describes the whole trade-off curve rather
+          than one arbitrary threshold. F1 at 0.33 is a single point on that curve and undersells where the
+          model is genuinely useful.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <h3>Validate externally</h3>
+        <p>
+          Every number here comes from one survey year of one country's population. Generalisability is
+          asserted, not demonstrated. A second dataset from a different source is the only way to know whether
+          this holds.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <h3>Tune, then re-compare</h3>
+        <p>
+          The models were compared at default hyperparameters. Random Forest in particular is likely to improve
+          with class weighting and depth limits &mdash; the comparison is fair, but it is not the ceiling.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <h3>Engineer interaction features</h3>
+        <p>
+          The current features are treated independently, but cardiovascular risk compounds &mdash; age with
+          diabetes with smoking is not the sum of its parts. Interaction terms are the obvious next lever.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>
+        The broader lesson transfers past this dataset: <strong>on any rare-event problem &mdash; fraud, churn,
+        defects, disease &mdash; the default metric will quietly reward a model for predicting nothing happens.</strong>
+        Establishing the majority-class baseline before reporting a single result is what separates a number
+        from a finding.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEXT ── -->
+<section class="next">
+  <div class="wrap rv">
+    <span class="eyebrow">Explore</span>
+    <h2 style="margin-bottom:28px;">More work.</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;">
+      <a href="https://github.com/srivasudev14/HeartBeacon--CardioVascular-Prediction-Model" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+        Code on GitHub
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a>
+      <a href="../index.html#projects" class="btn btn-ghost">All projects</a>
+      <a href="../index.html#contact" class="btn btn-primary">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;">
+    <span>&copy; 2026 Sri Vasudev</span>
+    <span>Dataset: CDC Behavioral Risk Factor Surveillance System, via Kaggle</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
