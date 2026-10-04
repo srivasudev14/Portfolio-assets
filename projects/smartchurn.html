@@ -171,6 +171,51 @@
     tr.chosen td:first-child { font-weight: 700; color: #fff; box-shadow: inset 2px 0 0 var(--accent); }
     td.num { font-variant-numeric: tabular-nums; font-weight: 600; color: #d4d4d4; }
 
+    /* ── BOOSTING DIAGRAM ── */
+    .boost { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 32px 0 14px; align-items: end; }
+    .bst { background: var(--card); border: 1px solid var(--border); border-radius: 13px; padding: 16px 14px; position: relative; }
+    .bst-n { font-size: 9.5px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: var(--faint); margin-bottom: 11px; }
+    .bst-tree { display: flex; align-items: flex-end; gap: 3px; height: 34px; margin-bottom: 13px; }
+    .bst-tree i { flex: 1; background: rgba(124,109,250,0.3); border-radius: 2px 2px 0 0; transform-origin: bottom;
+      transform: scaleY(0); transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+    .rv.in .bst-tree i { transform: scaleY(1); }
+    .bst-err-lab { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4a4a4a; margin-bottom: 6px; }
+    .bst-err { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.05); overflow: hidden; }
+    .bst-err i { display: block; height: 100%; border-radius: 3px; background: var(--rose); width: 100%;
+      transition: width 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .rv.in .bst-err i { width: var(--e); }
+    .bst.final { border-color: rgba(124,109,250,0.35); background: rgba(124,109,250,0.06); }
+    .bst.final .bst-tree i { background: var(--accent); }
+    .bst.final .bst-err i { background: var(--green); }
+
+    /* ── THRESHOLD EXPLORER ── */
+    .thx { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin: 32px 0; }
+    .thx-head { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .thx-title { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .thx-val { font-size: 30px; font-weight: 800; color: #fff; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+    .thx-val small { font-size: 12px; font-weight: 600; color: var(--faint); letter-spacing: 0.06em; margin-left: 7px; text-transform: uppercase; }
+    .thx-slider { width: 100%; margin: 20px 0 6px; -webkit-appearance: none; appearance: none; height: 6px; border-radius: 4px; background: rgba(255,255,255,0.1); outline: none; cursor: pointer; }
+    .thx-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); border: 3px solid #0d0d11; box-shadow: 0 0 0 1px var(--accent), 0 3px 10px rgba(0,0,0,0.5); cursor: grab; }
+    .thx-slider::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.12); }
+    .thx-slider::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 3px solid #0d0d11; box-shadow: 0 0 0 1px var(--accent); cursor: grab; }
+    .thx-scale { display: flex; justify-content: space-between; font-size: 10px; color: var(--faint); font-weight: 600; letter-spacing: 0.06em; margin-bottom: 22px; }
+    .thx-band { position: relative; height: 24px; border-radius: 5px; background: rgba(255,255,255,0.03); margin-bottom: 24px; overflow: hidden; }
+    .thx-band-safe { position: absolute; top: 0; bottom: 0; left: 0.6%; width: 57.9%; background: rgba(52,211,153,0.16); border-left: 1px solid rgba(52,211,153,0.4); border-right: 1px solid rgba(52,211,153,0.4); }
+    .thx-band-lab { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(52,211,153,0.9); }
+    .thx-marker { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--accent); box-shadow: 0 0 8px rgba(124,109,250,0.9); transition: left 0.08s linear; }
+    .thx-rows { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-bottom: 20px; }
+    .thx-rec { border-radius: 9px; padding: 11px 6px; text-align: center; border: 1px solid var(--border); background: rgba(255,255,255,0.025); transition: background 0.25s, border-color 0.25s, transform 0.25s; }
+    .thx-rec.flag { background: rgba(251,113,133,0.14); border-color: rgba(251,113,133,0.45); transform: translateY(-3px); }
+    .thx-rec-n { font-size: 9px; font-weight: 700; color: var(--faint); margin-bottom: 4px; }
+    .thx-rec-v { font-size: 11px; font-weight: 700; color: #b4b4b4; font-variant-numeric: tabular-nums; }
+    .thx-rec.flag .thx-rec-v { color: #ffb3bf; }
+    .thx-out { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .thx-stat { background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-radius: 12px; padding: 15px 16px; }
+    .thx-stat-v { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 3px; font-variant-numeric: tabular-nums; }
+    .thx-stat-l { font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
+    .thx-verdict { margin-top: 16px; font-size: 13.5px; line-height: 1.7; color: #b0b0b0; min-height: 44px; }
+    .thx-verdict b { color: #e2e2e2; font-weight: 700; }
+
     .next { background: linear-gradient(180deg, var(--bg) 0%, #0a0a12 100%); border-top: 1px solid var(--border); }
     .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 100px; font-size: 14px; font-weight: 700; text-decoration: none; transition: transform 0.2s, background 0.2s; }
     .btn-primary { background: var(--accent); color: #fff; }
@@ -202,6 +247,10 @@
       .conf-row { grid-template-columns: 26px 1fr; }
       .conf-tag { grid-column: 1 / -1; padding-left: 40px; }
       .chart-card { padding: 16px; }
+      .boost { grid-template-columns: 1fr 1fr; }
+      .thx { padding: 20px; }
+      .thx-rows { grid-template-columns: repeat(5, 1fr); }
+      .thx-out { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -346,10 +395,106 @@
 
 <hr class="div" />
 
+<!-- ── THE MODEL ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">03 &mdash; The Model</span>
+    <h2>Why boosting, and why<br/>its probabilities lie.</h2>
+    <p class="lede">
+      Gradient boosting does not fit one model to the data. It fits a sequence of shallow trees, each one
+      trained on what the ensemble before it got <em>wrong</em>.
+    </p>
+    <p>
+      The first tree makes a crude split. The second is trained on the residuals of the first &mdash; the gap
+      between prediction and truth. The third corrects what the first two still miss, and so on. Each learner
+      is weak on its own; the sum is not.
+    </p>
+
+    <div class="boost">
+      <div class="bst">
+        <div class="bst-n">Tree 1</div>
+        <div class="bst-tree"><i style="height:38%"></i><i style="height:72%"></i><i style="height:50%"></i></div>
+        <div class="bst-err-lab">Residual</div>
+        <div class="bst-err"><i style="--e:100%"></i></div>
+      </div>
+      <div class="bst">
+        <div class="bst-n">Tree 2</div>
+        <div class="bst-tree"><i style="height:62%"></i><i style="height:40%"></i><i style="height:80%"></i></div>
+        <div class="bst-err-lab">Residual</div>
+        <div class="bst-err"><i style="--e:63%"></i></div>
+      </div>
+      <div class="bst">
+        <div class="bst-n">Tree 3</div>
+        <div class="bst-tree"><i style="height:48%"></i><i style="height:86%"></i><i style="height:34%"></i></div>
+        <div class="bst-err-lab">Residual</div>
+        <div class="bst-err"><i style="--e:38%"></i></div>
+      </div>
+      <div class="bst">
+        <div class="bst-n">Tree n</div>
+        <div class="bst-tree"><i style="height:70%"></i><i style="height:54%"></i><i style="height:64%"></i></div>
+        <div class="bst-err-lab">Residual</div>
+        <div class="bst-err"><i style="--e:17%"></i></div>
+      </div>
+      <div class="bst final">
+        <div class="bst-n">Ensemble</div>
+        <div class="bst-tree"><i style="height:88%"></i><i style="height:94%"></i><i style="height:90%"></i></div>
+        <div class="bst-err-lab">Residual</div>
+        <div class="bst-err"><i style="--e:7%"></i></div>
+      </div>
+    </div>
+
+    <p style="margin-top:26px;">
+      That mechanism suits this dataset. Churn signals are <strong>interaction effects</strong>, not main
+      effects &mdash; a falling transaction amount matters differently depending on relationship count and
+      months inactive. Trees capture those interactions natively, without anyone having to specify them.
+      Boosting also tolerates mixed types and unscaled features, which is most of this table.
+    </p>
+
+    <h3 style="margin-top:38px;">GBT against CatBoost: the real difference</h3>
+    <p>
+      The comparison was not arbitrary. More than half these features are categorical &mdash; education level,
+      marital status, income band, card tier &mdash; and the two algorithms handle that very differently.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">GRADIENT BOOSTED TREES</div>
+        <h3>Categoricals must be encoded first</h3>
+        <p>
+          Label or one-hot encoding happens before the model sees the data. One-hot explodes dimensionality on
+          high-cardinality fields; label encoding invents an ordering that is not real &mdash; implying
+          <em>Graduate &gt; High School &gt; Uneducated</em> as a numeric distance the tree can split on.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-n">CATBOOST</div>
+        <h3>Ordered target statistics</h3>
+        <p>
+          CatBoost encodes categories using the target itself, but computes each row's statistic only from
+          rows that came <em>before</em> it in a random permutation. That ordering is what prevents the target
+          leakage plain mean-encoding causes, and it is why CatBoost usually needs less preprocessing to reach
+          the same place.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>
+        CatBoost reached <strong>97.17% accuracy and 92.48% recall</strong> &mdash; and still lost the
+        selection, because it reproduced the class split at 70/30 instead of 80/20. Under a rubric weighting
+        ratio alignment at 35% and accuracy at 15%, the stronger classifier is the weaker candidate. The
+        algorithm that generalises best is not automatically the one that deploys best.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="div" />
+
 <!-- ── APPROACH ── -->
 <section>
   <div class="wrap rv">
-    <span class="eyebrow muted">03 &mdash; Approach</span>
+    <span class="eyebrow muted">04 &mdash; Pipeline</span>
     <h2>One pipeline, two branches.</h2>
     <p>
       The process was built so the training path and the blind-validation path could not contaminate each
@@ -411,7 +556,7 @@
 <!-- ── RESULTS ── -->
 <section>
   <div class="wrap rv">
-    <span class="eyebrow muted">04 &mdash; Results</span>
+    <span class="eyebrow muted">05 &mdash; Results</span>
     <h2>The ratio landed exactly.<br/>The confidences did not.</h2>
     <p>
       On the blind set the model returned <strong>8 Existing Customers and 2 Attrited Customers</strong> &mdash;
@@ -454,8 +599,9 @@
       <img src="../assets/images/projects/sc-predictions.png" alt="Row-level prediction table for ten held-out customers with per-class confidence scores and feature values" loading="lazy" />
       <div class="chart-cap">
         <b>Row-level output on the blind set.</b> Records 1&ndash;8 classified Existing at 0.995&ndash;0.998.
-        Records 9 and 10 classified Attrited at 0.585 and 0.851. Note that both churners carry a higher
-        credit limit (8,455 and 11,059) than most of the retained group &mdash; a signal worth pulling on.
+        Records 9 and 10 classified Attrited at 0.585 and 0.851. Both churners sit above the median credit
+        limit &mdash; but so does record 04, at 16,835, the highest in the set and confidently retained. With
+        ten rows, that is an observation, not a feature attribution.
       </div>
     </div>
 
@@ -488,10 +634,88 @@
 
 <hr class="div" />
 
+<!-- ── CALIBRATION & THRESHOLD ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">06 &mdash; Calibration &amp; Threshold</span>
+    <h2>A 0.998 does not mean<br/>99.8% certain.</h2>
+    <p class="lede">
+      The rubric puts half its weight on confidence scores. Boosted trees produce some of the least
+      trustworthy confidence scores in common use.
+    </p>
+    <p>
+      Gradient boosting minimises log-loss by driving the margin between classes as far apart as it can. The
+      number that falls out of the final sigmoid is a <strong>ranking score</strong>, not a probability. It
+      reliably tells you record 10 is a better churn candidate than record 9. It does not reliably tell you
+      that record 1 has a 0.2% chance of leaving.
+    </p>
+    <p>
+      The clustering is the tell. Eight records landing between 0.995 and 0.998 is not eight independent
+      assessments of near-certainty &mdash; it is the ensemble saturating. On an imbalanced target the
+      majority class is over-represented in every residual round, so the model learns to be loud about it.
+      <strong>Platt scaling</strong> or <strong>isotonic regression</strong> against a held-out fold would map
+      these scores onto real frequencies, and a reliability curve would show how far off they currently are.
+    </p>
+
+    <div class="callout amber">
+      <p>
+        This is the sharpest gap in the whole project: <strong>the rubric weights confidence stability at 50%
+        while the confidence scores themselves were never calibrated.</strong> Half the production decision
+        rests on numbers that have not been validated as numbers.
+      </p>
+    </div>
+
+    <h3 style="margin-top:44px;">Where the decision boundary actually sits</h3>
+    <p>
+      The 0.5 cut-off is a library default, not a business decision. Drag it and watch what the model does
+      with the real attrition confidences from the blind set:
+    </p>
+
+    <div class="thx">
+      <div class="thx-head">
+        <span class="thx-title">Decision threshold</span>
+        <span class="thx-val" id="thxVal">0.50<small>cut-off</small></span>
+      </div>
+      <input class="thx-slider" id="thxSlider" type="range" min="0" max="1" step="0.001" value="0.5"
+             aria-label="Churn decision threshold" />
+      <div class="thx-scale"><span>0.00</span><span>0.25</span><span>0.50</span><span>0.75</span><span>1.00</span></div>
+
+      <div class="thx-band" aria-hidden="true">
+        <div class="thx-band-safe"></div>
+        <div class="thx-band-lab">Dead zone &mdash; no record between 0.006 and 0.584</div>
+        <div class="thx-marker" id="thxMarker" style="left:50%;"></div>
+      </div>
+
+      <div class="thx-rows" id="thxRows"></div>
+
+      <div class="thx-out">
+        <div class="thx-stat"><div class="thx-stat-v" id="thxFlagged">2</div><div class="thx-stat-l">Flagged as churn</div></div>
+        <div class="thx-stat"><div class="thx-stat-v" id="thxRatio">80 / 20</div><div class="thx-stat-l">Predicted class split</div></div>
+        <div class="thx-stat"><div class="thx-stat-v" id="thxTarget">On target</div><div class="thx-stat-l">vs 80/20 requirement</div></div>
+      </div>
+
+      <p class="thx-verdict" id="thxVerdict"></p>
+    </div>
+
+    <p>
+      The useful discovery is the empty space. <strong>Nothing sits between 0.006 and 0.584.</strong> Every
+      threshold across that range &mdash; a span covering most of the scale &mdash; returns the identical
+      answer. Threshold choice is not where the fragility lives.
+    </p>
+    <p>
+      The fragility is that record 09 sits at <strong>0.585</strong>, one thousandth above the edge of that
+      dead zone. Nudge the cut-off up by 0.002 and a real churner silently stops being flagged, and the 80/20
+      ratio the bank is budgeting against quietly becomes 90/10.
+    </p>
+  </div>
+</section>
+
+<hr class="div" />
+
 <!-- ── WHAT I'D DO DIFFERENTLY ── -->
 <section>
   <div class="wrap rv">
-    <span class="eyebrow muted">05 &mdash; What I&rsquo;d Do Differently</span>
+    <span class="eyebrow muted">07 &mdash; What I&rsquo;d Do Differently</span>
     <h2>Where this validation<br/>stops short.</h2>
     <p>
       Ten records per analyst is enough to catch an obviously broken model. It is not enough to certify one.
@@ -597,6 +821,67 @@
     entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); cio.unobserve(e.target); } });
   }, { threshold: 0.5 });
   document.querySelectorAll('.metric-val[data-count]').forEach(el => cio.observe(el));
+
+  // ── Threshold explorer — real attrition confidences from the blind set ──
+  const RECORDS = [
+    { id: 1, p: 0.002 }, { id: 2, p: 0.002 }, { id: 3, p: 0.002 }, { id: 4, p: 0.004 },
+    { id: 5, p: 0.002 }, { id: 6, p: 0.002 }, { id: 7, p: 0.005 }, { id: 8, p: 0.002 },
+    { id: 9, p: 0.585 }, { id: 10, p: 0.851 }
+  ];
+  const TRUE_CHURNERS = [9, 10];
+
+  const rowsEl    = document.getElementById('thxRows');
+  const slider    = document.getElementById('thxSlider');
+  const valEl     = document.getElementById('thxVal');
+  const markerEl  = document.getElementById('thxMarker');
+  const flaggedEl = document.getElementById('thxFlagged');
+  const ratioEl   = document.getElementById('thxRatio');
+  const targetEl  = document.getElementById('thxTarget');
+  const verdictEl = document.getElementById('thxVerdict');
+
+  if (rowsEl && slider) {
+    rowsEl.innerHTML = RECORDS.map(r =>
+      `<div class="thx-rec" data-id="${r.id}">
+         <div class="thx-rec-n">${String(r.id).padStart(2, '0')}</div>
+         <div class="thx-rec-v">${r.p.toFixed(3)}</div>
+       </div>`).join('');
+
+    const cards = [...rowsEl.children];
+
+    function render(t) {
+      const flagged = RECORDS.filter(r => r.p >= t);
+      const n = flagged.length;
+      const caught = flagged.filter(r => TRUE_CHURNERS.includes(r.id)).length;
+
+      cards.forEach((c, i) => c.classList.toggle('flag', RECORDS[i].p >= t));
+
+      valEl.innerHTML = t.toFixed(3) + '<small>cut-off</small>';
+      markerEl.style.left = (t * 100) + '%';
+      flaggedEl.textContent = n;
+      ratioEl.textContent = `${(10 - n) * 10} / ${n * 10}`;
+
+      const onTarget = n === 2;
+      targetEl.textContent = onTarget ? 'On target' : (n > 2 ? 'Over-flagging' : 'Under-flagging');
+      targetEl.style.color = onTarget ? 'var(--green)' : 'var(--rose)';
+
+      let msg;
+      if (n === 0) {
+        msg = `<b>Nobody flagged.</b> Above 0.851 the model has no record it considers a churn risk — the retention programme has no one to call.`;
+      } else if (n === 1) {
+        msg = `<b>Only record 10 survives the cut.</b> Record 09, a genuine churner at 0.585, is now missed — and the predicted split reads 90/10 against an 80/20 requirement.`;
+      } else if (n === 2 && caught === 2) {
+        msg = `<b>Both churners caught, nobody else.</b> This is the whole stable band — any cut-off from 0.006 to 0.585 produces exactly this result.`;
+      } else if (n <= 4) {
+        msg = `<b>${n} flagged.</b> Records 04 and 07 are creeping in at 0.004 and 0.005 — false positives, but cheap ones if a retention call costs less than a lost customer.`;
+      } else {
+        msg = `<b>${n} of 10 flagged.</b> Below 0.002 the threshold stops discriminating and the model is effectively calling everyone a churn risk.`;
+      }
+      verdictEl.innerHTML = msg;
+    }
+
+    slider.addEventListener('input', e => render(parseFloat(e.target.value)));
+    render(0.5);
+  }
 </script>
 
 </body>
