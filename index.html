@@ -251,6 +251,16 @@
 
     /* ── SUPPLY CHAIN ── */
     .scm-section { background: linear-gradient(180deg, var(--bg) 0%, #080a0f 45%, var(--bg) 100%); }
+    /* delivery lifecycle strip */
+    .scm-flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 40px; }
+    .scm-stage { position: relative; padding-top: 28px; }
+    .scm-stage::before { content: ''; position: absolute; top: 7px; left: 0; right: -16px; height: 1px; background: linear-gradient(90deg, rgba(45,212,191,0.32), rgba(45,212,191,0.12)); }
+    .scm-stage:last-child::before { right: 0; background: linear-gradient(90deg, rgba(45,212,191,0.32), transparent); }
+    .scm-stage-dot { position: absolute; top: 3px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 3px rgba(45,212,191,0.13); }
+    .scm-stage-n { font-size: 9.5px; font-weight: 800; letter-spacing: 0.15em; color: rgba(45,212,191,0.62); margin-bottom: 8px; }
+    .scm-stage h5 { font-size: 14px; font-weight: 800; color: #e6e6e6; letter-spacing: -0.012em; margin-bottom: 6px; }
+    .scm-stage p { font-size: 12px; line-height: 1.62; color: #767676; }
+
     .scm-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-items: start; }
     .scm-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 26px 24px; transition: border-color 0.3s, transform 0.3s; position: relative; overflow: hidden; }
     .scm-card:hover { border-color: rgba(45,212,191,0.28); transform: translateY(-4px); }
@@ -460,6 +470,8 @@
       .skill-card { padding: 22px; }
       .scm-grid { grid-template-columns: 1fr 1fr; }
       .scm-proof-grid { grid-template-columns: 1fr 1fr; gap: 22px; }
+      .scm-flow { grid-template-columns: 1fr 1fr; gap: 22px 16px; }
+      .scm-stage::before { right: -16px; }
       #nav { padding: 14px 24px; }
       .nav-links { display: none; }
       .section-wrap { padding: 72px 24px; }
@@ -471,6 +483,7 @@
       .skill-card.wide { grid-column: span 1; }
       .scm-grid { grid-template-columns: 1fr; }
       .scm-proof { padding: 24px; }
+      .scm-flow { grid-template-columns: 1fr; gap: 20px; }
     }
     section { scroll-margin-top: 80px; }
   </style>
@@ -916,9 +929,42 @@
     <h2 class="section-headline reveal" style="margin-bottom:14px;">Supply chain, <span class="grad-teal">end to end.</span></h2>
     <p class="reveal body-text" style="max-width:620px;margin-bottom:40px;">
       Two years at EY on the product team behind <a href="https://www.ey.com/en_in/services/consulting/asterisk-digital-platform" target="_blank" rel="noopener noreferrer">ASTERISK</a>, EY&rsquo;s SCM platform &mdash;
-      running planning cycles, shipping deployments, and presenting post-cycle performance back to client
-      supply chain leadership across four Fortune 500 accounts.
+      carrying client engagements from requirements through deployment, then running the planning cycles and
+      the executive reviews that followed. Four Fortune 500 accounts across Automotive and Consumer Goods.
     </p>
+
+    <div class="scm-flow reveal" style="transition-delay:30ms;">
+      <div class="scm-stage">
+        <div class="scm-stage-dot"></div>
+        <div class="scm-stage-n">01</div>
+        <h5>Discovery</h5>
+        <p>Requirements gathered with client planning teams and supply chain leads</p>
+      </div>
+      <div class="scm-stage">
+        <div class="scm-stage-dot"></div>
+        <div class="scm-stage-n">02</div>
+        <h5>Solution Design</h5>
+        <p>Mapping the client&rsquo;s planning process onto ASTERISK modules and data</p>
+      </div>
+      <div class="scm-stage">
+        <div class="scm-stage-dot"></div>
+        <div class="scm-stage-n">03</div>
+        <h5>Deployment</h5>
+        <p>Configuration, UAT and production release into the client environment</p>
+      </div>
+      <div class="scm-stage">
+        <div class="scm-stage-dot"></div>
+        <div class="scm-stage-n">04</div>
+        <h5>Cycle Operations</h5>
+        <p>Running the planning cycle live, with analytics on how it performed</p>
+      </div>
+      <div class="scm-stage">
+        <div class="scm-stage-dot"></div>
+        <div class="scm-stage-n">05</div>
+        <h5>Executive Review</h5>
+        <p>Post-cycle readout to supply chain heads and planning managers</p>
+      </div>
+    </div>
 
     <div class="scm-grid reveal" style="transition-delay:40ms;">
       <div class="scm-card">
@@ -942,7 +988,7 @@
       <div class="scm-card">
         <div class="scm-num">04</div>
         <h4>Vendor &amp; Supplier Management</h4>
-        <p>Supplier scorecards, KPI tracking and performance monitoring &mdash; built working directly with suppliers, direct vendors and operations teams on EY client engagements.</p>
+        <p>Supplier scorecards, KPI tracking and performance monitoring &mdash; delivered working directly with suppliers, direct vendors and client operations teams.</p>
         <div class="scm-tags"><span class="scm-tag">Supplier KPIs</span><span class="scm-tag">Scorecards</span><span class="scm-tag">Geo analytics</span></div>
       </div>
     </div>
