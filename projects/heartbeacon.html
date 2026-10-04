@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HeartBeacon — Case Study · Sri Vasudev</title>
-  <meta name="description" content="HeartBeacon cardiovascular risk case study — why the highest-accuracy model was the wrong choice on a 10.68:1 imbalanced target, and how recall drove model selection across 319,795 CDC records." />
+  <title>HeartBeacon — Project Case Study · Sri Vasudev</title>
+  <meta name="description" content="HeartBeacon cardiovascular risk case study — why the highest-accuracy model was the wrong choice on a 10.68:1 imbalanced target, how recall drove model selection across 319,795 CDC records, and what it would take to deploy a survey-only screening model at population scale." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
@@ -137,6 +137,16 @@
     .chart-cap { font-size: 12.5px; color: #55504a; margin-top: 16px; line-height: 1.6; font-weight: 500; }
     .chart-cap b { color: #1c1a18; font-weight: 700; }
 
+    /* ── MARKET BAND ── */
+    .mkt { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 32px 0 10px; }
+    .mkt-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 22px; }
+    .mkt-card.hero-stat { border-color: rgba(124,109,250,0.3); background: rgba(124,109,250,0.05); }
+    .mkt-v { font-size: clamp(25px, 3vw, 33px); font-weight: 800; color: #fff; letter-spacing: -0.035em; line-height: 1; margin-bottom: 10px; font-variant-numeric: tabular-nums; }
+    .mkt-l { font-size: 13px; color: var(--body); line-height: 1.6; margin-bottom: 11px; }
+    .mkt-src { font-size: 10.5px; color: var(--faint); letter-spacing: 0.03em; }
+    .mkt-src a { color: var(--faint); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .mkt-src a:hover { color: var(--muted); }
+
     /* ── RESULTS BARS ── */
     .bars { display: flex; flex-direction: column; gap: 22px; margin: 32px 0 12px; }
     .bar-row { display: grid; grid-template-columns: 160px 1fr; gap: 20px; align-items: center; }
@@ -197,6 +207,7 @@
       section { padding: 52px 0; }
       .hero { padding: 120px 0 44px; }
       .metric-strip { grid-template-columns: 1fr 1fr; }
+      .mkt { grid-template-columns: 1fr; }
       .steps { grid-template-columns: 1fr; }
       .bar-row { grid-template-columns: 1fr; gap: 10px; }
       .bar-legend { padding-left: 0; }
@@ -221,7 +232,7 @@
   </div>
   <div class="hero-veil"></div>
   <div class="wrap">
-    <span class="eyebrow">Analytics Case Study</span>
+    <span class="eyebrow">Project Case Study &nbsp;&middot;&nbsp; Applied Machine Learning</span>
     <h1>HeartBeacon</h1>
     <p class="hero-thesis">
       The most accurate model was the <em>worst</em> one to ship. On a target where
@@ -265,10 +276,63 @@
   </svg>
 </div>
 
+<!-- ── MARKET CONTEXT ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">01 &mdash; Market Context</span>
+    <h2>The expensive part of heart disease<br/>is finding it late.</h2>
+    <p class="lede">
+      Cardiovascular disease is the largest single cost centre in American healthcare and the leading cause
+      of death. It is also, by the WHO&rsquo;s assessment, <em>largely preventable</em>. The gap between those
+      two facts is where a screening model earns its keep.
+    </p>
+
+    <div class="mkt">
+      <div class="mkt-card">
+        <div class="mkt-v">919,032</div>
+        <div class="mkt-l">Americans died of cardiovascular disease in 2023 &mdash; one in every three deaths, one every 34 seconds.</div>
+        <div class="mkt-src"><a href="https://www.cdc.gov/heart-disease/data-research/facts-stats/index.html" target="_blank" rel="noopener noreferrer">CDC, 2023</a></div>
+      </div>
+      <div class="mkt-card">
+        <div class="mkt-v">$168B</div>
+        <div class="mkt-l">Spent on heart disease health services and medication across 2021&ndash;2022 in the US alone.</div>
+        <div class="mkt-src"><a href="https://www.cdc.gov/heart-disease/data-research/facts-stats/index.html" target="_blank" rel="noopener noreferrer">CDC, 2021&ndash;22</a></div>
+      </div>
+      <div class="mkt-card hero-stat">
+        <div class="mkt-v">0</div>
+        <div class="mkt-l">Lab tests, scans or clinic visits this model requires. Every input is a survey answer.</div>
+        <div class="mkt-src">The commercial unlock</div>
+      </div>
+    </div>
+
+    <p style="margin-top:28px;">
+      That third number is the one that matters commercially. The WHO notes that
+      &ldquo;most cardiovascular diseases can be prevented by addressing behavioural and environmental risk
+      factors&rdquo; &mdash; tobacco, diet and obesity, physical inactivity, alcohol. Those are exactly the
+      variables the CDC survey captures, and exactly what this model consumes.
+    </p>
+    <p>
+      So the model does not compete with an ECG or a lipid panel. It runs <strong>upstream</strong> of them,
+      on data a health plan or employer already holds, at effectively zero marginal cost per person. That
+      changes who can deploy it: not just hospitals, but payers, employer wellness programmes and public
+      health agencies screening whole populations to decide who gets the expensive test.
+    </p>
+    <div class="callout">
+      <p>
+        <strong>The buyer is whoever carries the downstream cost.</strong> A model that cheaply ranks a
+        million people by risk is worth something to an insurer or an employer precisely because the
+        follow-up it triggers is expensive and the event it prevents is far more expensive still.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="div" />
+
 <!-- ── SITUATION ── -->
 <section>
   <div class="wrap rv">
-    <span class="eyebrow muted">01 &mdash; Situation</span>
+    <span class="eyebrow muted">02 &mdash; Situation</span>
     <h2>Screening is a volume problem<br/>before it is a modelling problem.</h2>
     <p class="lede">
       Cardiovascular disease is largely preventable when caught early, but screening every
@@ -294,7 +358,7 @@
 <!-- ── COMPLICATION ── -->
 <section>
   <div class="wrap rv">
-    <span class="eyebrow muted">02 &mdash; Complication</span>
+    <span class="eyebrow muted">03 &mdash; Complication</span>
     <h2>The metric everyone reaches for<br/>was actively misleading.</h2>
     <p>
       The target splits <strong>10.68 to 1</strong> &mdash; roughly 92% of respondents report no heart disease.
@@ -332,7 +396,7 @@
 <!-- ── APPROACH ── -->
 <section>
   <div class="wrap rv">
-    <span class="eyebrow muted">03 &mdash; Approach</span>
+    <span class="eyebrow muted">04 &mdash; Approach</span>
     <h2>Fix the data, then fix the balance,<br/>then compare honestly.</h2>
     <p>
       The work split into three stages. Each one was constrained by the same principle: do not let a
@@ -402,7 +466,7 @@
 <!-- ── RESULTS ── -->
 <section>
   <div class="wrap rv">
-    <span class="eyebrow muted">04 &mdash; Results</span>
+    <span class="eyebrow muted">05 &mdash; Results</span>
     <h2>Accuracy and recall pointed<br/>at opposite models.</h2>
     <p>
       Random Forest won on accuracy by a wide margin and lost on the only metric that mattered.
@@ -487,7 +551,7 @@
 <!-- ── DECISION ── -->
 <section>
   <div class="wrap rv">
-    <span class="eyebrow muted">05 &mdash; The Decision</span>
+    <span class="eyebrow muted">06 &mdash; The Decision</span>
     <h2>Choose the metric first,<br/>and the model follows.</h2>
     <p class="lede">
       Logistic Regression with random under-sampling was selected &mdash; the lowest-accuracy model of the three,
@@ -513,14 +577,69 @@
 
 <hr class="div" />
 
-<!-- ── WHAT I'D DO DIFFERENTLY ── -->
+<!-- ── IMPLEMENTATION PATH ── -->
 <section>
   <div class="wrap rv">
-    <span class="eyebrow muted">06 &mdash; What I&rsquo;d Do Differently</span>
+    <span class="eyebrow muted">07 &mdash; Implementation Path</span>
+    <h2>What it would take<br/>to put this in front of patients.</h2>
+    <p class="lede">
+      A model that selects well in a notebook is perhaps a third of the way to something a health plan can
+      actually run. The remaining work is mostly not modelling.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">STEP 01</div>
+        <h3>Calibrate before anyone acts on a score</h3>
+        <p>
+          A screening score that drives outreach has to <em>mean</em> something &mdash; if the system says 0.70,
+          roughly 70% of those people should turn out positive. Boosted and resampled models rarely satisfy
+          that out of the box. Platt scaling or isotonic regression against a held-out fold, validated with a
+          reliability curve, comes before deployment, not after.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-n">STEP 02</div>
+        <h3>Set the threshold from cost, not convention</h3>
+        <p>
+          0.5 is a library default. The right cut-off comes from the ratio of what a false alarm costs
+          &mdash; one follow-up test &mdash; to what a missed case costs. Because those differ by orders of
+          magnitude here, the economically correct threshold sits well below 0.5, and it is a business input
+          rather than a modelling one.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-n">STEP 03</div>
+        <h3>Monitor the population, not just the model</h3>
+        <p>
+          BRFSS is re-collected annually and the population it describes shifts. Smoking rates fall, obesity
+          rates climb. Drift monitoring on input distributions and on the positive rate matters more here
+          than model-level accuracy alerts, because the model will fail silently before it fails loudly.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-n">STEP 04</div>
+        <h3>Scope it explicitly as triage</h3>
+        <p>
+          This ranks people for follow-up. It does not diagnose, and at 0.33 F1 it must never be presented as
+          though it does. Clinical governance, a documented intended-use statement and a human decision point
+          between score and patient contact are prerequisites, not nice-to-haves.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div" />
+
+<!-- ── WHAT I LEARNED ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">08 &mdash; What I Learned</span>
     <h2>Where this falls short.</h2>
     <p>
       The model answers the question it was given. Several things would need to change before it could answer
-      a harder one.
+      a harder one &mdash; and each of them taught me something I now reach for by default.
     </p>
 
     <div class="steps">
