@@ -304,6 +304,31 @@
     .proj-cta { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: var(--accent); transition: gap 0.25s; }
     .proj-card:hover .proj-cta { gap: 11px; }
 
+    /* ── CLICKABLE AFFORDANCE ── */
+    .proj-card, .edu-card, .info-card { position: relative; }
+    .proj-card a, .edu-card a, .info-card a { cursor: pointer; }
+    .proj-card::after, .edu-card::after, .info-card:has(> a)::after {
+      content: ''; position: absolute; top: 15px; left: 15px; z-index: 6;
+      width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+      opacity: 0; transform: scale(0.4); pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .proj-card:hover::after, .edu-card:hover::after, .info-card:has(> a):hover::after {
+      opacity: 1; transform: scale(1); animation: dot-ping 1.7s ease-out infinite;
+    }
+    @keyframes dot-ping {
+      0%   { box-shadow: 0 0 0 0 rgba(124,109,250,0.5); }
+      72%  { box-shadow: 0 0 0 9px rgba(124,109,250,0); }
+      100% { box-shadow: 0 0 0 0 rgba(124,109,250,0); }
+    }
+    /* press-pop */
+    .proj-card:active { transform: translateY(-5px) scale(0.985); transition-duration: 0.09s; }
+    .edu-card:active  { transform: translateY(-4px) scale(0.985); transition-duration: 0.09s; }
+    .info-card:has(> a):active { transform: translateY(-3px) scale(0.985); transition-duration: 0.09s; }
+    @media (prefers-reduced-motion: reduce) {
+      .proj-card:hover::after, .edu-card:hover::after, .info-card:has(> a):hover::after { animation: none; }
+    }
+
     /* Info cards (certs/pubs/research) */
     .info-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 14px; }
     .info-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 26px; transition: border-color 0.3s, transform 0.3s; }
@@ -1012,20 +1037,23 @@
     <!-- Projects grid — below fellowship/certs -->
     <div class="proj-grid reveal" style="transition-delay:80ms;">
       <div class="proj-card">
-        <div class="proj-img">
-          <img src="assets/images/smartchurn-preview.png" alt="SmartChurn" />
-        </div>
-        <div class="proj-body">
-          <div class="proj-eyebrow">Machine Learning &middot; Mar 2025</div>
-          <h3 class="proj-name">SmartChurn</h3>
-          <p class="proj-desc"><strong style="color:#b8b8b8;font-weight:600;">Which cardholders are about to leave, and what should the bank do about it?</strong> CatBoost + SMOTE over 10K accounts on a ~16% attrition base rate, reaching 90.77% precision on predicted churners &mdash; surfacing at-risk customers early enough for retention outreach.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;">
-            <span class="chip">Python</span><span class="chip">CatBoost</span><span class="chip">SMOTE</span><span class="chip">Tableau</span>
+        <a href="projects/smartchurn.html" class="proj-link">
+          <div class="proj-img">
+            <img src="assets/images/smartchurn-preview.png" alt="SmartChurn" />
+            <span class="proj-badge">Case Study</span>
           </div>
-          <a href="https://github.com/srivasudev14/SMARTCHURN-CREDIT-CARD-ATTRITION-PREDICTION-SYSTEM" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--accent);text-decoration:none;">
-            View on GitHub <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-          </a>
-        </div>
+          <div class="proj-body">
+            <div class="proj-eyebrow">Machine Learning &middot; Mar 2025</div>
+            <h3 class="proj-name">SmartChurn</h3>
+            <p class="proj-desc"><strong style="color:#b8b8b8;font-weight:600;">When is a churn model actually ready to deploy?</strong> Great One Bank weighted confidence stability at <strong style="color:#a8a8a8;font-weight:600;">50%</strong> and accuracy at just 15%. On blind records the model hit the 80/20 ratio exactly at 96.51% accuracy &mdash; but flagged one churner at <strong style="color:#a8a8a8;font-weight:600;">0.585</strong> confidence, barely above a coin flip.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;">
+              <span class="chip">RapidMiner</span><span class="chip">CatBoost</span><span class="chip">Gradient Boosting</span><span class="chip">Tableau</span>
+            </div>
+            <span class="proj-cta">
+              Read case study <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
       </div>
       <div class="proj-card">
         <a href="projects/heartbeacon.html" class="proj-link">

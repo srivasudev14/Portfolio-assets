@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartChurn — Case Study · Sri Vasudev</title>
+  <meta name="description" content="SmartChurn production-readiness case study — validating a Gradient Boosted Trees churn model for Great One Bank on blind records, where confidence stability outweighed accuracy three to one." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #060608;
+      --card: #0d0d11;
+      --border: rgba(255,255,255,0.07);
+      --accent: #7c6dfa;
+      --blue: #5ba5f5;
+      --teal: #2dd4bf;
+      --amber: #f59e0b;
+      --green: #34d399;
+      --rose: #fb7185;
+      --text: #ebebeb;
+      --body: #a6a6a6;
+      --muted: #8a8a8a;
+      --faint: #5e5e5e;
+    }
+    html { background: var(--bg); scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; line-height: 1.65; overflow-x: hidden; }
+    ::selection { background: var(--accent); color: #fff; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.028;
+    }
+
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      padding: 18px 48px; display: flex; align-items: center; justify-content: space-between;
+      background: rgba(6,6,8,0.6); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-back { display: inline-flex; align-items: center; gap: 8px; color: #c0c0c0; font-size: 14px; font-weight: 600; text-decoration: none; transition: color 0.2s; }
+    .nav-back:hover { color: #fff; }
+    .nav-cta { font-size: 13px; font-weight: 600; color: #e4e4e4; text-decoration: none; padding: 8px 20px; border: 1px solid rgba(255,255,255,0.25); border-radius: 100px; transition: background 0.2s, border-color 0.2s; }
+    .nav-cta:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
+
+    .wrap { max-width: 980px; margin: 0 auto; padding: 0 48px; }
+    section { padding: 72px 0; }
+    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; display: block; }
+    .eyebrow.muted { color: var(--faint); }
+    h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; color: #fff; margin-bottom: 22px; }
+    h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.015em; color: #ddd; margin-bottom: 10px; }
+    p { font-size: 16px; line-height: 1.8; color: var(--body); margin-bottom: 18px; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: #dcdcdc; font-weight: 600; }
+    .lede { font-size: 19px; line-height: 1.75; color: #b8b8b8; }
+    hr.div { border: none; border-top: 1px solid var(--border); }
+
+    /* ── HERO ── */
+    .hero { padding: 140px 0 60px; position: relative; overflow: hidden; }
+    .hero::before {
+      content: ''; position: absolute; top: -12%; right: -8%; width: 620px; height: 620px;
+      background: radial-gradient(ellipse, rgba(91,165,245,0.10) 0%, transparent 68%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.25fr 0.85fr; gap: 52px; align-items: center; position: relative; z-index: 2; }
+    .hero h1 { font-size: clamp(42px, 6.5vw, 72px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.02; color: #fff; margin-bottom: 20px; }
+    .hero-thesis { font-size: clamp(17px, 2vw, 21px); line-height: 1.58; color: #c2c2c2; font-weight: 500; letter-spacing: -0.01em; }
+    .hero-thesis em { color: #fff; font-style: normal; font-weight: 700; }
+
+    /* ── CREDIT CARD ── */
+    .cc {
+      position: relative; aspect-ratio: 1.586/1; border-radius: 18px; padding: 24px;
+      background: linear-gradient(142deg, #11244a 0%, #152f5e 38%, #0d1b38 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 26px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+      display: flex; flex-direction: column; justify-content: space-between;
+      overflow: hidden; transform: rotate(-3.2deg);
+      animation: cc-float 7s ease-in-out infinite;
+    }
+    @keyframes cc-float {
+      0%, 100% { transform: rotate(-3.2deg) translateY(0); }
+      50%      { transform: rotate(-2.2deg) translateY(-11px); }
+    }
+    .cc::after {
+      content: ''; position: absolute; top: -60%; left: -30%; width: 70%; height: 220%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent);
+      transform: rotate(22deg); animation: cc-shine 5.5s ease-in-out infinite;
+    }
+    @keyframes cc-shine { 0%, 62% { left: -35%; } 88%, 100% { left: 115%; } }
+    .cc-top { display: flex; align-items: flex-start; justify-content: space-between; position: relative; z-index: 2; }
+    .cc-brand { font-size: 11px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(255,255,255,0.92); line-height: 1.4; }
+    .cc-brand small { display: block; font-size: 8.5px; font-weight: 600; letter-spacing: 0.17em; color: rgba(255,255,255,0.45); margin-top: 3px; }
+    .cc-chip { width: 40px; height: 30px; border-radius: 6px; background: linear-gradient(135deg, #d9b765, #b08d3e 52%, #e7cd86); position: relative; flex-shrink: 0; }
+    .cc-chip::before, .cc-chip::after { content: ''; position: absolute; left: 14%; right: 14%; height: 1px; background: rgba(0,0,0,0.3); }
+    .cc-chip::before { top: 36%; } .cc-chip::after { top: 64%; }
+    .cc-num { font-size: clamp(13px, 1.5vw, 16px); font-weight: 600; letter-spacing: 0.13em; color: rgba(255,255,255,0.8); font-variant-numeric: tabular-nums; position: relative; z-index: 2; }
+    .cc-bottom { position: relative; z-index: 2; }
+    .cc-risk-lab { font-size: 8.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.42); margin-bottom: 7px; }
+    .cc-meter { height: 5px; border-radius: 3px; background: rgba(255,255,255,0.14); overflow: hidden; margin-bottom: 8px; }
+    .cc-meter i { display: block; height: 100%; width: 0; border-radius: 3px; background: linear-gradient(90deg, var(--rose), #f59e0b); animation: cc-fill 2.6s cubic-bezier(0.16,1,0.3,1) 0.6s forwards; }
+    @keyframes cc-fill { to { width: 85.1%; } }
+    .cc-risk-row { display: flex; justify-content: space-between; align-items: baseline; }
+    .cc-risk-val { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+    .cc-risk-tag { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose); }
+
+    .metric-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 48px; }
+    .metric { background: var(--card); padding: 22px 24px; }
+    .metric-val { font-size: clamp(21px, 2.5vw, 29px); font-weight: 800; letter-spacing: -0.03em; color: #fff; line-height: 1.1; margin-bottom: 6px; }
+    .metric-lab { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); }
+    .meta-bar { display: flex; flex-wrap: wrap; gap: 10px 32px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .meta-item { font-size: 13px; color: var(--muted); }
+    .meta-item span { color: #d0d0d0; font-weight: 600; }
+
+    .callout { border-left: 2px solid var(--accent); background: rgba(124,109,250,0.05); padding: 24px 28px; border-radius: 0 14px 14px 0; margin: 32px 0; }
+    .callout p { margin-bottom: 0; color: #c4c4c4; }
+    .callout.amber { border-left-color: var(--amber); background: rgba(245,158,11,0.05); }
+    .callout.rose { border-left-color: var(--rose); background: rgba(251,113,133,0.05); }
+
+    .chart-card { background: #f4f2ef; border-radius: 18px; padding: 26px; margin: 28px 0; }
+    .chart-card img { width: 100%; height: auto; display: block; border-radius: 8px; }
+    .chart-cap { font-size: 12.5px; color: #55504a; margin-top: 16px; line-height: 1.6; font-weight: 500; }
+    .chart-cap b { color: #1c1a18; font-weight: 700; }
+
+    /* ── WEIGHT BARS ── */
+    .weights { display: flex; flex-direction: column; gap: 16px; margin: 30px 0 10px; }
+    .wt-row { display: grid; grid-template-columns: 220px 1fr 54px; gap: 18px; align-items: center; }
+    .wt-lab { font-size: 14px; font-weight: 600; color: #cfcfcf; line-height: 1.35; }
+    .wt-track { height: 26px; background: rgba(255,255,255,0.04); border-radius: 6px; overflow: hidden; }
+    .wt-fill { height: 100%; border-radius: 6px; width: 0; transition: width 1.2s cubic-bezier(0.16,1,0.3,1); }
+    .rv.in .wt-fill { width: var(--w); }
+    .rv.in .wt-row:nth-child(2) .wt-fill { transition-delay: 0.12s; }
+    .rv.in .wt-row:nth-child(3) .wt-fill { transition-delay: 0.24s; }
+    .wt-fill.hi { background: var(--accent); }
+    .wt-fill.mid { background: rgba(124,109,250,0.52); }
+    .wt-fill.lo { background: rgba(255,255,255,0.17); }
+    .wt-pct { font-size: 15px; font-weight: 800; color: #fff; text-align: right; font-variant-numeric: tabular-nums; }
+
+    /* ── CONFIDENCE ROWS ── */
+    .conf { display: flex; flex-direction: column; gap: 7px; margin: 28px 0 8px; }
+    .conf-row { display: grid; grid-template-columns: 34px 1fr 118px; gap: 14px; align-items: center; }
+    .conf-n { font-size: 11px; font-weight: 700; color: var(--faint); font-variant-numeric: tabular-nums; }
+    .conf-track { height: 20px; background: rgba(255,255,255,0.035); border-radius: 4px; overflow: hidden; }
+    .conf-fill { height: 100%; border-radius: 4px; width: 0; transition: width 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .rv.in .conf-fill { width: var(--w); }
+    .conf-fill.keep { background: rgba(52,211,153,0.42); }
+    .conf-fill.churn { background: var(--rose); }
+    .conf-fill.weak { background: var(--amber); }
+    .conf-tag { font-size: 11px; font-weight: 600; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
+    .conf-tag b { color: #d6d6d6; font-variant-numeric: tabular-nums; font-weight: 700; }
+
+    .steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 28px; }
+    .step { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+    .step-n { font-size: 11px; font-weight: 800; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 10px; }
+    .step p { font-size: 14px; line-height: 1.7; margin-bottom: 0; }
+    .step ul { list-style: none; margin-top: 10px; }
+    .step li { font-size: 13.5px; color: var(--body); line-height: 1.7; padding-left: 16px; position: relative; }
+    .step li::before { content: '·'; position: absolute; left: 4px; color: var(--accent); font-weight: 800; }
+
+    .tbl-wrap { overflow-x: auto; margin: 28px 0; border: 1px solid var(--border); border-radius: 14px; }
+    table { width: 100%; border-collapse: collapse; min-width: 560px; }
+    th { text-align: left; font-size: 10px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--faint); padding: 14px 18px; background: rgba(255,255,255,0.025); border-bottom: 1px solid var(--border); white-space: nowrap; }
+    td { font-size: 14px; color: var(--body); padding: 15px 18px; border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    tr.chosen td { background: rgba(124,109,250,0.06); color: #d8d8d8; }
+    tr.chosen td:first-child { font-weight: 700; color: #fff; box-shadow: inset 2px 0 0 var(--accent); }
+    td.num { font-variant-numeric: tabular-nums; font-weight: 600; color: #d4d4d4; }
+
+    .next { background: linear-gradient(180deg, var(--bg) 0%, #0a0a12 100%); border-top: 1px solid var(--border); }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 28px; border-radius: 100px; font-size: 14px; font-weight: 700; text-decoration: none; transition: transform 0.2s, background 0.2s; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #9480fc; transform: translateY(-2px); }
+    .btn-ghost { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); color: #ccc; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+    footer { padding: 36px 0; border-top: 1px solid var(--border); font-size: 13px; color: var(--faint); }
+
+    .rv { opacity: 0; transform: translateY(22px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .rv.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .rv { opacity: 1; transform: none; transition: none; }
+      .cc, .cc::after, .cc-meter i { animation: none; }
+      .cc-meter i { width: 85.1%; }
+      .wt-fill, .conf-fill { transition: none; }
+    }
+
+    @media (max-width: 860px) {
+      #nav { padding: 14px 20px; }
+      .wrap { padding: 0 20px; }
+      section { padding: 52px 0; }
+      .hero { padding: 116px 0 44px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 38px; }
+      .cc { max-width: 330px; }
+      .metric-strip { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .wt-row { grid-template-columns: 1fr 48px; grid-template-areas: 'lab lab' 'track pct'; gap: 8px 12px; }
+      .wt-lab { grid-area: lab; } .wt-track { grid-area: track; } .wt-pct { grid-area: pct; }
+      .conf-row { grid-template-columns: 26px 1fr; }
+      .conf-tag { grid-column: 1 / -1; padding-left: 40px; }
+      .chart-card { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="../index.html#projects" class="nav-back">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Sri Vasudev
+  </a>
+  <a href="../assets/resume/Srivasudev_resume.pdf" target="_blank" rel="noopener noreferrer" class="nav-cta">Resume &#8599;</a>
+</nav>
+
+<!-- ── HERO ── -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Production Readiness Case Study</span>
+        <h1>SmartChurn</h1>
+        <p class="hero-thesis">
+          The bank weighted model accuracy at <em>15%</em>. Confidence stability counted for
+          <em>50%</em>. That inversion is the whole difference between a model that scores well
+          and a model you can actually put in front of customers.
+        </p>
+      </div>
+
+      <div class="cc" role="img" aria-label="Stylised bank card showing an 85.1 percent attrition risk score">
+        <div class="cc-top">
+          <div class="cc-brand">Great One Bank<small>Churn Shield</small></div>
+          <div class="cc-chip" aria-hidden="true"></div>
+        </div>
+        <div class="cc-num">5389 &nbsp;••••&nbsp; ••••&nbsp; 0010</div>
+        <div class="cc-bottom">
+          <div class="cc-risk-lab">Attrition Confidence</div>
+          <div class="cc-meter" aria-hidden="true"><i></i></div>
+          <div class="cc-risk-row">
+            <span class="cc-risk-val">0.851</span>
+            <span class="cc-risk-tag">Flagged</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="metric-strip">
+      <div class="metric">
+        <div class="metric-val" data-count="96.51" data-dec="2" data-suffix="%">0</div>
+        <div class="metric-lab">Phase 3 Accuracy</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val">8 / 2</div>
+        <div class="metric-lab">Ratio Hit Exactly</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val" data-count="92.48" data-dec="2" data-suffix="%">0</div>
+        <div class="metric-lab">CatBoost Recall</div>
+      </div>
+      <div class="metric">
+        <div class="metric-val" data-count="0.585" data-dec="3">0</div>
+        <div class="metric-lab">Weakest Call</div>
+      </div>
+    </div>
+
+    <div class="meta-bar">
+      <div class="meta-item">Client &nbsp;<span>Great One Bank, Inc.</span></div>
+      <div class="meta-item">Phase &nbsp;<span>3 of 3 &mdash; Pre-deployment</span></div>
+      <div class="meta-item">Stack &nbsp;<span>RapidMiner &middot; GBT &middot; CatBoost</span></div>
+    </div>
+  </div>
+</header>
+
+<hr class="div" />
+
+<!-- ── SITUATION ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">01 &mdash; Situation</span>
+    <h2>A model that scores well<br/>and a model you can deploy<br/>are not the same thing.</h2>
+    <p class="lede">
+      Customer attrition is a direct hit to lifetime value, and Great One Bank wanted to intervene before
+      customers left rather than after. The Churn Shield initiative built a Gradient Boosted Trees classifier
+      to flag who was about to go.
+    </p>
+    <p>
+      By Phase 2 the model looked strong: <strong>92.36% accuracy</strong>, solid precision and recall, and
+      good behaviour on imbalanced data. The team had consensus. The obvious next step was to ship it.
+    </p>
+    <p>
+      Phase 3 existed to prevent exactly that. Before production rollout, the model had to survive contact
+      with records nobody had seen &mdash; and be judged on criteria that had very little to do with the
+      accuracy number everyone was quoting.
+    </p>
+  </div>
+</section>
+
+<hr class="div" />
+
+<!-- ── COMPLICATION ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">02 &mdash; Complication</span>
+    <h2>Scored against three criteria.<br/>Accuracy was the smallest one.</h2>
+    <p>
+      Production readiness was assessed on a weighted rubric, and the weighting is the most interesting
+      artefact of the whole project:
+    </p>
+
+    <div class="weights">
+      <div class="wt-row">
+        <div class="wt-lab">Confidence scores &amp; prediction stability</div>
+        <div class="wt-track"><div class="wt-fill hi" style="--w:100%;"></div></div>
+        <div class="wt-pct">50%</div>
+      </div>
+      <div class="wt-row">
+        <div class="wt-lab">Class ratio alignment (80/20)</div>
+        <div class="wt-track"><div class="wt-fill mid" style="--w:70%;"></div></div>
+        <div class="wt-pct">35%</div>
+      </div>
+      <div class="wt-row">
+        <div class="wt-lab">Model accuracy &amp; performance</div>
+        <div class="wt-track"><div class="wt-fill lo" style="--w:30%;"></div></div>
+        <div class="wt-pct">15%</div>
+      </div>
+    </div>
+
+    <div class="callout amber">
+      <p>
+        <strong>Accuracy carried the least weight of the three.</strong> A model can be right most of the
+        time and still be unusable &mdash; if it is right for unstable reasons, or if it quietly drifts away
+        from the population mix the business plans around. Those two risks took 85% of the score.
+      </p>
+    </div>
+
+    <p>
+      The validation design was deliberately blind. Each team member received <strong>10 customer records</strong>
+      with the true outcome withheld. The population was constructed so that <strong>exactly two</strong> of
+      every ten had churned &mdash; but which two was unknown going in. Guessing conservatively would be
+      caught by the ratio check; guessing aggressively would be caught by it too.
+    </p>
+  </div>
+</section>
+
+<hr class="div" />
+
+<!-- ── APPROACH ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">03 &mdash; Approach</span>
+    <h2>One pipeline, two branches.</h2>
+    <p>
+      The process was built so the training path and the blind-validation path could not contaminate each
+      other &mdash; the model is fitted and cross-validated on the bank dataset, then applied, frozen, to the
+      held-out records.
+    </p>
+
+    <div class="chart-card">
+      <img src="../assets/images/projects/sc-process.png" alt="RapidMiner process diagram showing a training branch with cross-validation and a separate branch applying the frozen model to held-out records" loading="lazy" />
+      <div class="chart-cap">
+        <b>The two branches.</b> Top: the bank churn dataset flows through attribute selection, missing-value
+        replacement and role assignment, then splits for cross-validation and performance measurement.
+        Bottom: the blind record set gets identical preprocessing, then meets the already-trained model at
+        Apply Model. Same transformations, no shared fitting.
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <h3>Identical preprocessing, both paths</h3>
+        <p>
+          The held-out records pass through the same attribute selection and missing-value handling as the
+          training data. A preprocessing mismatch between training and inference is one of the most common
+          ways a model that validated well fails quietly in production.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <h3>Challenge the chosen model</h3>
+        <p>
+          Gradient Boosted Trees was the team's pick, but it was tested against CatBoost rather than assumed.
+          CatBoost handles categorical features natively, and this dataset is largely categorical &mdash;
+          education, marital status, income band, card tier.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <h3>Read the confidences, not just the labels</h3>
+        <p>
+          Every prediction carries a confidence score for both classes. The label alone says what the model
+          decided; the confidence says how close the call was &mdash; which is where instability shows up first.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <h3>Check the ratio holds</h3>
+        <p>
+          With the 80/20 split weighted at 35%, the predicted class mix was treated as a first-class result
+          rather than a side effect &mdash; drift here means the downstream retention budget is wrong.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div" />
+
+<!-- ── RESULTS ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">04 &mdash; Results</span>
+    <h2>The ratio landed exactly.<br/>The confidences did not.</h2>
+    <p>
+      On the blind set the model returned <strong>8 Existing Customers and 2 Attrited Customers</strong> &mdash;
+      the 80/20 target, hit precisely, with no knowledge of the answer. Phase 3 accuracy came in at
+      <strong>96.51%</strong>.
+    </p>
+    <p>
+      Then the confidence column turned the result into something more useful than a pass mark:
+    </p>
+
+    <div class="conf">
+      <div class="conf-row"><span class="conf-n">01</span><div class="conf-track"><div class="conf-fill keep" style="--w:99.8%;"></div></div><span class="conf-tag">Existing <b>0.998</b></span></div>
+      <div class="conf-row"><span class="conf-n">02</span><div class="conf-track"><div class="conf-fill keep" style="--w:99.8%;"></div></div><span class="conf-tag">Existing <b>0.998</b></span></div>
+      <div class="conf-row"><span class="conf-n">03</span><div class="conf-track"><div class="conf-fill keep" style="--w:99.8%;"></div></div><span class="conf-tag">Existing <b>0.998</b></span></div>
+      <div class="conf-row"><span class="conf-n">04</span><div class="conf-track"><div class="conf-fill keep" style="--w:99.6%;"></div></div><span class="conf-tag">Existing <b>0.996</b></span></div>
+      <div class="conf-row"><span class="conf-n">05</span><div class="conf-track"><div class="conf-fill keep" style="--w:99.8%;"></div></div><span class="conf-tag">Existing <b>0.998</b></span></div>
+      <div class="conf-row"><span class="conf-n">06</span><div class="conf-track"><div class="conf-fill keep" style="--w:99.8%;"></div></div><span class="conf-tag">Existing <b>0.998</b></span></div>
+      <div class="conf-row"><span class="conf-n">07</span><div class="conf-track"><div class="conf-fill keep" style="--w:99.5%;"></div></div><span class="conf-tag">Existing <b>0.995</b></span></div>
+      <div class="conf-row"><span class="conf-n">08</span><div class="conf-track"><div class="conf-fill keep" style="--w:99.8%;"></div></div><span class="conf-tag">Existing <b>0.998</b></span></div>
+      <div class="conf-row"><span class="conf-n">09</span><div class="conf-track"><div class="conf-fill weak" style="--w:58.5%;"></div></div><span class="conf-tag">Attrited <b>0.585</b></span></div>
+      <div class="conf-row"><span class="conf-n">10</span><div class="conf-track"><div class="conf-fill churn" style="--w:85.1%;"></div></div><span class="conf-tag">Attrited <b>0.851</b></span></div>
+    </div>
+
+    <div class="callout rose">
+      <p>
+        <strong>Every retained customer was called at 0.995 or above. Neither churner was.</strong>
+        Record 09 was flagged at <strong>0.585</strong> &mdash; eight hundredths above a coin flip. The model
+        is near-certain about who is staying and genuinely unsure about who is leaving, which is the opposite
+        of what a retention team needs.
+      </p>
+    </div>
+
+    <p>
+      Averaged across the set, confidence in <strong>Existing Customer sat at 0.854</strong> against
+      <strong>0.146 for Attrited</strong>. That gap is not a bug &mdash; it is the imbalanced training
+      distribution showing through into inference. The majority class is simply better learned.
+    </p>
+
+    <div class="chart-card">
+      <img src="../assets/images/projects/sc-predictions.png" alt="Row-level prediction table for ten held-out customers with per-class confidence scores and feature values" loading="lazy" />
+      <div class="chart-cap">
+        <b>Row-level output on the blind set.</b> Records 1&ndash;8 classified Existing at 0.995&ndash;0.998.
+        Records 9 and 10 classified Attrited at 0.585 and 0.851. Note that both churners carry a higher
+        credit limit (8,455 and 11,059) than most of the retained group &mdash; a signal worth pulling on.
+      </div>
+    </div>
+
+    <h3 style="margin-top:42px;">Model comparison</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>Ratio</th></tr>
+        </thead>
+        <tbody>
+          <tr class="chosen">
+            <td>Gradient Boosted Trees</td><td class="num">92.36%</td><td class="num">Strong</td><td class="num">Strong</td><td class="num">80 / 20</td>
+          </tr>
+          <tr>
+            <td>CatBoost</td><td class="num">97.17%</td><td class="num">90.77%</td><td class="num">92.48%</td><td class="num">70 / 30</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      CatBoost scored higher on every headline metric &mdash; nearly five points of accuracy and
+      <strong>92.48% recall</strong>. It was not selected, because it reproduced the class split at
+      <strong>70/30</strong> rather than 80/20. Under a rubric that weights ratio alignment at 35% and
+      accuracy at 15%, the better-scoring model loses. That is the rubric working as designed, not a
+      mistake in it.
+    </p>
+  </div>
+</section>
+
+<hr class="div" />
+
+<!-- ── WHAT I'D DO DIFFERENTLY ── -->
+<section>
+  <div class="wrap rv">
+    <span class="eyebrow muted">05 &mdash; What I&rsquo;d Do Differently</span>
+    <h2>Where this validation<br/>stops short.</h2>
+    <p>
+      Ten records per analyst is enough to catch an obviously broken model. It is not enough to certify one.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <h3>Ten records cannot carry this much weight</h3>
+        <p>
+          With two positives in the set, a single misclassification moves measured recall by fifty points.
+          The ratio landing exactly is encouraging, but at this sample size it is not distinguishable from
+          luck. Pooling every analyst's records into one evaluation set would fix it immediately.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <h3>Calibrate, then trust the confidences</h3>
+        <p>
+          The rubric puts half its weight on confidence stability while the scores themselves are uncalibrated.
+          A reliability curve would show whether 0.85 actually means 85% &mdash; and on imbalanced data,
+          usually it does not.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <h3>Tune the threshold to the cost</h3>
+        <p>
+          The 0.5 cut-off is a default, not a decision. A retention call costs a fraction of a lost customer,
+          so the threshold should sit well below 0.5 &mdash; which would likely have caught record 09 with
+          room to spare.
+        </p>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <h3>Watch the ratio after launch, not just before</h3>
+        <p>
+          80/20 holding on validation day says nothing about month six. The same check belongs on a monitoring
+          dashboard with an alert on drift, which turns a one-off gate into an ongoing control.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>
+        The transferable point: <strong>the hardest part of shipping a model is agreeing what &ldquo;good&rdquo;
+        means before you measure it.</strong> This project set the rubric first &mdash; confidence 50,
+        ratio 35, accuracy 15 &mdash; and that single decision is what let the team reject a model that
+        scored five points higher.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEXT ── -->
+<section class="next">
+  <div class="wrap rv">
+    <span class="eyebrow">Explore</span>
+    <h2 style="margin-bottom:28px;">More work.</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;">
+      <a href="https://github.com/srivasudev14/SMARTCHURN-CREDIT-CARD-ATTRITION-PREDICTION-SYSTEM" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+        Code on GitHub
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a>
+      <a href="heartbeacon.html" class="btn btn-ghost">HeartBeacon case study</a>
+      <a href="../index.html#contact" class="btn btn-primary">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;">
+    <span>&copy; 2026 Sri Vasudev</span>
+    <span>Great One Bank is an academic case client. Figures from Phase 2&ndash;3 project deliverables.</span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmt = (v, dec) => dec > 0 ? v.toFixed(dec) : Math.round(v).toLocaleString('en-US');
+
+  function countUp(el) {
+    const target = parseFloat(el.dataset.count);
+    const dec = parseInt(el.dataset.dec || '0', 10);
+    const suffix = el.dataset.suffix || '';
+    if (reduce) { el.textContent = fmt(target, dec) + suffix; return; }
+    const dur = 1500, t0 = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - t0) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(target * eased, dec) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); cio.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.metric-val[data-count]').forEach(el => cio.observe(el));
+</script>
+
+</body>
+</html>
